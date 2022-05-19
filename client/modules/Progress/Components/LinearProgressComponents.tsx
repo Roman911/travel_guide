@@ -1,0 +1,12 @@
+import React from "react"
+import { Box, LinearProgress } from '@mui/material'
+
+type Props = {
+  progress: number
+}
+
+export const LinearProgressComponents: React.FC<Props> = ({ progress }) => {
+  return <Box sx={{ width: '100%', position: 'absolute', zIndex: 1600 }}>
+    <LinearProgress variant="determinate" value={progress} />
+  </Box>
+}

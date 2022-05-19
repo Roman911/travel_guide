@@ -14,7 +14,7 @@ export enum UserActionTypes {
   REMOVE_DATA = 'USER:REMOVE_DATA'
 }
 
-interface SetDataUserAction { type: UserActionTypes.SET_DATA, payload: any }
+interface SetDataUserAction { type: UserActionTypes.SET_DATA, payload: IUser }
 
 interface RemoveDataUserAction { type: UserActionTypes.REMOVE_DATA }
 

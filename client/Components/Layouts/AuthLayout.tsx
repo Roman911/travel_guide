@@ -2,7 +2,9 @@ import React from "react"
 import { useRouter } from 'next/router'
 import { Box, Container, Divider, Grid, Hidden, IconButton, Link, Stack, Typography, Button } from '@mui/material'
 import { Close, Google, Facebook } from '@mui/icons-material'
+import { useActions, useTypedSelector } from '../../store/hooks'
 import { Logo } from "../Logo"
+import { LinearProgress } from "../../modules"
 
 type Props = {
   children: React.ReactNode,
@@ -17,7 +19,12 @@ type Props = {
 
 export const AuthLayout: React.FC<Props> = ({ children, title, subtitle, bottomText }) => {
   const router = useRouter()
+  const { linearProgress: progress } = useTypedSelector(state => state.progress)
+  const { linearProgress } = useActions()
 
+  React.useEffect(() => {
+    linearProgress(false)
+  }, [])
 
   const handleClick = () => {
     router.back()
@@ -27,6 +34,7 @@ export const AuthLayout: React.FC<Props> = ({ children, title, subtitle, bottomT
   }
 
   return <Box>
+    {progress && <LinearProgress />}
     <Stack direction="row" justifyContent='space-between' alignItems='center' p={3}>
       <Logo />
       <IconButton component="span" onClick={handleClick}>

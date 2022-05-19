@@ -1,9 +1,10 @@
 import React from "react"
 import Image from 'next/image'
 import { Box, Paper, Typography } from '@mui/material'
+import { useActions, useTypedSelector } from '../../store/hooks'
 import { Footer, Header } from '..'
 import img from '../../public/velosipedyi-banner-1.jpg'
-import { BottomNavigation, Drawer } from "../../modules"
+import { BottomNavigation, Drawer, LinearProgress } from "../../modules"
 
 type Props = {
   children?: React.ReactNode
@@ -11,7 +12,15 @@ type Props = {
 }
 
 const TopImg = () => {
+  const { linearProgress: progress } = useTypedSelector(state => state.progress)
+  const { linearProgress } = useActions()
+
+  React.useEffect(() => {
+    linearProgress(false)
+  }, [])
+
   return <Box sx={{ height: 'calc(100vh - 63px)' }}>
+    {progress && <LinearProgress />}
     <Image
       alt="Mountains"
       src={img}

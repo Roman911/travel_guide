@@ -1,7 +1,13 @@
 import { UserAction, UserActionTypes } from '../types/user'
 
-export const setData = (text: string): UserAction => {
-  return { type: UserActionTypes.SET_DATA, payload: text }
+interface IUser {
+  name: string
+  email: string
+  avatar?: string
+}
+
+export const setData = (payload: IUser): UserAction => {
+  return { type: UserActionTypes.SET_DATA, payload }
 }
 
 export const removeData = (): UserAction => {

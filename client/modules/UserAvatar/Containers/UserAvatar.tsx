@@ -10,13 +10,14 @@ type Props = {
 export const UserAvatar: React.FC<Props> = ({ size }) => {
   const router = useRouter()
   const { userData } = useTypedSelector(state => state.user)
-  const { openDrawer } = useActions()
+  const { linearProgress, openDrawer } = useActions()
 
   const handleClick = () => {
     if (userData) {
       openDrawer()
     } else {
       router.push('/login')
+      linearProgress(true)
     }
   }
 
