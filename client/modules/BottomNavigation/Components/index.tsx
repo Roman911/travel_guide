@@ -1,0 +1,1 @@
+import { BottomNavigationComponent } from './BottomNavigationComponent'

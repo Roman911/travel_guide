@@ -1,0 +1,1 @@
+export { UserAvatarComponent } from './UserAvatarComponent'

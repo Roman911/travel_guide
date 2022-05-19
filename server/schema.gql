@@ -1,0 +1,69 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Socials {
+  facebook: String
+  instagram: String
+  twitter: String
+  youtube: String
+}
+
+type CreateUserDto {
+  name: String!
+  email: String!
+  password: String!
+  isActivated: Boolean!
+  activationLink: String!
+  avatar: String
+  rating: Int
+  aboutMy: String
+  socials: Socials
+  last_seen: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type CreateUserDataDto {
+  user: CreateUserDto!
+  accessToken: String!
+  refreshToken: String!
+}
+
+type CreateTokenDto {
+  userId: ID
+  refreshToken: String!
+}
+
+type Query {
+  users: [CreateUserDto!]!
+  user(userID: String!): CreateUserDto!
+  activate(activationLink: String!): CreateUserDataDto!
+  login(input: LoginUserInput!): CreateUserDataDto!
+  logout(refreshToken: String!): CreateUserDataDto!
+  refresh(refreshToken: String!): CreateUserDataDto!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  registration(input: RegistrationUserInput!): CreateUserDataDto!
+  createToken(input: TokenInput!): CreateTokenDto!
+}
+
+input RegistrationUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input TokenInput {
+  userId: ID!
+  refreshToken: String!
+}
