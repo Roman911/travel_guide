@@ -1,4 +1,5 @@
 export { Article } from './Article'
+export { AuthForm } from './AuthForm'
 export { Footer } from './Footer'
 export { Header } from './Header'
 export { AuthLayout, MainLayout } from './Layouts'
