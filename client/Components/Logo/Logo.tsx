@@ -10,7 +10,7 @@ type MyImageProps = {
 
 const MyImage: React.FC<MyImageProps> = ({ theme }) => {
   return <Image
-    src="/logo.png"
+    src="/images/logo.png"
     layout="fixed"
     width={90}
     height={40}

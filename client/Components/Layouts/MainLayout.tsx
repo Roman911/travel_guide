@@ -1,10 +1,9 @@
 import React from "react"
 import Image from 'next/image'
 import { Box, Paper, Typography } from '@mui/material'
-import { useActions, useTypedSelector } from '../../store/hooks'
+import { Layout } from './'
 import { Footer, Header } from '..'
-import img from '../../public/velosipedyi-banner-1.jpg'
-import { BottomNavigation, Drawer, LinearProgress } from "../../modules"
+import { BottomNavigation, Drawer } from "../../modules"
 
 type Props = {
   children?: React.ReactNode
@@ -12,22 +11,13 @@ type Props = {
 }
 
 const TopImg = () => {
-  const { linearProgress: progress } = useTypedSelector(state => state.progress)
-  const { linearProgress } = useActions()
-
-  React.useEffect(() => {
-    linearProgress(false)
-  }, [])
-
   return <Box sx={{ height: 'calc(100vh - 63px)' }}>
-    {progress && <LinearProgress />}
     <Image
       alt="Mountains"
-      src={img}
+      src='/images/velosipedyi-banner-1.jpg'
       layout="fill"
       objectFit="cover"
       quality={100}
-      placeholder="blur"
     />
     <Box sx={{ position: 'absolute', top: '50%', right: 0, mr: 10, transform: 'translateY(-50%)' }}>
       <Paper elevation={6} sx={{ p: 2, opacity: 0.9 }} >
@@ -54,14 +44,16 @@ export const MainLayout: React.FC<Props> = ({ children, isImg }) => {
     console.log(`Commit time: ${commitTime}`);
   }
 
-  return <Box>
-    <React.Profiler id="Header" onRender={callback}>
-      <Header />
-    </React.Profiler>
-    {isImg && <TopImg />}
-    {children}
-    <Footer />
-    <Drawer />
-    <BottomNavigation />
-  </Box>
+  return <Layout>
+    <Box>
+      <React.Profiler id="Header" onRender={callback}>
+        <Header />
+      </React.Profiler>
+      {isImg && <TopImg />}
+      {children}
+      <Footer />
+      <Drawer />
+      <BottomNavigation />
+    </Box>
+  </Layout>
 }

@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
 
   return <AppBar position="fixed" sx={{ backgroundColor: theme === 'dark' ? '#1A2027' : '#fff' }}>
     <Toolbar >
-      <Box sx={{ flexGrow: { xs: 1, sm: 1, md: 0 } }}>
+      <Box sx={{ paddingRight: 1, flexGrow: { xs: 1, sm: 1, md: 0 } }}>
         <Logo />
       </Box>
       <Stack direction='row' spacing={1.5} sx={{ flexGrow: 1, display: { xs: 'none', sm: 'none', md: 'flex' } }}>

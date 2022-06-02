@@ -2,6 +2,7 @@ import { combineReducers } from "redux"
 import { HYDRATE } from 'next-redux-wrapper'
 import { drawerReducer } from './drawer'
 import { progressReducer } from './progress'
+import { snackbarReducer } from './snackbar'
 import { themeReducer } from './theme'
 //import { loadingPageReducer } from "./loadingPage"
 //import { notificationReducer } from './notification'
@@ -10,6 +11,7 @@ import { userReducer } from './user'
 const rootReducer = combineReducers({
   drawer: drawerReducer,
   progress: progressReducer,
+  snackbar: snackbarReducer,
   theme: themeReducer,
   //getBack: getBackReducer,
   //notification: notificationReducer,
