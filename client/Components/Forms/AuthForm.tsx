@@ -1,19 +1,20 @@
 import React from "react"
-import { useRouter } from 'next/router'
 import { Controller, useFormContext } from "react-hook-form"
 import { Box, Button, Checkbox, FormControl, FormControlLabel, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { types } from '../../pages/login'
 
 type Props = {
-  isDisabled: boolean
+  config: {
+    isDisabled: boolean
+    showPassword: boolean
+  }
+  handleClickShowPassword: () => void
+  handleClickRouter: () => void
 }
 
-export const AuthForm: React.FC<Props> = ({ isDisabled }) => {
-  const router = useRouter()
+export const AuthForm: React.FC<Props> = ({ config, handleClickShowPassword, handleClickRouter }) => {
   const { control, formState: { errors } } = useFormContext()
-  const [showPassword, setShowPassword] = React.useState(false)
-  const handleClickShowPassword = () => setShowPassword(prev => !prev)
 
   return <>
     <Controller
@@ -38,14 +39,14 @@ export const AuthForm: React.FC<Props> = ({ isDisabled }) => {
       >
         <InputLabel htmlFor={types.PASSWORD}>Пароль</InputLabel>
         <Input
-          type={showPassword ? 'text' : types.PASSWORD}
+          type={config.showPassword ? 'text' : types.PASSWORD}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
               >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                {config.showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           }
@@ -58,11 +59,11 @@ export const AuthForm: React.FC<Props> = ({ isDisabled }) => {
         component="button"
         underline="none"
         variant="body2"
-        onClick={() => router.push('/registration')}
+        onClick={handleClickRouter}
       >
         Забули пароль?
       </Link>
     </Box>
-    <Button type='submit' variant="contained" sx={{ width: '140px' }} color='secondary' disabled={isDisabled}>Увійти</Button>
+    <Button type='submit' variant="contained" sx={{ width: '140px' }} color='secondary' disabled={config.isDisabled}>Увійти</Button>
   </>
 }

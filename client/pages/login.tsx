@@ -1,5 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as yup from "yup"
@@ -31,14 +32,21 @@ const defaultValues = {
 }
 
 const Login: NextPage = () => {
-  const [isDisabled, setDisabled] = React.useState(false)
+  const router = useRouter()
+  const [config, setConfig] = React.useState({
+    isDisabled: false,
+    showPassword: false
+  })
   const { setData, enqueueSnackbar, linearProgress } = useActions()
   const [userData, { loading, data, error }] = useLazyQuery(LOGIN)
   const methods = useForm<IFormInput>({ mode: "onTouched", defaultValues, resolver: yupResolver(schema) })
   const { handleSubmit, setError } = methods
 
+  const handleClickShowPassword = () => setConfig({ ...config, showPassword: !config.showPassword })
+  const handleClickRouter = () => router.push('/registration')
+
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    setDisabled(true)
+    setConfig({ ...config, isDisabled: true })
     const { email, password } = data
     userData({ variables: { input: { email, password } } })
   }
@@ -51,7 +59,7 @@ const Login: NextPage = () => {
       enqueueSnackbar({ message: 'Неправильний логін або пароль', key: `${new Date().getTime()}+${Math.random()}` })
       setError(types.EMAIL, { type: 'custom', message: 'error' })
       setError(types.PASSWORD, { type: 'custom', message: 'error' })
-      setDisabled(false)
+      setConfig({ ...config, isDisabled: false })
       linearProgress(false)
     }
     if (data) {
@@ -66,7 +74,7 @@ const Login: NextPage = () => {
   return <AuthLayout title='Вхід' bottomText='Входячи в систему' subtitle={{ title: 'Не маєте акаунта?', btn: 'Зареєструйтеся', link: '/registration' }}>
     <FormProvider {...methods}>
       <Box component="form" maxWidth='360px' margin='auto' onSubmit={handleSubmit(onSubmit)}>
-        <AuthForm isDisabled={isDisabled} />
+        <AuthForm config={config} handleClickShowPassword={handleClickShowPassword} handleClickRouter={handleClickRouter} />
       </Box>
     </FormProvider>
   </AuthLayout>
