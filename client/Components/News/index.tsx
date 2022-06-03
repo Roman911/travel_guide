@@ -1,1 +1,1 @@
-export { News } from './News'
+export { Newss } from './News'

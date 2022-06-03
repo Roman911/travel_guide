@@ -38,6 +38,28 @@ type CreateTokenDto {
   refreshToken: String!
 }
 
+type CreatePostDto {
+  _id: String!
+  editor: String!
+  type_material: String!
+  cover: String!
+  title: String!
+  tickets: [String!]!
+  link: String!
+  tags: [String!]!
+  work_time: String!
+  isType: String!
+  how_to_get_there: String!
+  views: Int!
+  likes: [String!]!
+  isPrice: Boolean!
+  confirmed: Boolean!
+  confirm_hash: String!
+  comments: Int!
+  small_text: String!
+  last_seen: DateTime
+}
+
 type Query {
   users: [CreateUserDto!]!
   user(userID: String!): CreateUserDto!
@@ -45,11 +67,19 @@ type Query {
   login(input: LoginUserInput!): CreateUserDataDto!
   logout(refreshToken: String!): CreateUserDataDto!
   refresh(refreshToken: String!): CreateUserDataDto!
+  posts(input: ParamsPostInput!): [CreatePostDto!]!
+  postsTop: [CreatePostDto!]!
+  post(postID: String!): CreatePostDto!
 }
 
 input LoginUserInput {
   email: String!
   password: String!
+}
+
+input ParamsPostInput {
+  limit: Int!
+  page: Int!
 }
 
 type Mutation {

@@ -7,7 +7,7 @@ import { BottomNavigation, Drawer } from "../../modules"
 
 type Props = {
   children?: React.ReactNode
-  isImg: boolean
+  isImg?: boolean
 }
 
 const TopImg = () => {

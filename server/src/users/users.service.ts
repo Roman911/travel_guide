@@ -21,13 +21,13 @@ export class UsersService {
     private moduleRef: ModuleRef,
     @InjectModel(User.name)
     private userModel: Model<UserDocument>
-  ) {}
+  ) { }
 
   async user(userID: string): Promise<User> {
     return this.userModel.findById(userID).exec()
   }
 
-  async activate(activationLink): Promise<any> {
+  async activate(activationLink: string): Promise<any> {
     const user = await this.userModel.findOne({ activationLink })
     if (!user) throw new BadRequestException(`Некоректний лінк активації`)
     user.isActivated = true
@@ -49,13 +49,13 @@ export class UsersService {
     return await this.userTokenService.userTokenData(user)
   }
 
-  async logout(refreshToken): Promise<any> {
+  async logout(refreshToken: string): Promise<any> {
     this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
 
     return await this.tokenService.removeToken(refreshToken)
   }
 
-  async refresh(refreshToken): Promise<any> {
+  async refresh(refreshToken: string): Promise<any> {
     if (!refreshToken) throw new BadRequestException()
     this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
     const userData = this.tokenService.validateRefreshToken(refreshToken)
@@ -78,7 +78,7 @@ export class UsersService {
     await this.mailService.sendActivationMail(email, `${CLIENT_URL}/activate/${activationLink}`)
     this.userTokenService = await this.moduleRef.get(UserTokenService, { strict: false })
 
-    return  await this.userTokenService.userTokenData(user)
+    return await this.userTokenService.userTokenData(user)
   }
 
   async findAll(): Promise<User[]> {

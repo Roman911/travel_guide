@@ -1,59 +1,88 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField } from '@mui/material'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { AuthLayout } from '../Components'
+import { useMutation } from "@apollo/react-hooks"
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { Box } from '@mui/material'
+import { useActions } from '../store/hooks/useActions'
+import { AuthLayout, RegistrationForm } from '../Components'
+import { REGISTRATION } from '../apollo/mutations/registration'
+import Redirect from '../hooks/useRedirect'
+
+export enum types {
+  NAME = 'name',
+  EMAIL = 'email',
+  PASSWORD = 'password',
+  PASSWORD_CONFIRMATION = 'passwordConfirmation'
+}
+
+const schema = yup.object().shape({
+  name: yup.string().required('Поле не може бути пустим'),
+  email: yup.string().required('Поле не може бути пустим').email('Некоректний емейл'),
+  password: yup.string().required().min(6, 'Мінімум 6 символів'),
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Не співпадає пароль')
+})
+
+interface IFormInput {
+  name: string
+  email: string
+  password: string
+  passwordConfirmation: string
+}
+
+const defaultValues = {
+  name: '',
+  email: '',
+  password: '',
+  passwordConfirmation: ''
+}
 
 const Registration: NextPage = () => {
-  const router = useRouter()
-  const [showPassword, setShowPassword] = React.useState({ showPassword: true })
+  const [config, setConfig] = React.useState({
+    isDisabled: false,
+    showPassword: false
+  })
+  const { enqueueSnackbar, linearProgress } = useActions()
+  const [registration, { data, loading, error }] = useMutation(REGISTRATION)
+  const methods = useForm<IFormInput>({ mode: "onTouched", defaultValues, resolver: yupResolver(schema) })
+  const { handleSubmit, setError } = methods
+
+  const handleClickShowPassword = () => setConfig({ ...config, showPassword: !config.showPassword })
+
+  const onSubmit: SubmitHandler<IFormInput> = data => {
+    setConfig({ ...config, isDisabled: true })
+    const { email, name, password } = data
+    registration({ variables: { input: { name, email, password } } })
+  }
+
+  React.useEffect(() => {
+    if (loading) {
+      linearProgress(true)
+    }
+    if (error) {
+      enqueueSnackbar({ message: 'Користувач з таким емейлом уже зараєстрований', key: `${new Date().getTime()}+${Math.random()}` })
+      setError(types.NAME, { type: 'custom', message: 'error' })
+      setError(types.EMAIL, { type: 'custom', message: 'error' })
+      setError(types.PASSWORD, { type: 'custom', message: 'error' })
+      setError(types.PASSWORD_CONFIRMATION, { type: 'custom', message: 'error' })
+      setConfig({ ...config, isDisabled: false })
+      linearProgress(false)
+    }
+    if (data) {
+      enqueueSnackbar({ message: 'Ви успішно зареєструвалися!', key: `${new Date().getTime()}+${Math.random()}` })
+      linearProgress(true)
+    }
+  }, [error, loading, data])
+
+  if (data) return <Redirect href={'/activate'} />
 
   return <AuthLayout title='Реєстрація' bottomText='Реєструючись' subtitle={{ title: 'Вже є акаунт?', btn: 'Вхід', link: '/login' }}>
-    <Box component="form" maxWidth='360px' margin='auto' onChange={() => console.log('Change')}>
-      <TextField id="email" label="Ел. пошта" variant="standard" sx={{ width: '100%', margin: '5px 0' }} />
-      <FormControl sx={{ width: '100%', margin: '5px 0' }} variant="standard">
-        <InputLabel htmlFor="password">Придумайте пароль</InputLabel>
-        <Input
-          id="password"
-          type={showPassword ? 'text' : 'password'}
-          //value={values.password}
-          //onChange={handleChange('password')}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-              //onClick={handleClickShowPassword}
-              //onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-      <FormControl sx={{ width: '100%', margin: '5px 0' }} variant="standard">
-        <InputLabel htmlFor="password2">Введіть пароль ще раз</InputLabel>
-        <Input
-          id="password2"
-          type={showPassword ? 'text' : 'password'}
-          //value={values.password}
-          //onChange={handleChange('password')}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-              //onClick={handleClickShowPassword}
-              //onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-      <Button variant="contained" sx={{ width: '180px', marginTop: '20px' }} color='secondary'>Зареєструватися</Button>
-    </Box>
+    <FormProvider {...methods}>
+      <Box component="form" maxWidth='360px' margin='auto' onSubmit={handleSubmit(onSubmit)}>
+        <RegistrationForm config={config} handleClickShowPassword={handleClickShowPassword} />
+      </Box>
+    </FormProvider>
   </AuthLayout>
 }
 

@@ -9,6 +9,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { UsersModule } from './users/users.module'
 import { TokenModule } from "./token/token.module"
+import { PostsModule } from './posts/posts.module'
 import { MailModule } from './mail/mail.module'
 
 @Module({
@@ -16,6 +17,7 @@ import { MailModule } from './mail/mail.module'
     UsersModule,
     TokenModule,
     MailModule,
+    PostsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({ driver: ApolloDriver, autoSchemaFile: 'schema.gql' }),
     MongooseModule.forRoot(`mongodb+srv://Roman:${MONGO_DB_KEY}@cluster0-vogsm.mongodb.net/travel?retryWrites=true&w=majority`),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'uploads') }),

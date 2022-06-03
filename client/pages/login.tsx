@@ -1,6 +1,5 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as yup from "yup"
@@ -18,7 +17,7 @@ export enum types {
 
 const schema = yup.object().shape({
   email: yup.string().required('Поле не може бути пустим').email('Некоректний емейл'),
-  password: yup.string().required().min(6, 'Мінімум 6 символів')
+  password: yup.string().required('Поле не може бути пустим')
 })
 
 interface IFormInput {
@@ -32,7 +31,6 @@ const defaultValues = {
 }
 
 const Login: NextPage = () => {
-  const router = useRouter()
   const [config, setConfig] = React.useState({
     isDisabled: false,
     showPassword: false
@@ -43,7 +41,6 @@ const Login: NextPage = () => {
   const { handleSubmit, setError } = methods
 
   const handleClickShowPassword = () => setConfig({ ...config, showPassword: !config.showPassword })
-  const handleClickRouter = () => router.push('/registration')
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     setConfig({ ...config, isDisabled: true })
@@ -66,15 +63,16 @@ const Login: NextPage = () => {
       setData(data.login)
       localStorage.setItem('userData', JSON.stringify({ ...data.login }))
       enqueueSnackbar({ message: 'Ви успішно увійшли!', key: `${new Date().getTime()}+${Math.random()}` })
+      linearProgress(true)
     }
   }, [error, loading, data])
 
-  if (data) return <Redirect />
+  if (data) return <Redirect href={'/'} />
 
   return <AuthLayout title='Вхід' bottomText='Входячи в систему' subtitle={{ title: 'Не маєте акаунта?', btn: 'Зареєструйтеся', link: '/registration' }}>
     <FormProvider {...methods}>
       <Box component="form" maxWidth='360px' margin='auto' onSubmit={handleSubmit(onSubmit)}>
-        <AuthForm config={config} handleClickShowPassword={handleClickShowPassword} handleClickRouter={handleClickRouter} />
+        <AuthForm config={config} handleClickShowPassword={handleClickShowPassword} />
       </Box>
     </FormProvider>
   </AuthLayout>

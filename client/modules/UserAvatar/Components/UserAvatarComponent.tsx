@@ -17,7 +17,7 @@ export const UserAvatarComponent: React.FC<Props> = ({ handleClick, userData, si
 
   return <IconButton sx={{ p: 0 }} onClick={handleClick}>
     {
-      userData ? userData.avatar ? <Avatar sx={params} alt={userData.name} src={userData.avatar} /> :
+      userData ? userData.avatar ? <Avatar sx={params} alt={userData.name} src={`http://localhost:3005/images${userData.avatar}`} /> :
         <Avatar sx={params}>
           {userData.name[0]}
         </Avatar> :

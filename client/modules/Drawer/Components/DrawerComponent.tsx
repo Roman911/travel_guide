@@ -5,6 +5,7 @@ import { UserAvatar } from "../../UserAvatar"
 type Props = {
   drawerIsOpen: boolean
   toggleDrawer: any
+  logout: () => void
   userData: null | {
     name: string
     email: string
@@ -12,7 +13,7 @@ type Props = {
   }
 }
 
-export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData }) => {
+export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData, logout }) => {
   const list = () => (
     <Box
       color='#fff'
@@ -32,11 +33,11 @@ export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, u
           <Button variant="contained" color="secondary">Додати статю</Button>
         </Stack>
         <Stack spacing={0.3} direction='column' alignItems='center' marginTop={8}>
-          <Link underline="none" sx={{ color: '#fff', ':hover': { color: '#cb2c3b' } }} href="#">Профіль</Link>
-          <Link underline="none" sx={{ color: '#fff', ':hover': { color: '#cb2c3b' } }} href="#">Мої публікації</Link>
-          <Link underline="none" sx={{ color: '#fff', ':hover': { color: '#cb2c3b' } }} href="#">Налаштування</Link>
-          <Link underline="none" sx={{ color: '#fff', ':hover': { color: '#cb2c3b' } }} href="#">Обране</Link>
-          <Link underline="none" sx={{ color: '#fff', ':hover': { color: '#cb2c3b' } }} href="#">Вийти</Link>
+          <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Профіль</Link>
+          <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Мої публікації</Link>
+          <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Налаштування</Link>
+          <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Обране</Link>
+          <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }} onClick={logout}>Вийти</Link>
         </Stack>
       </Box>
     </Box>

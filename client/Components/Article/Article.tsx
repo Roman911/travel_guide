@@ -3,7 +3,18 @@ import { Card, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton
 import { Chat, Favorite, MoreVert, Share, Visibility } from '@mui/icons-material'
 import { UserAvatar } from "../../modules"
 
-export const Article: React.FC = () => {
+type Props = {
+  key: string
+  item: {
+    _id: string
+    cover: string
+    small_text: string
+  }
+}
+
+export const Article: React.FC<Props> = ({ item }) => {
+  const { _id, cover, small_text } = item
+
   return <Grid item xs={12} sm={6} md={3} p={1}>
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -19,14 +30,12 @@ export const Article: React.FC = () => {
       <CardMedia
         component="img"
         height="194"
-        image='https://ukrpublic.com/images/2020/12/24/turbo-image_large.jpg'
+        image={`http://localhost:3005/images${cover}`}
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+        <Typography variant="body2" color="text.secondary" sx={{ display: '-webkit-box', WebkitLineClamp: '4', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {small_text}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

@@ -1,11 +1,19 @@
-export class UserDto {
-  email
-  id
-  name
-  isActivated
-  avatar
+type Props = {
+  email: string,
+  _id: string,
+  name: string,
+  isActivated: boolean,
+  avatar: string
+}
 
-  constructor(model) {
+export class UserDto {
+  email: string
+  id: string
+  name: string
+  isActivated: boolean
+  avatar: string
+
+  constructor(model: Props) {
     this.email = model.email
     this.id = model._id
     this.name = model.name

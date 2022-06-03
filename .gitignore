@@ -49,6 +49,9 @@
 # Env
 /server/.env
 
+# Uploads Images
+/server/uploads
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

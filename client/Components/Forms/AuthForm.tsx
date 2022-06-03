@@ -10,10 +10,9 @@ type Props = {
     showPassword: boolean
   }
   handleClickShowPassword: () => void
-  handleClickRouter: () => void
 }
 
-export const AuthForm: React.FC<Props> = ({ config, handleClickShowPassword, handleClickRouter }) => {
+export const AuthForm: React.FC<Props> = ({ config, handleClickShowPassword }) => {
   const { control, formState: { errors } } = useFormContext()
 
   return <>
@@ -59,7 +58,6 @@ export const AuthForm: React.FC<Props> = ({ config, handleClickShowPassword, han
         component="button"
         underline="none"
         variant="body2"
-        onClick={handleClickRouter}
       >
         Забули пароль?
       </Link>
