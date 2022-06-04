@@ -37,14 +37,14 @@ export const Article: React.FC<Props> = ({ item }) => {
         title="Роман Лисик"
         subheader="September 14, 2016"
       />
-      <CardActionArea onClick={handleClick}>
+      <CardActionArea onClick={handleClick} >
         <CardMedia
           component="img"
           height="194"
           image={`http://localhost:3005/images${cover}`}
           alt="Paella dish"
         />
-        <CardContent>
+        <CardContent sx={{ paddingBottom: '8px' }}>
           <Typography variant='h6' color="text.secondary" sx={{ margin: '-8px 0 8px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {title}
           </Typography>
@@ -53,7 +53,7 @@ export const Article: React.FC<Props> = ({ item }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing sx={{ paddingTop: 0 }}>
         <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px' }}>
           <Favorite fontSize="small" />
           <Typography variant="body1" marginLeft={0.7}>2</Typography>

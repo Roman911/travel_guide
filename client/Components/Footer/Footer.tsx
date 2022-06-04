@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
           <Link href="#" variant="body2" underline="none" color={theme === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>Про нас</Link>
         </Box>
         <Typography variant="body2" sx={{ fontSize: 10 }}>
-          © 2017 Codeguida.com. При використанні матеріалів зворотнє посилання на сайт обов&apos;язкове
+          © 2019 Codeguida.com. При використанні матеріалів зворотнє посилання на сайт обов&apos;язкове
         </Typography>
       </Grid>
       <Grid item xs={12} sm={12} md={6} p={1}>

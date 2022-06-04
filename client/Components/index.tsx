@@ -1,4 +1,4 @@
-export { Article } from './Article'
+export { Article, ArticleSKeleton } from './Article'
 export { AuthForm, RegistrationForm } from './Forms'
 export { Footer } from './Footer'
 export { Header } from './Header'
