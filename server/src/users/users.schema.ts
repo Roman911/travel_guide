@@ -5,6 +5,8 @@ export type UserDocument = User & mongoose.Document
 
 @Schema()
 export class User {
+  @Prop()
+  _id: string
   @Prop({ required: true })
   name: string
   @Prop({ required: true, unique: true })
@@ -28,7 +30,7 @@ export class User {
     youtube: { type: String }
   }))
   socials: Record<string, any>
-  @Prop({ default: new Date})
+  @Prop({ default: new Date })
   last_seen: Date
 }
 

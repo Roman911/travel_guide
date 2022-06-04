@@ -10,23 +10,30 @@ type Props = {
   linkTitle: string
   loading: boolean | undefined
   error: any
+  userData: null | {
+    name: string
+    email: string
+    avatar?: string
+    id: string
+  }
   data: undefined | {
     posts: {
       _id: string
       title: string
       cover: string
       small_text: string
+      views: number
+      likes: string[]
     }[]
   }
 }
 
-export const NewsComponent: React.FC<Props> = ({ title, link, linkTitle, loading, error, data }) => {
+export const NewsComponent: React.FC<Props> = ({ title, link, linkTitle, loading, error, data, userData }) => {
+  const usedId = userData?.id
   const postsVievs = ['1', '2', '3', '4', '5', '6', '7', '8']
 
-  const a = true
-
   const posts = data?.posts?.map(i => {
-    return <Article key={i._id} item={i} />
+    return <Article key={i._id} item={i} usedId={usedId} />
   })
 
   const postsSkeleton = postsVievs.map(i => {

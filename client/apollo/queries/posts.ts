@@ -7,6 +7,8 @@ export const POSTS = gql`
       title
       cover
       small_text
+      views
+      likes
     }
   }
 `

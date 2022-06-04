@@ -7,18 +7,25 @@ import { UserAvatar } from "../../modules"
 
 type Props = {
   key: string
+  usedId?: string
   item: {
     _id: string
     title: string
     cover: string
     small_text: string
+    views: number
+    likes: string[]
   }
 }
 
-export const Article: React.FC<Props> = ({ item }) => {
-  const { _id, title, cover, small_text } = item
+export const Article: React.FC<Props> = ({ item, usedId }) => {
+  const { _id, title, cover, small_text, views, likes } = item
   const router = useRouter()
   const { linearProgress } = useActions()
+
+  console.log(usedId, likes)
+
+  const color = usedId && likes.includes(usedId) ? '#db4454' : ''
 
   const handleClick = React.useCallback(() => {
     linearProgress(true)
@@ -55,12 +62,12 @@ export const Article: React.FC<Props> = ({ item }) => {
       </CardActionArea>
       <CardActions disableSpacing sx={{ paddingTop: 0 }}>
         <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px' }}>
-          <Favorite fontSize="small" />
-          <Typography variant="body1" marginLeft={0.7}>2</Typography>
+          <Favorite fontSize="small" sx={{ color: color }} />
+          <Typography variant="body1" marginLeft={0.7}>{likes.length !== 0 && likes.length}</Typography>
         </Box>
         <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px' }}>
           <Visibility fontSize="small" />
-          <Typography variant="body1" marginLeft={0.7}>2</Typography>
+          <Typography variant="body1" marginLeft={0.7}>{views}</Typography>
         </Box>
         <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px' }}>
           <Chat fontSize="small" />

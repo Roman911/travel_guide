@@ -4,6 +4,7 @@ interface IUser {
   name: string
   email: string
   avatar?: string
+  id: string
 }
 
 export const setData = (payload: { user: IUser, refreshToken: string, accessToken: string }): UserAction => {
