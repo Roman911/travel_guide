@@ -1,8 +1,7 @@
 import React from "react"
-import { Box, Grid, IconButton, Link, Stack, Typography } from '@mui/material'
-import { Instagram, Facebook, Telegram, Twitter } from '@mui/icons-material'
+import { Box, Grid, Link, Typography } from '@mui/material'
 import { useTypedSelector } from '../../store/hooks'
-import { Logo } from "../Logo"
+import { Logo, SocSetBlock } from "../"
 
 export const Footer: React.FC = () => {
   const { theme } = useTypedSelector(state => state.theme)
@@ -18,20 +17,7 @@ export const Footer: React.FC = () => {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={12} md={6} p={1}>
-        <Stack flexDirection='row' alignItems='center' justifyContent='flex-end' spacing={1}>
-          <IconButton>
-            <Facebook />
-          </IconButton>
-          <IconButton>
-            <Twitter />
-          </IconButton>
-          <IconButton>
-            <Instagram />
-          </IconButton>
-          <IconButton>
-            <Telegram />
-          </IconButton>
-        </Stack>
+        <SocSetBlock jc='flex-end' />
       </Grid>
     </Grid>
     <Box textAlign='center' sx={{ marginTop: '30px', marginBottom: { xs: '50px', sm: '50px', md: '0px' } }}>

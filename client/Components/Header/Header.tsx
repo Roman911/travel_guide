@@ -1,4 +1,5 @@
 import React from "react"
+import { useRouter } from 'next/router'
 import { AppBar, Box, Button, FormControlLabel, IconButton, Toolbar, Typography, Stack, styled } from '@mui/material'
 import { NotificationsOutlined, Search } from '@mui/icons-material'
 import { blue, grey } from '@mui/material/colors'
@@ -7,8 +8,28 @@ import { MaterialUISwitch } from "./MaterialUISwitch"
 import { Logo } from '../'
 import { UserAvatar } from "../../modules"
 
+const linksConfig = [
+  {
+    path: '/news',
+    title: 'Новини'
+  },
+  {
+    path: '/directions',
+    title: 'Маршрути'
+  },
+  {
+    path: '/maps',
+    title: 'Карти'
+  },
+  {
+    path: '/about',
+    title: 'Про нас'
+  }
+]
+
 export const Header: React.FC = () => {
-  const { changeTheme } = useActions()
+  const router = useRouter()
+  const { changeTheme, linearProgress } = useActions()
   const { theme } = useTypedSelector(state => state.theme)
 
   const CustomButon = styled(IconButton)(({ theme }) => ({
@@ -23,16 +44,29 @@ export const Header: React.FC = () => {
     top: 48
   }))
 
+  const handleClick = (path: string) => {
+    linearProgress(true)
+    router.push(path)
+  }
+
+  const links = linksConfig.map(i => {
+    return <Button
+      key={i.path}
+      sx={{ color: grey[theme === 'dark' ? 50 : 800] }}
+      onClick={() => handleClick(i.path)}
+    >
+      {i.title}
+      {router.pathname === i.path && <UnderLine />}
+    </Button>
+  })
+
   return <AppBar position="fixed" sx={{ backgroundColor: theme === 'dark' ? '#1A2027' : '#fff' }}>
     <Toolbar >
       <Box sx={{ paddingRight: 1, flexGrow: { xs: 1, sm: 1, md: 0 } }}>
         <Logo />
       </Box>
       <Stack direction='row' spacing={1.5} sx={{ flexGrow: 1, display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-        <Button sx={{ color: grey[theme === 'dark' ? 50 : 800] }}>Новини<UnderLine /></Button>
-        <Button sx={{ color: grey[theme === 'dark' ? 50 : 800] }}>Мапа</Button>
-        <Button sx={{ color: grey[theme === 'dark' ? 50 : 800] }}>Маршрути</Button>
-        <Button sx={{ color: grey[theme === 'dark' ? 50 : 800] }}>Про нас</Button>
+        {links}
       </Stack>
       <Stack direction='row' alignItems='center' spacing={1.5}>
         <Button size="small" sx={{ textTransform: 'none', display: { xs: 'none', sm: 'none', md: 'flex' } }} variant="outlined" endIcon={<Search />}>

@@ -1,11 +1,9 @@
 import type { NextPage } from 'next'
 import { Box } from '@mui/material'
 import { News } from '../modules'
-import { Article, MainLayout, Newss } from '../Components'
+import { MainLayout, Newss } from '../Components'
 
 const Home: NextPage = () => {
-  const articles = ['1', '2', '3', '4']
-
   return <MainLayout isImg={true}>
     <Box marginTop='50px'>
       <News />
