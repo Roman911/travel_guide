@@ -6,7 +6,7 @@ interface IUser {
   avatar?: string
 }
 
-export const setData = (payload: { user: IUser, refreshToken: string }): UserAction => {
+export const setData = (payload: { user: IUser, refreshToken: string, accessToken: string }): UserAction => {
   return { type: UserActionTypes.SET_DATA, payload }
 }
 

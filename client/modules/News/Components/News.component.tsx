@@ -13,6 +13,7 @@ type Props = {
   data: undefined | {
     posts: {
       _id: string
+      title: string
       cover: string
       small_text: string
     }[]

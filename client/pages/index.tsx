@@ -9,9 +9,6 @@ const Home: NextPage = () => {
   return <MainLayout isImg={true}>
     <Box marginTop='50px'>
       <News />
-      <Newss title='Новини' link='/news' linkTitle='Більше новин' >
-        <div>1321321321</div>
-      </Newss>
       <Newss title='Маршрути' link='/routes' linkTitle='Більше маршрутів'>
         <div>1321321321</div>
       </Newss>
