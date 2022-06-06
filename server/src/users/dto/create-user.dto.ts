@@ -15,7 +15,7 @@ class Socials {
 @ObjectType()
 export class CreateUserDto {
   @Field(() => ID)
-  id: string
+  _id: string
   @Field()
   name: string
   @Field()

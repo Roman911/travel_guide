@@ -1,6 +1,6 @@
 import { ModuleRef } from "@nestjs/core"
 import { InjectModel } from "@nestjs/mongoose"
-import { Model } from "mongoose"
+import { Model, ObjectId } from "mongoose"
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql'
 import { UsersService } from './users.service'
 import { CreateUserDto, CreateUserDataDto } from './dto/create-user.dto'
@@ -15,7 +15,7 @@ export class UsersResolver {
     private moduleRef: ModuleRef,
     @InjectModel(User.name)
     private userModel: Model<UserDocument>
-  ) {}
+  ) { }
 
   @Query(() => [CreateUserDto])
   async users() {
@@ -25,6 +25,11 @@ export class UsersResolver {
   @Query(() => CreateUserDto)
   async user(@Args('userID') userID: string) {
     return this.usersService.user(userID)
+  }
+
+  @Query(() => CreateUserDto)
+  async author(@Args('_id') _id: string) {
+    return this.usersService.author(_id)
   }
 
   @Query(() => CreateUserDataDto)

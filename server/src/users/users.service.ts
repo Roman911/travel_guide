@@ -1,4 +1,4 @@
-import { Model } from 'mongoose'
+import { Model, ObjectId } from 'mongoose'
 import { Injectable, BadRequestException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { ModuleRef } from "@nestjs/core"
@@ -25,6 +25,10 @@ export class UsersService {
 
   async user(userID: string): Promise<User> {
     return this.userModel.findById(userID).exec()
+  }
+
+  async author(_id: string): Promise<User> {
+    return this.userModel.findById(_id).exec()
   }
 
   async activate(activationLink: string): Promise<any> {

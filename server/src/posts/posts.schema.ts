@@ -1,12 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import * as mongoose from 'mongoose'
+import { User } from '../users/users.schema'
 
 export type PostDocument = Post & mongoose.Document
 
 @Schema()
 export class Post {
-  @Prop()
-  _id: string
   @Prop()
   editor: string
   @Prop()
@@ -43,6 +42,10 @@ export class Post {
   small_text: string
   @Prop({ default: new Date })
   last_seen: Date
+  @Prop({ default: new Date })
+  createdAt: Date
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  author: User
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post)

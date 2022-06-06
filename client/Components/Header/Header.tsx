@@ -32,11 +32,6 @@ export const Header: React.FC = () => {
   const { changeTheme, linearProgress } = useActions()
   const { theme } = useTypedSelector(state => state.theme)
 
-  const CustomButon = styled(IconButton)(({ theme }) => ({
-    border: `1px solid ${grey[700]}`,
-    borderRadius: 10
-  }))
-
   const UnderLine = styled('span')(({ theme }) => ({
     borderBottom: `2px solid ${blue[700]}`,
     position: 'absolute',
@@ -68,7 +63,7 @@ export const Header: React.FC = () => {
       <Stack direction='row' spacing={1.5} sx={{ flexGrow: 1, display: { xs: 'none', sm: 'none', md: 'flex' } }}>
         {links}
       </Stack>
-      <Stack direction='row' alignItems='center' spacing={1.5}>
+      <Stack direction='row' alignItems='center' spacing={1}>
         <Button size="small" sx={{ textTransform: 'none', display: { xs: 'none', sm: 'none', md: 'flex' } }} variant="outlined" endIcon={<Search />}>
           <Typography component='span' style={{ marginRight: 20 }}>
             Пошук...
@@ -79,9 +74,9 @@ export const Header: React.FC = () => {
           control={<MaterialUISwitch checked={theme === 'dark'} />}
           label=""
         />
-        <CustomButon size="small">
-          <NotificationsOutlined fontSize="small" />
-        </CustomButon>
+        <IconButton aria-label="fingerprint">
+          <NotificationsOutlined />
+        </IconButton>
         <UserAvatar size={32} />
       </Stack>
     </Toolbar>

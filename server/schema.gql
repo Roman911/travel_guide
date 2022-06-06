@@ -10,7 +10,7 @@ type Socials {
 }
 
 type CreateUserDto {
-  id: ID!
+  _id: ID!
   name: String!
   email: String!
   password: String!
@@ -59,11 +59,14 @@ type CreatePostDto {
   comments: Int!
   small_text: String!
   last_seen: DateTime
+  createdAt: DateTime!
+  author: CreateUserDto
 }
 
 type Query {
   users: [CreateUserDto!]!
   user(userID: String!): CreateUserDto!
+  author(_id: String!): CreateUserDto!
   activate(activationLink: String!): CreateUserDataDto!
   login(input: LoginUserInput!): CreateUserDataDto!
   logout(refreshToken: String!): CreateUserDataDto!

@@ -1,4 +1,4 @@
-import { Model } from 'mongoose'
+import { Model, ObjectId } from 'mongoose'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Post, PostDocument } from './posts.schema'
@@ -12,7 +12,7 @@ export class PostService {
   ) { }
 
   async post(postID: string): Promise<Post> {
-    return this.postModel.findById(postID).exec()
+    return this.postModel.findById(postID).populate('author').exec()
   }
 
   async postsTopPage(): Promise<Post[]> {
@@ -22,6 +22,6 @@ export class PostService {
   async findAll(params: ParamsPostInput): Promise<Post[]> {
     const { page, limit } = params
     const skip = page === 1 ? 0 : page * limit
-    return this.postModel.find().sort({ views: -1 }).skip(skip).limit(limit).exec()
+    return this.postModel.find().sort({ views: -1 }).skip(skip).limit(limit).populate('author').exec()
   }
 }

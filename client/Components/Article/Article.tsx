@@ -4,6 +4,7 @@ import { Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMe
 import { Chat, Favorite, MoreVert, Share, Visibility } from '@mui/icons-material'
 import { useActions } from '../../store/hooks/useActions'
 import { UserAvatar } from "../../modules"
+import { useDate } from '../../hooks/useDate'
 
 type Props = {
   key: string
@@ -15,15 +16,18 @@ type Props = {
     small_text: string
     views: number
     likes: string[]
+    createdAt: string
+    author: {
+      name: string
+      avatar?: string
+    }
   }
 }
 
 export const Article: React.FC<Props> = ({ item, usedId }) => {
-  const { _id, title, cover, small_text, views, likes } = item
+  const { _id, title, cover, small_text, views, likes, createdAt, author: { name, avatar } } = item
   const router = useRouter()
   const { linearProgress } = useActions()
-
-  console.log(usedId, likes)
 
   const color = usedId && likes.includes(usedId) ? '#db4454' : ''
 
@@ -41,8 +45,8 @@ export const Article: React.FC<Props> = ({ item, usedId }) => {
             <MoreVert />
           </IconButton>
         }
-        title="Роман Лисик"
-        subheader="September 14, 2016"
+        title={name}
+        subheader={useDate({ serverDate: createdAt, format: 'LL' })}
       />
       <CardActionArea onClick={handleClick} >
         <CardMedia

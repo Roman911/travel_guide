@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql'
+import { CreateUserDto } from '../../users/dto/create-user.dto'
 
 @ObjectType()
 export class CreatePostDto {
@@ -40,4 +41,8 @@ export class CreatePostDto {
   small_text: string
   @Field({ nullable: true })
   last_seen: Date
+  @Field()
+  createdAt: Date
+  @Field(type => CreateUserDto, { nullable: true })
+  author: CreateUserDto
 }

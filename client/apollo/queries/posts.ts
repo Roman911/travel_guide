@@ -9,6 +9,11 @@ export const POSTS = gql`
       small_text
       views
       likes
+      createdAt
+      author {
+        name
+        avatar
+      }
     }
   }
 `

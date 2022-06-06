@@ -24,6 +24,11 @@ type Props = {
       small_text: string
       views: number
       likes: string[]
+      createdAt: string
+      author: {
+        name: string
+        avatar?: string
+      }
     }[]
   }
 }

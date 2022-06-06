@@ -1,7 +1,7 @@
 import { Model } from 'mongoose'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import {sign, verify} from 'jsonwebtoken'
+import { sign, verify } from 'jsonwebtoken'
 import { Token, TokenDocument } from './token.schema'
 import { TokenInput } from "./inputs/token.input"
 import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from '../config'
@@ -19,9 +19,9 @@ interface IFgg {
 export class TokenService {
   constructor(
     @InjectModel(Token.name) private tokenModel: Model<TokenDocument>
-  ) {}
+  ) { }
 
-  static generateTokens(payload: { name; id; isActivated; email }) {
+  static generateTokens(payload: { name: string; id: string; isActivated: boolean; email: string }) {
     const accessToken = sign(payload, JWT_ACCESS_SECRET, { expiresIn: '30m' })
     const refreshToken = sign(payload, JWT_REFRESH_SECRET, { expiresIn: '30d' })
     return {
@@ -30,11 +30,11 @@ export class TokenService {
     }
   }
 
-  validateAccessToken(token) {
+  validateAccessToken(token: string) {
     return verify(token, JWT_ACCESS_SECRET)
   }
 
-  validateRefreshToken(token): IFgg {
+  validateRefreshToken(token: string): IFgg {
     return <IFgg>verify(token, JWT_REFRESH_SECRET)
   }
 
