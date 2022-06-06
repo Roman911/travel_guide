@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material'
 import { Chat, Favorite, MoreVert, Share, Visibility } from '@mui/icons-material'
 import { useActions } from '../../store/hooks/useActions'
-import { UserAvatar } from "../../modules"
+import { UserAvatar } from "../../Components"
 import { useDate } from '../../hooks/useDate'
 
 type Props = {
@@ -39,7 +39,7 @@ export const Article: React.FC<Props> = ({ item, usedId }) => {
   return <Grid item xs={12} sm={6} md={3} p={1}>
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
-        avatar={<UserAvatar size={40} />}
+        avatar={<UserAvatar size={40} name={name} avatar={avatar} />}
         action={
           <IconButton aria-label="settings">
             <MoreVert />

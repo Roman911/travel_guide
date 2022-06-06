@@ -1,48 +1,31 @@
 import React from "react"
-import { useRouter } from 'next/router'
 import { AppBar, Avatar, Box, Button, FormControlLabel, IconButton, Toolbar, Typography, Stack, styled } from '@mui/material'
 import { NotificationsOutlined, PermIdentity, Search } from '@mui/icons-material'
 import { blue, grey } from '@mui/material/colors'
-import { useActions, useTypedSelector } from '../../store/hooks'
-import { MaterialUISwitch } from "./MaterialUISwitch"
-import { Logo } from '../'
-import { UserAvatar } from "../../Components"
+import { Logo, UserAvatar } from '../../../Components'
+import { linksConfig } from '../config/config'
+import { MaterialUISwitch } from './MaterialUISwitch'
 
-const linksConfig = [
-  {
-    path: '/news',
-    title: 'Новини'
-  },
-  {
-    path: '/directions',
-    title: 'Маршрути'
-  },
-  {
-    path: '/maps',
-    title: 'Карти'
-  },
-  {
-    path: '/about',
-    title: 'Про нас'
+type Props = {
+  theme: 'light' | 'dark'
+  pathname: string
+  handleClick: (path: string) => void
+  handleClickUser: () => void
+  changeSetTheme: () => void
+  userData: null | {
+    name: string
+    email: string
+    avatar?: string
   }
-]
+}
 
-export const Header: React.FC = () => {
-  const router = useRouter()
-  const { changeTheme, linearProgress, openDrawer } = useActions()
-  const { theme: { theme }, user: { userData } } = useTypedSelector(state => state)
-
+export const HeaderComponent: React.FC<Props> = ({ theme, pathname, userData, handleClick, handleClickUser, changeSetTheme }) => {
   const UnderLine = styled('span')(({ theme }) => ({
     borderBottom: `2px solid ${blue[700]}`,
     position: 'absolute',
     width: '100%',
     top: 48
   }))
-
-  const handleClick = (path: string) => {
-    linearProgress(true)
-    router.push(path)
-  }
 
   const links = linksConfig.map(i => {
     return <Button
@@ -51,18 +34,9 @@ export const Header: React.FC = () => {
       onClick={() => handleClick(i.path)}
     >
       {i.title}
-      {router.pathname === i.path && <UnderLine />}
+      {pathname === i.path && <UnderLine />}
     </Button>
   })
-
-  const handleClickUser = () => {
-    if (userData) {
-      openDrawer()
-    } else {
-      router.push('/login')
-      linearProgress(true)
-    }
-  }
 
   return <AppBar position="fixed" sx={{ backgroundColor: theme === 'dark' ? '#1A2027' : '#fff' }}>
     <Toolbar >
@@ -79,7 +53,7 @@ export const Header: React.FC = () => {
           </Typography>
         </Button>
         <FormControlLabel
-          onClick={() => changeTheme(theme === 'dark' ? 'light' : 'dark')}
+          onClick={changeSetTheme}
           control={<MaterialUISwitch checked={theme === 'dark'} />}
           label=""
         />

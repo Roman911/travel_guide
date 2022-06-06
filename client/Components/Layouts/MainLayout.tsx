@@ -2,8 +2,8 @@ import React from "react"
 import Image from 'next/image'
 import { Box, Paper, Typography } from '@mui/material'
 import { Layout } from './'
-import { Footer, Header } from '..'
-import { BottomNavigation, Drawer } from "../../modules"
+import { Footer } from '..'
+import { BottomNavigation, Drawer, Header } from "../../modules"
 
 type Props = {
   children?: React.ReactNode

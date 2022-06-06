@@ -1,5 +1,5 @@
 export { BottomNavigation } from './BottomNavigation'
 export { Drawer } from './Drawer'
+export { Header } from './Header'
 export { News } from './News'
 export { LinearProgress } from './Progress'
-export { UserAvatar } from './UserAvatar'

@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, Button, Drawer, Link, Stack, Typography } from '@mui/material'
-import { UserAvatar } from "../../UserAvatar"
+import { UserAvatar } from "../../../Components"
 
 type Props = {
   drawerIsOpen: boolean
@@ -25,7 +25,7 @@ export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, u
       onKeyDown={toggleDrawer()}
     >
       <Box p={2} marginTop={4}>
-        <UserAvatar size={80} />
+        <UserAvatar size={80} avatar={userData?.avatar} name={userData?.name} />
         <Typography variant="subtitle1" marginTop={2}>{userData?.email}</Typography>
         <Typography variant="body2">рейтинг: 0</Typography>
         <Stack spacing={2} direction='column' alignItems='center' marginTop={6}>

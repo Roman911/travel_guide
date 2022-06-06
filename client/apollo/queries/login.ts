@@ -7,7 +7,6 @@ export const LOGIN = gql`
         name
         email
         avatar
-        id
       }
       refreshToken
       accessToken
