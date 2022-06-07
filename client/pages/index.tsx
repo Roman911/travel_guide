@@ -4,7 +4,7 @@ import { News } from '../modules'
 import { MainLayout, Newss } from '../Components'
 
 const Home: NextPage = () => {
-  return <MainLayout isImg={true}>
+  return <MainLayout img='/velosipedyi-banner-1.jpg'>
     <Box marginTop='50px'>
       <News />
       <Newss title='Маршрути' link='/routes' linkTitle='Більше маршрутів'>

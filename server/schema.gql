@@ -10,7 +10,7 @@ type Socials {
 }
 
 type CreateUserDto {
-  _id: ID!
+  id: ID!
   name: String!
   email: String!
   password: String!

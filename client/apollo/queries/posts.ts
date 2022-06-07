@@ -25,8 +25,12 @@ export const POST = gql`
     _id
     title
     tags
+    small_text
+    cover
     editor
     link
+    likes
+    views
     createdAt
     ${Author}
   }
