@@ -1,7 +1,7 @@
 import { ThemeAction, ThemeActionTypes, ThemeState } from "../types/theme"
 
 const initialState: ThemeState = {
-  theme: 'dark'
+  theme: 'light'
 }
 
 export const themeReducer = (state = initialState, action: ThemeAction): ThemeState => {

@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material'
 import { Chat, Favorite, MoreVert, Share, Visibility } from '@mui/icons-material'
 import { useActions } from '../../store/hooks/useActions'
-import { UserAvatar } from "../../Components"
+import { UserAvatar } from ".."
 import { useDate } from '../../hooks/useDate'
 
 type Props = {
@@ -24,7 +24,7 @@ type Props = {
   }
 }
 
-export const Article: React.FC<Props> = ({ item, usedId }) => {
+export const ArticleCard: React.FC<Props> = ({ item, usedId }) => {
   const { _id, title, cover, small_text, views, likes, createdAt, author: { name, avatar } } = item
   const router = useRouter()
   const { linearProgress } = useActions()

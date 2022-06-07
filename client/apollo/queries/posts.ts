@@ -1,4 +1,5 @@
 import { gql } from 'apollo-boost'
+import { Author } from '../variabels'
 
 export const POSTS = gql`
   query posts($input: ParamsPostInput!) {
@@ -16,4 +17,18 @@ export const POSTS = gql`
       }
     }
   }
+`
+
+export const POST = gql`
+  query post($postID: String!) {
+  post(postID: $postID){
+    _id
+    title
+    tags
+    editor
+    link
+    createdAt
+    ${Author}
+  }
+}
 `

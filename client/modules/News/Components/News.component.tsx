@@ -2,7 +2,7 @@ import React from "react"
 import NextLink from 'next/link'
 import { Box, Grid, Link, Stack, Typography } from '@mui/material'
 import { ArrowRightAlt } from '@mui/icons-material'
-import { Article, ArticleSKeleton } from '../../../Components'
+import { ArticleCard, ArticleCardSKeleton } from '../../../Components'
 
 type Props = {
   title: string
@@ -38,11 +38,11 @@ export const NewsComponent: React.FC<Props> = ({ title, link, linkTitle, loading
   const postsVievs = ['1', '2', '3', '4', '5', '6', '7', '8']
 
   const posts = data?.posts?.map(i => {
-    return <Article key={i._id} item={i} usedId={usedId} />
+    return <ArticleCard key={i._id} item={i} usedId={usedId} />
   })
 
   const postsSkeleton = postsVievs.map(i => {
-    return <ArticleSKeleton key={i} />
+    return <ArticleCardSKeleton key={i} />
   })
 
   return <Box>
