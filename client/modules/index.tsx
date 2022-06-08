@@ -1,5 +1,6 @@
 export { BottomNavigation } from './BottomNavigation'
 export { Drawer } from './Drawer'
 export { Header } from './Header'
+export { MapsContainer } from './Maps'
 export { News } from './News'
 export { LinearProgress } from './Progress'
