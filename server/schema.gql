@@ -34,9 +34,20 @@ type CreateUserDataDto {
   refreshToken: String!
 }
 
-type CreateTokenDto {
-  userId: ID
-  refreshToken: String!
+type Answer {
+  comment: String
+  createdAt: DateTime
+  author: CreateUserDto
+}
+
+type CreateCommentDto {
+  _id: String!
+  postId: String!
+  comment: String!
+  answer: [Answer!]!
+  last_seen: DateTime
+  createdAt: DateTime!
+  author: CreateUserDto
 }
 
 type CreatePostDto {
@@ -63,7 +74,16 @@ type CreatePostDto {
   author: CreateUserDto
 }
 
+type CreateTokenDto {
+  userId: ID
+  refreshToken: String!
+}
+
 type Query {
+  comments(postId: String!): [CreateCommentDto!]!
+  posts(input: ParamsPostInput!): [CreatePostDto!]!
+  postsTop: [CreatePostDto!]!
+  post(postID: String!): CreatePostDto!
   users: [CreateUserDto!]!
   user(userID: String!): CreateUserDto!
   author(_id: String!): CreateUserDto!
@@ -71,14 +91,6 @@ type Query {
   login(input: LoginUserInput!): CreateUserDataDto!
   logout(refreshToken: String!): CreateUserDataDto!
   refresh(refreshToken: String!): CreateUserDataDto!
-  posts(input: ParamsPostInput!): [CreatePostDto!]!
-  postsTop: [CreatePostDto!]!
-  post(postID: String!): CreatePostDto!
-}
-
-input LoginUserInput {
-  email: String!
-  password: String!
 }
 
 input ParamsPostInput {
@@ -86,18 +98,30 @@ input ParamsPostInput {
   page: Int!
 }
 
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
-  registration(input: RegistrationUserInput!): CreateUserDataDto!
+  createComment(input: CommentInput!): CreateCommentDto!
   createToken(input: TokenInput!): CreateTokenDto!
+  registration(input: RegistrationUserInput!): CreateUserDataDto!
+}
+
+input CommentInput {
+  author: ID!
+  comment: String!
+  postId: String!
+}
+
+input TokenInput {
+  userId: ID!
+  refreshToken: String!
 }
 
 input RegistrationUserInput {
   name: String!
   email: String!
   password: String!
-}
-
-input TokenInput {
-  userId: ID!
-  refreshToken: String!
 }

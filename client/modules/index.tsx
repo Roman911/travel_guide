@@ -1,4 +1,5 @@
 export { BottomNavigation } from './BottomNavigation'
+export { Comments } from './Comments'
 export { Drawer } from './Drawer'
 export { Header } from './Header'
 export { MapsContainer } from './Maps'

@@ -3,7 +3,9 @@ import Image from "next/image"
 import { Box, Container, Grid, IconButton, Link, Paper, Stack, Typography } from '@mui/material'
 import { Facebook, Favorite, Share, Twitter, Visibility } from '@mui/icons-material'
 import LinkIcon from '@mui/icons-material/Link'
+import { useInView } from 'react-intersection-observer'
 import { useDate } from '../../hooks/useDate'
+import { Comments } from '../../modules'
 import { Tags, MyStepper, UserAvatar } from '../'
 
 type Props = {
@@ -39,11 +41,13 @@ const steps = [
 export const PostComponent: React.FC<Props> = ({ post, userData }) => {
   const { title, tags, small_text, cover, editor, link, likes, views, author, createdAt } = post
   const color = userData?.id && likes.includes(userData.id) ? '#db4454' : ''
+  const { ref, inView } = useInView({ threshold: 0 })
+  const style = inView ? { position: 'absolute', top: 'auto' } : { position: 'fixed', top: '100px' }
 
   return <Container >
     <Stack marginTop={10} flexDirection='row' alignItems='center' justifyContent='space-between'>
       <Box>
-        <Typography variant='h3' sx={{ color: '#404040' }}>
+        <Typography ref={ref} variant='h3' sx={{ color: '#404040' }}>
           {title}
         </Typography>
         <Tags tags={tags} />
@@ -53,8 +57,8 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
       </Typography>
     </Stack>
     <Grid container marginTop={2}>
-      <Grid item xs={1} marginTop={3}>
-        <Stack>
+      <Grid item xs={1} marginTop={3} sx={{ position: 'relative' }}>
+        <Stack sx={{ ...style }}>
           <IconButton sx={{ width: '40px', margin: '5px auto' }}>
             <Favorite sx={{ color: '#db4454' }} />
           </IconButton>
@@ -66,7 +70,7 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
           </IconButton>
         </Stack>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={8} marginTop={3}>
         <Typography variant="body1" marginBottom={2} >{small_text}</Typography>
         <Image src={cover} layout='intrinsic' alt={title} width={1030} height={500} />
         <Box className='editorWrapper' dangerouslySetInnerHTML={{ __html: editor }} />
@@ -102,10 +106,7 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
             </Stack>
           </Stack>
         </Stack>
-        <Typography variant="h4" marginTop={4} sx={{ fontWeight: 100, letterSpacing: '0.25em' }}>
-          КОМЕНТАРІ
-        </Typography>
-
+        <Comments />
       </Grid>
       <Grid item xs={3}>
         <MyStepper steps={steps} />

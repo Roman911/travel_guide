@@ -2,7 +2,6 @@ import React from "react"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { useTypedSelector } from '../../store/hooks'
-import { red } from '@mui/material/colors'
 
 type Props = {
   children?: React.ReactNode
