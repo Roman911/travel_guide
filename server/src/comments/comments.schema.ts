@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import * as mongoose from 'mongoose'
 import { User } from '../users/users.schema'
 
@@ -8,6 +8,8 @@ export type CommentDocument = Comment & mongoose.Document
 class Answer {
   @Prop()
   comment: String
+  @Prop({ default: 0 })
+  rating: number
   @Prop({ default: new Date })
   createdAt: Date
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
@@ -23,7 +25,9 @@ export class Comment {
   @Prop()
   comment: string
   @Prop({ type: [AnswerSchema], default: [] })
-  answer: Answer[]
+  answers: Answer[]
+  @Prop({ default: 0 })
+  rating: number
   @Prop({ default: new Date })
   last_seen: Date
   @Prop({ default: new Date })

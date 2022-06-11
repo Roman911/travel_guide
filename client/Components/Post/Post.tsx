@@ -10,6 +10,7 @@ import { Tags, MyStepper, UserAvatar } from '../'
 
 type Props = {
   post: {
+    _id: string
     title: string
     tags: string[]
     small_text: string
@@ -39,7 +40,7 @@ const steps = [
 ]
 
 export const PostComponent: React.FC<Props> = ({ post, userData }) => {
-  const { title, tags, small_text, cover, editor, link, likes, views, author, createdAt } = post
+  const { _id, title, tags, small_text, cover, editor, link, likes, views, author, createdAt } = post
   const color = userData?.id && likes.includes(userData.id) ? '#db4454' : ''
   const { ref, inView } = useInView({ threshold: 0 })
   const style = inView ? { position: 'absolute', top: 'auto' } : { position: 'fixed', top: '100px' }
@@ -106,7 +107,7 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
             </Stack>
           </Stack>
         </Stack>
-        <Comments />
+        <Comments postId={_id} />
       </Grid>
       <Grid item xs={3}>
         <MyStepper steps={steps} />

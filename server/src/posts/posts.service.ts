@@ -22,6 +22,6 @@ export class PostService {
   async findAll(params: ParamsPostInput): Promise<Post[]> {
     const { page, limit } = params
     const skip = page === 1 ? 0 : page * limit
-    return this.postModel.find().sort({ views: -1 }).skip(skip).limit(limit).populate('author').exec()
+    return this.postModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit).populate('author').exec()
   }
 }

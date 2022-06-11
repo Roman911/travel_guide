@@ -5,6 +5,7 @@ import { CommentsService } from './comments.service'
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { Comment, CommentDocument } from "./comments.schema"
 import { CommentInput } from './inputs/create-comment.input'
+import { AnswerCommentInput } from './inputs/addedAnswer.input'
 
 @Resolver()
 export class CommentsResolver {
@@ -22,5 +23,10 @@ export class CommentsResolver {
   @Mutation(() => CreateCommentDto)
   async createComment(@Args('input') input: CommentInput) {
     return this.commentsService.saveComment(input)
+  }
+
+  @Mutation(() => CreateCommentDto)
+  async addedCommentAnswer(@Args('input') input: AnswerCommentInput) {
+    return this.commentsService.addedAnswer(input)
   }
 }

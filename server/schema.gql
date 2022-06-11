@@ -35,7 +35,9 @@ type CreateUserDataDto {
 }
 
 type Answer {
+  _id: String!
   comment: String
+  rating: Int!
   createdAt: DateTime
   author: CreateUserDto
 }
@@ -44,7 +46,8 @@ type CreateCommentDto {
   _id: String!
   postId: String!
   comment: String!
-  answer: [Answer!]!
+  answers: [Answer!]!
+  rating: Int!
   last_seen: DateTime
   createdAt: DateTime!
   author: CreateUserDto
@@ -105,14 +108,21 @@ input LoginUserInput {
 
 type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
+  addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
 }
 
 input CommentInput {
-  author: ID!
   comment: String!
   postId: String!
+  token: String!
+}
+
+input AnswerCommentInput {
+  comment: String!
+  commentId: String!
+  token: String!
 }
 
 input TokenInput {

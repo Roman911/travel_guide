@@ -3,8 +3,12 @@ import { CreateUserDto } from '../../users/dto/create-user.dto'
 
 @ObjectType()
 class Answer {
+  @Field()
+  _id: string
   @Field({ nullable: true })
   comment: string
+  @Field(() => Int)
+  rating: number
   @Field({ nullable: true })
   createdAt: Date
   @Field(type => CreateUserDto, { nullable: true })
@@ -20,7 +24,9 @@ export class CreateCommentDto {
   @Field()
   comment: string
   @Field(type => [Answer])
-  answer: Answer[]
+  answers: Answer[]
+  @Field(() => Int)
+  rating: number
   @Field({ nullable: true })
   last_seen: Date
   @Field()
