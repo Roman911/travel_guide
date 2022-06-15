@@ -25,9 +25,9 @@ export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, u
       onKeyDown={toggleDrawer()}
     >
       <Box p={2} marginTop={4}>
-        <UserAvatar size={80} avatar={userData?.avatar} name={userData?.name} />
+        <UserAvatar sx={{ margin: '0 auto' }} size={80} avatar={userData?.avatar} name={userData?.name} />
         <Typography variant="subtitle1" marginTop={2}>{userData?.email}</Typography>
-        <Typography variant="body2">рейтинг: 0</Typography>
+        <Typography variant="body2" textAlign='center'>рейтинг: 0</Typography>
         <Stack spacing={2} direction='column' alignItems='center' marginTop={6}>
           <Button variant="contained" color="secondary">Додати локацію</Button>
           <Button variant="contained" color="secondary">Додати статю</Button>

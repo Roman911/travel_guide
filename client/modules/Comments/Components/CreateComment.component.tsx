@@ -4,18 +4,18 @@ import { Controller, useFormContext } from "react-hook-form"
 import { Avatar, Box, Button, Link, Stack, TextField, Typography } from '@mui/material'
 import { PermIdentity } from '@mui/icons-material'
 import { UserAvatar } from '../../../Components'
+import { useColors } from '../../../hooks'
+import type { IUserData } from '../../../typesScript'
 
 type Props = {
   isAnswer: boolean
   handleCloseOpenAnswer?: () => void
-  userData: null | {
-    name: string
-    avatar?: string
-  }
+  userData: IUserData | null
 }
 
 export const CreateCommentComponent: React.FC<Props> = ({ isAnswer, handleCloseOpenAnswer, userData }) => {
   const { control } = useFormContext()
+  const { darkGray } = useColors()
 
   return <Box>
     {

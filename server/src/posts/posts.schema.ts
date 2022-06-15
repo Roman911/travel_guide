@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import * as mongoose from 'mongoose'
 import { User } from '../users/users.schema'
+import { Comment, CommentSchema } from '../comments/comments.schema'
 
 export type PostDocument = Post & mongoose.Document
 
@@ -36,8 +37,8 @@ export class Post {
   confirmed: boolean
   @Prop()
   confirm_hash: string
-  @Prop()
-  comments: number
+  @Prop({ type: [CommentSchema], default: [] })
+  comments: Comment[]
   @Prop()
   small_text: string
   @Prop({ default: new Date })

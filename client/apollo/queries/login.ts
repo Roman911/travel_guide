@@ -4,7 +4,7 @@ export const LOGIN = gql`
   query login($input: LoginUserInput!) {
     login(input: $input) {
       user {
-        id
+        _id
         name
         email
         avatar

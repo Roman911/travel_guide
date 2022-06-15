@@ -76,7 +76,7 @@ export const Comment: React.FC<Props> = ({ item, isAnswerToComment, refetch }) =
       {isAnswer && <CreateComment isAnswer={true} commentId={_id} handleCloseOpenAnswer={handleCloseOpenAnswer} refetch={refetch} />}
       {
         answers?.length !== 0 && answers?.map(i => {
-          return <Comment item={i} isAnswerToComment={true} refetch={refetch} />
+          return <Comment key={i._id} item={i} isAnswerToComment={true} refetch={refetch} />
         })
       }
     </Box>

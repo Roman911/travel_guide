@@ -1,12 +1,7 @@
-interface IUser {
-  name: string
-  email: string
-  avatar?: string
-  id: string
-}
+import type { IUserData } from '../../typesScript'
 
 export interface UserState {
-  userData: IUser | null,
+  userData: IUserData | null
   refreshToken: string
   accessToken: string
 }
@@ -16,7 +11,7 @@ export enum UserActionTypes {
   REMOVE_DATA = 'USER:REMOVE_DATA'
 }
 
-interface SetDataUserAction { type: UserActionTypes.SET_DATA, payload: { user: IUser, refreshToken: string, accessToken: string } }
+interface SetDataUserAction { type: UserActionTypes.SET_DATA, payload: { user: IUserData, refreshToken: string, accessToken: string } }
 
 interface RemoveDataUserAction { type: UserActionTypes.REMOVE_DATA }
 

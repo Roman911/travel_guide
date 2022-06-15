@@ -1,35 +1,23 @@
+import type { IPost } from '../../typesScript'
 import React from "react"
 import { useRouter } from "next/router"
-import { Avatar, AvatarGroup, Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material'
+import { Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material'
 import { Chat, Favorite, MoreVert, Share, Visibility } from '@mui/icons-material'
-import { useActions } from '../../store/hooks/useActions'
+import { useActions } from '../../store/hooks'
 import { UserAvatar } from ".."
-import { useDate } from '../../hooks/useDate'
+import { useColors, useDate } from '../../hooks'
 
 type Props = {
-  key: string
   usedId?: string
-  item: {
-    _id: string
-    title: string
-    cover: string
-    small_text: string
-    views: number
-    likes: string[]
-    createdAt: string
-    author: {
-      name: string
-      avatar?: string
-    }
-  }
+  item: IPost
 }
 
 export const ArticleCard: React.FC<Props> = ({ item, usedId }) => {
   const { _id, title, cover, small_text, views, likes, createdAt, author: { name, avatar } } = item
   const router = useRouter()
   const { linearProgress } = useActions()
-
-  const color = usedId && likes.includes(usedId) ? '#db4454' : ''
+  const { icon, red } = useColors()
+  const color = usedId && likes.includes(usedId) ? red : icon
 
   const handleClick = React.useCallback(() => {
     linearProgress(true)
@@ -65,19 +53,19 @@ export const ArticleCard: React.FC<Props> = ({ item, usedId }) => {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing sx={{ paddingTop: 0 }}>
-        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px' }}>
+        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px', color: icon }}>
           <Favorite fontSize="small" sx={{ color: color }} />
           <Typography variant="body2" marginLeft={0.2}>{likes.length !== 0 && likes.length}</Typography>
         </Box>
-        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px' }}>
+        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px', color: icon }}>
           <Visibility fontSize="small" />
           <Typography variant="body2" marginLeft={0.2}>{views}</Typography>
         </Box>
-        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px' }}>
+        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px', color: icon }}>
           <Chat fontSize="small" />
           <Typography variant="body2" marginLeft={0.2}>2</Typography>
         </Box>
-        <IconButton aria-label="share" sx={{ marginLeft: 'auto' }}>
+        <IconButton aria-label="share" sx={{ marginLeft: 'auto', color: icon }}>
           <Share />
         </IconButton>
       </CardActions>

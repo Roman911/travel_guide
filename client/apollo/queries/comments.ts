@@ -19,3 +19,11 @@ export const COMMENTS = gql`
   }
 }
 `
+
+export const COMMENTS_FOR_POST = gql`
+  query comments($postId: String!) {
+  comments(postId: $postId){
+    _id
+  }
+}
+`

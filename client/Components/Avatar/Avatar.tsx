@@ -5,10 +5,11 @@ type Props = {
   size: number
   avatar?: string
   name?: string
+  sx?: any
 }
 
-export const UserAvatar: React.FC<Props> = ({ size, avatar, name }) => {
-  const params = { width: size, height: size, color: '#fff' }
+export const UserAvatar: React.FC<Props> = ({ size, avatar, name, sx }) => {
+  const params = { width: size, height: size, color: '#fff', ...sx }
 
   return avatar ?
     <Avatar sx={params} alt={name} src={`http://localhost:3005/images${avatar}`} /> :

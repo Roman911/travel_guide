@@ -10,7 +10,7 @@ type Socials {
 }
 
 type CreateUserDto {
-  id: ID!
+  _id: ID!
   name: String!
   email: String!
   password: String!
@@ -35,7 +35,7 @@ type CreateUserDataDto {
 }
 
 type Answer {
-  _id: String!
+  _id: ID!
   comment: String
   rating: Int!
   createdAt: DateTime
@@ -43,8 +43,7 @@ type Answer {
 }
 
 type CreateCommentDto {
-  _id: String!
-  postId: String!
+  _id: ID!
   comment: String!
   answers: [Answer!]!
   rating: Int!
@@ -70,7 +69,7 @@ type CreatePostDto {
   isPrice: Boolean!
   confirmed: Boolean!
   confirm_hash: String!
-  comments: Int!
+  comments: [CreateCommentDto!]!
   small_text: String!
   last_seen: DateTime
   createdAt: DateTime!
@@ -83,9 +82,8 @@ type CreateTokenDto {
 }
 
 type Query {
-  comments(postId: String!): [CreateCommentDto!]!
+  comments(id: String!): [CreateCommentDto!]!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
-  postsTop: [CreatePostDto!]!
   post(postID: String!): CreatePostDto!
   users: [CreateUserDto!]!
   user(userID: String!): CreateUserDto!
@@ -109,19 +107,22 @@ input LoginUserInput {
 type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
+  addCommentForPost(input: CommentInput!): CreatePostDto!
+  addAnswerForComment(input: AnswerCommentInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
 }
 
 input CommentInput {
+  id: String!
   comment: String!
-  postId: String!
   token: String!
 }
 
 input AnswerCommentInput {
+  id: ID!
+  commentId: ID!
   comment: String!
-  commentId: String!
   token: String!
 }
 

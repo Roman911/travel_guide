@@ -16,8 +16,8 @@ export class CommentsResolver {
   ) { }
 
   @Query(() => [CreateCommentDto])
-  async comments(@Args('postId') postId: string) {
-    return this.commentsService.findAll(postId)
+  async comments(@Args('id') id: string) {
+    return this.commentsService.findAll(id)
   }
 
   @Mutation(() => CreateCommentDto)

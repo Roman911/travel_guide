@@ -4,31 +4,14 @@ import { Box, Container, Grid, IconButton, Link, Paper, Stack, Typography } from
 import { Facebook, Favorite, Share, Twitter, Visibility } from '@mui/icons-material'
 import LinkIcon from '@mui/icons-material/Link'
 import { useInView } from 'react-intersection-observer'
-import { useDate } from '../../hooks/useDate'
+import { useColors, useDate } from '../../hooks'
 import { Comments } from '../../modules'
 import { Tags, MyStepper, UserAvatar } from '../'
+import type { IPost, IUserData } from '../../typesScript'
 
 type Props = {
-  post: {
-    _id: string
-    title: string
-    tags: string[]
-    small_text: string
-    cover: string
-    editor: string
-    link: string
-    likes: string[]
-    views: number
-    createdAt: string
-    author: {
-      name: string
-      avatar?: string
-      rating?: number
-    }
-  }
-  userData: null | {
-    id: string
-  }
+  post: IPost
+  userData: IUserData | null
 }
 
 const steps = [
@@ -41,19 +24,20 @@ const steps = [
 
 export const PostComponent: React.FC<Props> = ({ post, userData }) => {
   const { _id, title, tags, small_text, cover, editor, link, likes, views, author, createdAt } = post
-  const color = userData?.id && likes.includes(userData.id) ? '#db4454' : ''
   const { ref, inView } = useInView({ threshold: 0 })
   const style = inView ? { position: 'absolute', top: 'auto' } : { position: 'fixed', top: '100px' }
+  const { darkGray, icon } = useColors()
+  const color = userData?._id && likes.includes(userData._id) ? '#db4454' : icon
 
   return <Container >
     <Stack marginTop={10} flexDirection='row' alignItems='center' justifyContent='space-between'>
       <Box>
-        <Typography ref={ref} variant='h3' sx={{ color: '#404040' }}>
+        <Typography ref={ref} variant='h3' sx={{ color: darkGray }}>
           {title}
         </Typography>
         <Tags tags={tags} />
       </Box>
-      <Typography variant='body2' sx={{ borderRight: '2px solid rgba(0, 0, 0, 0.87)', padding: '4px 6px 4px 0' }}>
+      <Typography variant='body2' sx={{ borderRight: `3px solid ${darkGray}`, padding: '4px 6px 4px 0' }}>
         {useDate({ serverDate: createdAt })}
       </Typography>
     </Stack>
@@ -76,7 +60,7 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
         <Image src={cover} layout='intrinsic' alt={title} width={1030} height={500} />
         <Box className='editorWrapper' dangerouslySetInnerHTML={{ __html: editor }} />
         {
-          link && <Link href={link} target='_blank' underline="none" color='#303335' display='flex' sx={{ alignItems: 'center', transition: '300ms', ':hover': { color: '#ed2945' } }}>
+          link && <Link href={link} target='_blank' underline="none" color={darkGray} display='flex' sx={{ alignItems: 'center', transition: '300ms', ':hover': { color: '#ed2945' } }}>
             <LinkIcon sx={{ marginRight: 1, transform: 'rotate(25deg)' }} />
             Джерело
           </Link>
@@ -84,17 +68,17 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
         <Stack flexDirection='row' width='100%' marginTop={2} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Stack flexDirection='row'>
             <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px' }}>
-              <IconButton >
-                <Favorite fontSize="small" sx={{ color: color }} />
+              <IconButton sx={{ color }}>
+                <Favorite fontSize="small" />
               </IconButton>
-              <Typography variant="body1">5</Typography>
+              <Typography variant="body1" sx={{ color: icon }}>5</Typography>
             </Box>
-            <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px' }}>
+            <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px', color: icon }}>
               <Visibility fontSize="small" />
               <Typography variant="body1" marginLeft={0.6}>{views}</Typography>
             </Box>
           </Stack>
-          <IconButton aria-label="share" sx={{ marginLeft: 'auto' }}>
+          <IconButton aria-label="share" sx={{ marginLeft: 'auto', color: icon }}>
             <Share />
           </IconButton>
         </Stack>
@@ -102,7 +86,7 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
           <Stack flexDirection='row' sx={{ alignItems: 'center' }}>
             <UserAvatar size={70} name={author.name} avatar={author.avatar} />
             <Stack alignItems='center' marginLeft={2}>
-              <Link href="#" underline="none" marginBottom={0.7} variant="h6" sx={{ color: '#303335', transition: '300ms', ':hover': { color: '#db4454' } }}>{author.name}</Link>
+              <Link href="#" underline="none" marginBottom={0.7} variant="h6" sx={{ color: darkGray, transition: '300ms', ':hover': { color: '#db4454' } }}>{author.name}</Link>
               <Typography variant="subtitle2" sx={{ background: 'linear-gradient(90deg, #db4454,#9f406d)', color: '#fff', padding: '2px 15px 0', width: 'max-content', fontSize: '12px', borderRadius: '2px' }}>{author.rating}</Typography>
             </Stack>
           </Stack>

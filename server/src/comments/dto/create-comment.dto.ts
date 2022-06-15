@@ -1,9 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql'
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql'
 import { CreateUserDto } from '../../users/dto/create-user.dto'
 
 @ObjectType()
 class Answer {
-  @Field()
+  @Field(() => ID)
   _id: string
   @Field({ nullable: true })
   comment: string
@@ -17,10 +17,8 @@ class Answer {
 
 @ObjectType()
 export class CreateCommentDto {
-  @Field()
+  @Field(() => ID)
   _id: string
-  @Field()
-  postId: string
   @Field()
   comment: string
   @Field(type => [Answer])

@@ -1,6 +1,6 @@
 import React from "react"
 import { useQuery } from "@apollo/react-hooks"
-import { useTypedSelector } from '../../../store/hooks/useTypedSelector'
+import { useTypedSelector } from '../../../store/hooks'
 import { NewsComponent } from '../Components'
 import { POSTS } from '../../../apollo/queries/posts'
 

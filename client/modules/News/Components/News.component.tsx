@@ -1,8 +1,10 @@
+import type { IUserData, IPost } from '../../../typesScript'
 import React from "react"
 import NextLink from 'next/link'
 import { Box, Grid, Link, Stack, Typography } from '@mui/material'
 import { ArrowRightAlt } from '@mui/icons-material'
-import { ArticleCard, ArticleCardSKeleton } from '../../../Components'
+import { PreviewCard } from '../../'
+import { PreviewCardSKeleton } from '../../PreviewCard/Components'
 
 type Props = {
   title: string
@@ -10,39 +12,22 @@ type Props = {
   linkTitle: string
   loading: boolean | undefined
   error: any
-  userData: null | {
-    name: string
-    email: string
-    avatar?: string
-    id: string
-  }
-  data: undefined | {
-    posts: {
-      _id: string
-      title: string
-      cover: string
-      small_text: string
-      views: number
-      likes: string[]
-      createdAt: string
-      author: {
-        name: string
-        avatar?: string
-      }
-    }[]
+  userData: IUserData | null
+  data?: {
+    posts: IPost[]
   }
 }
 
 export const NewsComponent: React.FC<Props> = ({ title, link, linkTitle, loading, error, data, userData }) => {
-  const usedId = userData?.id
+  const usedId = userData?._id
   const postsVievs = ['1', '2', '3', '4', '5', '6', '7', '8']
 
   const posts = data?.posts?.map(i => {
-    return <ArticleCard key={i._id} item={i} usedId={usedId} />
+    return <PreviewCard key={i._id} item={i} usedId={usedId} />
   })
 
   const postsSkeleton = postsVievs.map(i => {
-    return <ArticleCardSKeleton key={i} />
+    return <PreviewCardSKeleton key={i} />
   })
 
   return <Box>
