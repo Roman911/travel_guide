@@ -2,7 +2,7 @@ import { IPost } from '../../../typesScript'
 import React from "react"
 import { Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material'
 import { Favorite, MoreVert, Share, Visibility } from '@mui/icons-material'
-import { UserAvatar } from "../../../Components"
+import { UserAvatar, Views } from "../../../Components"
 import { PreviewComments } from '../../'
 
 interface IProps {
@@ -53,10 +53,7 @@ export const PreviewCardComponent: React.FC<IProps> = ({ usedId, item, colors: {
           <Favorite fontSize="small" sx={{ color: color }} />
           <Typography variant="body2" marginLeft={0.2}>{likes.length !== 0 && likes.length}</Typography>
         </Box>
-        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px', color: icon }}>
-          <Visibility fontSize="small" />
-          <Typography variant="body2" marginLeft={0.2}>{views}</Typography>
-        </Box>
+        <Views views={views} color={icon} />
         <PreviewComments postId={_id} />
         <IconButton aria-label="share" sx={{ marginLeft: 'auto', color: icon }}>
           <Share />

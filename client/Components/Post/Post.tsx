@@ -1,12 +1,12 @@
 import React from "react"
 import Image from "next/image"
 import { Box, Container, Grid, IconButton, Link, Paper, Stack, Typography } from '@mui/material'
-import { Facebook, Favorite, Share, Twitter, Visibility } from '@mui/icons-material'
+import { Facebook, Favorite, Share, Twitter } from '@mui/icons-material'
 import LinkIcon from '@mui/icons-material/Link'
 import { useInView } from 'react-intersection-observer'
 import { useColors, useDate } from '../../hooks'
 import { Comments } from '../../modules'
-import { Tags, MyStepper, UserAvatar } from '../'
+import { Tags, MyStepper, UserAvatar, Views } from '../'
 import type { IPost, IUserData } from '../../typesScript'
 
 type Props = {
@@ -73,10 +73,7 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
               </IconButton>
               <Typography variant="body1" sx={{ color: icon }}>5</Typography>
             </Box>
-            <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px', color: icon }}>
-              <Visibility fontSize="small" />
-              <Typography variant="body1" marginLeft={0.6}>{views}</Typography>
-            </Box>
+            <Views views={views} color={icon} />
           </Stack>
           <IconButton aria-label="share" sx={{ marginLeft: 'auto', color: icon }}>
             <Share />

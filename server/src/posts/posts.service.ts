@@ -18,7 +18,14 @@ export class PostService {
   ) { }
 
   async post(postID: string): Promise<Post> {
-    return this.postModel.findById(postID).populate('author').exec()
+    const post = this.postModel.findById(postID).populate('author').exec()
+
+    let { views } = await post
+    views++
+
+    this.postModel.findByIdAndUpdate(postID, { views }, { new: true }).exec()
+
+    return post
   }
 
   async findAll(params: ParamsPostInput): Promise<Post[]> {
