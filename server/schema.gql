@@ -44,6 +44,7 @@ type Answer {
 
 type CreateCommentDto {
   _id: ID!
+  postId: String!
   comment: String!
   answers: [Answer!]!
   rating: Int!
@@ -69,7 +70,6 @@ type CreatePostDto {
   isPrice: Boolean!
   confirmed: Boolean!
   confirm_hash: String!
-  comments: [CreateCommentDto!]!
   small_text: String!
   last_seen: DateTime
   createdAt: DateTime!
@@ -82,7 +82,7 @@ type CreateTokenDto {
 }
 
 type Query {
-  comments(id: String!): [CreateCommentDto!]!
+  comments(postId: String!): [CreateCommentDto!]!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
   post(postID: String!): CreatePostDto!
   users: [CreateUserDto!]!
@@ -107,21 +107,18 @@ input LoginUserInput {
 type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
-  addCommentForPost(input: CommentInput!): CreatePostDto!
-  addAnswerForComment(input: AnswerCommentInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
 }
 
 input CommentInput {
-  id: String!
+  postId: String!
   comment: String!
   token: String!
 }
 
 input AnswerCommentInput {
   id: ID!
-  commentId: ID!
   comment: String!
   token: String!
 }

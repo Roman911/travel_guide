@@ -21,6 +21,8 @@ const AnswerSchema = SchemaFactory.createForClass(Answer)
 @Schema()
 export class Comment {
   @Prop()
+  postId: string
+  @Prop()
   comment: string
   @Prop({ type: [AnswerSchema], default: [] })
   answers: Answer[]

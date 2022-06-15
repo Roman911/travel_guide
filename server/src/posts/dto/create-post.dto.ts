@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql'
 import { CreateUserDto } from '../../users/dto/create-user.dto'
-import { CreateCommentDto } from '../../comments/dto/create-comment.dto'
+//import { CreateCommentDto } from '../../comments/dto/create-comment.dto'
 
 @ObjectType()
 export class CreatePostDto {
@@ -36,8 +36,8 @@ export class CreatePostDto {
   confirmed: boolean
   @Field()
   confirm_hash: string
-  @Field(type => [CreateCommentDto])
-  comments: CreateCommentDto[]
+  //@Field(type => [CreateCommentDto])
+  //comments: CreateCommentDto[]
   @Field()
   small_text: string
   @Field({ nullable: true })

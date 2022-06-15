@@ -20,6 +20,8 @@ export class CreateCommentDto {
   @Field(() => ID)
   _id: string
   @Field()
+  postId: string
+  @Field()
   comment: string
   @Field(type => [Answer])
   answers: Answer[]

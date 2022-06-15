@@ -42,7 +42,7 @@ export const CreateComment: React.FC<Props> = ({ isAnswer, postId, commentId, ha
         variables: {
           input: {
             token: refreshToken,
-            commentId,
+            id: commentId,
             comment: values.comment
           }
         }

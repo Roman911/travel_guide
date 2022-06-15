@@ -5,8 +5,8 @@ import { ModuleRef } from "@nestjs/core"
 import { Post, PostDocument } from './posts.schema'
 import { ParamsPostInput } from './inputs/params-post.input'
 import { TokenService } from '../token/token.service'
-import { CommentInput } from '../comments/inputs/create-comment.input'
-import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
+//import { CommentInput } from '../comments/inputs/create-comment.input'
+//import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
 
 @Injectable()
 export class PostService {
@@ -27,35 +27,35 @@ export class PostService {
     return this.postModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit).populate('author').exec()
   }
 
-  async addComment(CreatePostDto: CommentInput): Promise<Post> {
-    const { id, token, comment } = CreatePostDto
+  //async addComment(CreatePostDto: CommentInput): Promise<Post> {
+  //const { id, token, comment } = CreatePostDto
 
-    this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
-    const userData = this.tokenService.validateRefreshToken(token)
+  //this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
+  //const userData = this.tokenService.validateRefreshToken(token)
 
-    const update = {
-      comments: {
-        author: userData.id,
-        comment
-      }
-    }
+  //const update = {
+  //comments: {
+  //author: userData.id,
+  //comment
+  //}
+  //}
 
-    return this.postModel.findByIdAndUpdate(id, { $push: update }, { new: true }).exec()
-  }
+  //return this.postModel.findByIdAndUpdate(id, { $push: update }, { new: true }).exec()
+  //}
 
-  async addAnswer(CreatePostDto: AnswerCommentInput): Promise<Post> {
-    const { id, commentId, token, comment } = CreatePostDto
+  //async addAnswer(CreatePostDto: AnswerCommentInput): Promise<Post> {
+  //const { id, commentId, token, comment } = CreatePostDto
 
-    this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
-    const userData = this.tokenService.validateRefreshToken(token)
+  // this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
+  // const userData = this.tokenService.validateRefreshToken(token)
 
-    const update = {
-      answers: {
-        author: userData.id,
-        comment
-      }
-    }
+  // const update = {
+  // answers: {
+  // author: userData.id,
+  // comment
+  // }
+  // }
 
-    return this.postModel.findById(id).findOneAndUpdate({ comments: commentId }, { $push: update }, { new: true }).exec()
-  }
+  // return this.postModel.findById(id).findOneAndUpdate({ comments: commentId }, { $push: update }, { new: true }).exec()
+  //}
 }

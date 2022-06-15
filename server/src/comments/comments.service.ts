@@ -17,12 +17,12 @@ export class CommentsService {
   ) { }
 
   async saveComment(createCommentDto: CommentInput): Promise<Comment> {
-    const { comment, id, token } = createCommentDto
+    const { postId, token, comment } = createCommentDto
 
     this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
     const userData = this.tokenService.validateRefreshToken(token)
 
-    return await this.commentModel.create({ author: userData.id, comment, id })
+    return await this.commentModel.create({ postId, author: userData.id, comment })
   }
 
   async addedAnswer(createCommentDto: AnswerCommentInput): Promise<Comment> {
@@ -41,7 +41,7 @@ export class CommentsService {
     return await this.commentModel.findByIdAndUpdate(id, { $push: update }, { new: true })
   }
 
-  async findAll(id: string): Promise<Comment[]> {
-    return this.commentModel.find({ id }).sort({ createdAt: -1 }).populate('author').populate('answers.author').exec()
+  async findAll(postId: string): Promise<Comment[]> {
+    return this.commentModel.find({ postId }).sort({ createdAt: -1 }).populate('author').populate('answers.author').exec()
   }
 }

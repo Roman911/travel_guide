@@ -4,8 +4,6 @@ import { InputType, Field, ID } from '@nestjs/graphql'
 export class AnswerCommentInput {
   @Field(type => ID)
   id: string
-  @Field(type => ID)
-  commentId: string
   @Field()
   comment: string
   @Field()

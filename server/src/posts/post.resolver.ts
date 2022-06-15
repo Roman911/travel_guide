@@ -5,8 +5,8 @@ import { PostService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
 import { Post, PostDocument } from "./posts.schema"
 import { ParamsPostInput } from './inputs/params-post.input'
-import { CommentInput } from '../comments/inputs/create-comment.input'
-import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
+//import { CommentInput } from '../comments/inputs/create-comment.input'
+//import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
 
 @Resolver()
 export class PostsResolver {
@@ -26,13 +26,13 @@ export class PostsResolver {
     return this.postsService.post(postID)
   }
 
-  @Mutation(() => CreatePostDto)
-  async addCommentForPost(@Args('input') input: CommentInput) {
-    return this.postsService.addComment(input)
-  }
+  //@Mutation(() => CreatePostDto)
+  //async addCommentForPost(@Args('input') input: CommentInput) {
+  // return this.postsService.addComment(input)
+  //}
 
-  @Mutation(() => CreatePostDto)
-  async addAnswerForComment(@Args('input') input: AnswerCommentInput) {
-    return this.postsService.addAnswer(input)
-  }
+  //@Mutation(() => CreatePostDto)
+  //async addAnswerForComment(@Args('input') input: AnswerCommentInput) {
+  // return this.postsService.addAnswer(input)
+  //}
 }
