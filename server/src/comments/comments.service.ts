@@ -22,7 +22,7 @@ export class CommentsService {
     this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
     const userData = this.tokenService.validateRefreshToken(token)
 
-    return await this.commentModel.create({ postId, author: userData.id, comment })
+    return await this.commentModel.create({ postId, author: userData._id, comment })
   }
 
   async addedAnswer(createCommentDto: AnswerCommentInput): Promise<Comment> {
@@ -33,7 +33,7 @@ export class CommentsService {
 
     const update = {
       answers: {
-        author: userData.id,
+        author: userData._id,
         comment
       }
     }

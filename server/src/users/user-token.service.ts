@@ -12,7 +12,7 @@ export class UserTokenService {
     const userDto = new UserDto(user)
     const tokens = TokenService.generateTokens({ ...userDto })
     this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
-    await this.tokenService.saveToken({ userId: userDto.id, refreshToken: tokens.refreshToken })
+    await this.tokenService.saveToken({ userId: userDto._id, refreshToken: tokens.refreshToken })
 
     return { ...tokens, user: userDto }
   }

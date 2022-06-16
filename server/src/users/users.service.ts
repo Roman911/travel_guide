@@ -65,7 +65,7 @@ export class UsersService {
     const userData = this.tokenService.validateRefreshToken(refreshToken)
     const tokenFromDb = await this.tokenService.findToken(refreshToken)
     if (!userData || !tokenFromDb) throw new BadRequestException()
-    const user = await this.userModel.findById(userData.id)
+    const user = await this.userModel.findById(userData._id)
     this.userTokenService = await this.moduleRef.get(UserTokenService, { strict: false })
 
     return await this.userTokenService.userTokenData(user)

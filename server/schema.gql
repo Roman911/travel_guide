@@ -10,7 +10,7 @@ type Socials {
 }
 
 type CreateUserDto {
-  _id: ID!
+  _id: String!
   name: String!
   email: String!
   password: String!
@@ -107,6 +107,7 @@ input LoginUserInput {
 type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
+  setLikeForPost(input: LikeInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
 }
@@ -120,6 +121,11 @@ input CommentInput {
 input AnswerCommentInput {
   id: ID!
   comment: String!
+  token: String!
+}
+
+input LikeInput {
+  postId: String!
   token: String!
 }
 

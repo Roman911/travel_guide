@@ -8,7 +8,7 @@ import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from '../config'
 
 interface IFgg {
   email: string
-  id: string
+  _id: string
   name: string
   isActivated: boolean
   iat: number
@@ -21,7 +21,7 @@ export class TokenService {
     @InjectModel(Token.name) private tokenModel: Model<TokenDocument>
   ) { }
 
-  static generateTokens(payload: { name: string; id: string; isActivated: boolean; email: string }) {
+  static generateTokens(payload: { name: string; _id: string; isActivated: boolean; email: string }) {
     const accessToken = sign(payload, JWT_ACCESS_SECRET, { expiresIn: '30m' })
     const refreshToken = sign(payload, JWT_REFRESH_SECRET, { expiresIn: '30d' })
     return {

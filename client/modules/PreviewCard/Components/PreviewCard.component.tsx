@@ -1,9 +1,10 @@
 import { IPost } from '../../../typesScript'
 import React from "react"
 import { Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material'
-import { Favorite, MoreVert, Share, Visibility } from '@mui/icons-material'
+import { Favorite, MoreVert, Share } from '@mui/icons-material'
 import { UserAvatar, Views } from "../../../Components"
 import { PreviewComments } from '../../'
+import { LikesComponent } from '../../Likes/Components'
 
 interface IProps {
   usedId?: string
@@ -18,7 +19,6 @@ interface IProps {
 
 export const PreviewCardComponent: React.FC<IProps> = ({ usedId, item, colors: { icon, red }, handleClick, useDate }) => {
   const { _id, title, cover, small_text, views, likes, createdAt, author: { name, avatar } } = item
-  const color = usedId && likes.includes(usedId) ? red : icon
 
   return <Grid item xs={12} sm={6} md={3} p={1}>
     <Card sx={{ maxWidth: 345 }}>
@@ -49,10 +49,7 @@ export const PreviewCardComponent: React.FC<IProps> = ({ usedId, item, colors: {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing sx={{ paddingTop: 0 }}>
-        <Box display='flex' sx={{ alignItems: 'center', marginLeft: '6px', color: icon }}>
-          <Favorite fontSize="small" sx={{ color: color }} />
-          <Typography variant="body2" marginLeft={0.2}>{likes.length !== 0 && likes.length}</Typography>
-        </Box>
+        <LikesComponent component={true} userId={usedId} colorRed={red} colorIcon={icon} likes={likes} />
         <Views views={views} color={icon} />
         <PreviewComments postId={_id} />
         <IconButton aria-label="share" sx={{ marginLeft: 'auto', color: icon }}>

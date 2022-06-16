@@ -5,6 +5,7 @@ import { ModuleRef } from "@nestjs/core"
 import { Post, PostDocument } from './posts.schema'
 import { ParamsPostInput } from './inputs/params-post.input'
 import { TokenService } from '../token/token.service'
+import { LikeInput } from '../likes/inputs/create-like.input'
 //import { CommentInput } from '../comments/inputs/create-comment.input'
 //import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
 
@@ -32,6 +33,22 @@ export class PostService {
     const { page, limit } = params
     const skip = page === 1 ? 0 : page * limit
     return this.postModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit).populate('author').exec()
+  }
+
+  async setLike(CreatePostDto: LikeInput): Promise<Post> {
+    const { postId, token } = CreatePostDto
+
+    const post = this.postModel.findById(postId).exec()
+    const { likes } = await post
+
+    this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
+    const userData = this.tokenService.validateRefreshToken(token)
+
+    let update = likes.length !== 0 && likes.includes(userData._id) ? { $pull: { likes: userData._id } } : { $push: { likes: userData._id } }
+
+    this.postModel.findByIdAndUpdate(postId, update, { new: true }).exec()
+
+    return post
   }
 
   //async addComment(CreatePostDto: CommentInput): Promise<Post> {

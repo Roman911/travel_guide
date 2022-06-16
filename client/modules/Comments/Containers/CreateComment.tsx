@@ -47,7 +47,6 @@ export const CreateComment: React.FC<Props> = ({ isAnswer, postId, commentId, ha
           }
         }
       }).then(data => {
-        console.log(data)
         if (data) {
           methods.reset()
           refetch()

@@ -5,13 +5,12 @@ import { Facebook, Favorite, Share, Twitter } from '@mui/icons-material'
 import LinkIcon from '@mui/icons-material/Link'
 import { useInView } from 'react-intersection-observer'
 import { useColors, useDate } from '../../hooks'
-import { Comments } from '../../modules'
+import { Comments, Likes } from '../../modules'
 import { Tags, MyStepper, UserAvatar, Views } from '../'
-import type { IPost, IUserData } from '../../typesScript'
+import type { IPost } from '../../typesScript'
 
 type Props = {
   post: IPost
-  userData: IUserData | null
 }
 
 const steps = [
@@ -22,12 +21,11 @@ const steps = [
   { label: 'Легенда Підгорецької фортеці' }
 ]
 
-export const PostComponent: React.FC<Props> = ({ post, userData }) => {
+export const PostComponent: React.FC<Props> = ({ post }) => {
   const { _id, title, tags, small_text, cover, editor, link, likes, views, author, createdAt } = post
   const { ref, inView } = useInView({ threshold: 0 })
   const style = inView ? { position: 'absolute', top: 'auto' } : { position: 'fixed', top: '100px' }
   const { darkGray, icon } = useColors()
-  const color = userData?._id && likes.includes(userData._id) ? '#db4454' : icon
 
   return <Container >
     <Stack marginTop={10} flexDirection='row' alignItems='center' justifyContent='space-between'>
@@ -67,12 +65,7 @@ export const PostComponent: React.FC<Props> = ({ post, userData }) => {
         }
         <Stack flexDirection='row' width='100%' marginTop={2} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Stack flexDirection='row'>
-            <Box display='flex' sx={{ alignItems: 'center', margin: '0 6px' }}>
-              <IconButton sx={{ color }}>
-                <Favorite fontSize="small" />
-              </IconButton>
-              <Typography variant="body1" sx={{ color: icon }}>5</Typography>
-            </Box>
+            <Likes postId={_id} likes={likes} />
             <Views views={views} color={icon} />
           </Stack>
           <IconButton aria-label="share" sx={{ marginLeft: 'auto', color: icon }}>

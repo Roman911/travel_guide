@@ -5,6 +5,7 @@ import { PostService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
 import { Post, PostDocument } from "./posts.schema"
 import { ParamsPostInput } from './inputs/params-post.input'
+import { LikeInput } from '../likes/inputs/create-like.input'
 //import { CommentInput } from '../comments/inputs/create-comment.input'
 //import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
 
@@ -24,6 +25,11 @@ export class PostsResolver {
   @Query(() => CreatePostDto)
   async post(@Args('postID') postID: string) {
     return this.postsService.post(postID)
+  }
+
+  @Mutation(() => CreatePostDto)
+  async setLikeForPost(@Args('input') input: LikeInput) {
+    return this.postsService.setLike(input)
   }
 
   //@Mutation(() => CreatePostDto)

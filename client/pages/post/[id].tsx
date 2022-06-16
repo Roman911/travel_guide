@@ -2,14 +2,12 @@ import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import { initializeApollo } from "../../lib/apolloClient"
 import { POST } from "../../apollo/queries/posts"
-import { useTypedSelector } from '../../store/hooks/useTypedSelector'
 import { MainLayout, PostComponent, PostSkeleton } from '../../Components'
 
 const Post: NextPage = ({ data: { loading, data } }: any): any => {
-  const { userData } = useTypedSelector(state => state.user)
 
   return <MainLayout>
-    {data ? <PostComponent post={data.post} userData={userData} /> : <PostSkeleton />}
+    {data ? <PostComponent post={data.post} /> : <PostSkeleton />}
   </MainLayout>
 }
 
