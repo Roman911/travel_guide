@@ -1,10 +1,5 @@
 import React from "react"
-import Image from "next/image"
-import { Box, Container, Grid, IconButton, Link, Paper, Stack, Skeleton, Typography } from '@mui/material'
-import { Facebook, Favorite, Share, Twitter, Visibility } from '@mui/icons-material'
-import LinkIcon from '@mui/icons-material/Link'
-import { useDate } from '../../hooks/useDate'
-import { Tags, MyStepper, UserAvatar } from '../'
+import { Box, Container, Grid, Stack, Skeleton } from '@mui/material'
 
 export const PostSkeleton: React.FC = () => {
   return <Container >

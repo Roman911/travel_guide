@@ -1,0 +1,1 @@
+export { PostContainer } from './Post.container'

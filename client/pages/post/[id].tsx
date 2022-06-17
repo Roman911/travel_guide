@@ -3,7 +3,8 @@ import type { IPost } from '../../typesScript/post'
 import { GetServerSideProps } from 'next'
 import { initializeApollo } from "../../lib/apolloClient"
 import { POST } from "../../apollo/queries/posts"
-import { MainLayout, PostComponent, PostSkeleton } from '../../Components'
+import { PostContainer } from '../../modules'
+import { MainLayout, PostSkeleton } from '../../Components'
 
 interface IProps {
   data: {
@@ -17,7 +18,7 @@ interface IProps {
 const Post: NextPage<IProps> = ({ data: { loading, data } }) => {
 
   return <MainLayout>
-    {data ? <PostComponent post={data.post} /> : <PostSkeleton />}
+    {data ? <PostContainer post={data.post} /> : <PostSkeleton />}
   </MainLayout>
 }
 
