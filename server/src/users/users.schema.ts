@@ -25,7 +25,8 @@ export class User {
     facebook: { type: String },
     instagram: { type: String },
     twitter: { type: String },
-    youtube: { type: String }
+    youtube: { type: String },
+    telegram: { type: String }
   }))
   socials: Record<string, any>
   @Prop({ default: new Date })

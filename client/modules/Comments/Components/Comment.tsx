@@ -2,7 +2,7 @@ import React from "react"
 import { Box, Button, IconButton, Link, Paper, Stack, Typography } from '@mui/material'
 import { ChevronLeft } from '@mui/icons-material'
 import { useDate } from '../../../hooks/useDate'
-import { UserAvatar } from '../../../Components'
+import { UserAvatar, Rating } from '../../../Components'
 import { CreateComment } from '../Containers'
 
 type Props = {
@@ -44,8 +44,6 @@ export const Comment: React.FC<Props> = ({ item, isAnswerToComment, refetch }) =
         <Link variant="h6" underline="none" sx={{ color: '#3d4042', transition: '300ms', ':hover': { color: '#db4454' } }}>
           {author.name}
         </Link>
-        <Typography variant="subtitle2">
-        </Typography>
         <Box textAlign='end'>
           <Typography display='inline-block' variant="body2" fontSize='12px' color='#a0a0a0'>{useDate({ serverDate: createdAt })}</Typography>
           <Box>
@@ -55,11 +53,7 @@ export const Comment: React.FC<Props> = ({ item, isAnswerToComment, refetch }) =
             <IconButton size='small' >
               <ChevronLeft sx={{ transform: 'rotate(270deg)' }} />
             </IconButton>
-            <Box sx={{ display: 'inline-block', background: 'linear-gradient(90deg, #db4454,#9f406d)', width: '60px', textAlign: 'center', marginLeft: '10px', borderRadius: '2px' }}>
-              <Typography variant="subtitle2" sx={{ color: '#fff', fontSize: '12px', }}>
-                {rating}
-              </Typography>
-            </Box>
+            <Rating rating={rating} />
           </Box>
         </Box>
       </Stack>

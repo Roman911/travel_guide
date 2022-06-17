@@ -3,9 +3,17 @@ import { Container, Typography } from '@mui/material'
 import { MainLayout, SocSetBlock } from '../Components'
 
 const About: NextPage = () => {
+  const socials = {
+    facebook: 'facebook',
+    instagram: 'instagram',
+    twitter: 'twitter',
+    youtube: 'youtube',
+    telegram: 'telegram'
+  }
+
   return <MainLayout>
-    <Container maxWidth="md">
-      <Typography variant='h4' marginTop={10} marginBottom={2}>Хто ми такі?</Typography>
+    <Container maxWidth="md" sx={{ marginBottom: 6 }}>
+      <Typography variant='h4' marginTop={13} marginBottom={2}>Хто ми такі?</Typography>
       <Typography variant='body1'>Творці проекту - самі що не є звичайні люди. Ми ті, кого можна зустріти поруч у метро, ті хто п'ють каву за сусіднім столиком, кидають фрісбі в парку... і у нас ті ж проблеми, і головна з них - катастрофічний брак вільного часу. Тому намагаємося ті лічені миті вільного часу провести цікаво, з користю і морем емоцій. Ось і вирішили поділитися нашим досвідом, написати про побачене, описати пережите.</Typography>
       <Typography variant='h5' marginTop={3} marginBottom={2}>Для кого наш проект?</Typography>
       <Typography variant='body1'>Для людей бажаючих відкрити нові розваги, місця або просто бажаючих організувати собі незвичайний день. Ми розуміємо, що експериментувати складно, а ціни завжди проти нас. Тому намагаємося максимально все випробувати на собі, щоб наші рекомендації підійшли саме вам.</Typography>
@@ -20,7 +28,7 @@ const About: NextPage = () => {
       <Typography variant='h6' marginTop={3} marginBottom={2}>Контакти:</Typography>
       <Typography variant='body1'>roma-lysyk@ukr.net</Typography>
       <Typography variant='h6' marginTop={3}>Ми в соціальних мережах:</Typography>
-      <SocSetBlock />
+      <SocSetBlock socials={socials} color='fullcolor' />
     </Container>
   </MainLayout>
 }

@@ -11,3 +11,14 @@ export interface IUser {
   refreshToken: string
   accessToken: string
 }
+
+export interface IUserProfile extends IUserData {
+  aboutMy: null | string
+  socials: {
+    facebook: null | string
+    instagram: null | string
+    twitter: null | string
+    youtube: null | string
+    telegram: null | string
+  }
+}

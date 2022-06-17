@@ -1,23 +1,24 @@
 import type { NextPage } from 'next'
-import type { IPost } from '../../typesScript/post'
+import type { IUserProfile } from '../../typesScript/user'
 import { GetServerSideProps } from 'next'
 import { initializeApollo } from "../../lib/apolloClient"
-import { POST } from "../../apollo/queries/posts"
-import { MainLayout, PostComponent, PostSkeleton } from '../../Components'
+import { USER } from '../../apollo/queries/user'
+import { MainLayout } from '../../Components'
+import { UserProfile } from '../../modules'
 
 interface IProps {
   data: {
     loading: boolean
     data: {
-      post: IPost
+      user: IUserProfile
     }
   }
 }
 
-const Post: NextPage<IProps> = ({ data: { loading, data } }) => {
+const Profile: NextPage<IProps> = ({ data: { loading, data } }) => {
 
   return <MainLayout>
-    {data ? <PostComponent post={data.post} /> : <PostSkeleton />}
+    {data && <UserProfile user={data.user} />}
   </MainLayout>
 }
 
@@ -25,8 +26,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const apolloClient = initializeApollo()
 
   const data = await apolloClient.query({
-    query: POST,
-    variables: { postID: params?.id }
+    query: USER,
+    variables: { userID: params?.id }
   })
 
   return {
@@ -34,4 +35,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
-export default Post
+export default Profile

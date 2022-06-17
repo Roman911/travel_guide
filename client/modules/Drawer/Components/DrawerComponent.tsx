@@ -1,3 +1,4 @@
+import type { IUserData } from '../../../typesScript/user'
 import React from "react"
 import { Box, Button, Drawer, Link, Stack, Typography } from '@mui/material'
 import { UserAvatar } from "../../../Components"
@@ -5,15 +6,12 @@ import { UserAvatar } from "../../../Components"
 type Props = {
   drawerIsOpen: boolean
   toggleDrawer: any
+  userData: null | IUserData
   logout: () => void
-  userData: null | {
-    name: string
-    email: string
-    avatar?: string
-  }
+  redirectTo: (path: string) => void
 }
 
-export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData, logout }) => {
+export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData, logout, redirectTo }) => {
   const list = () => (
     <Box
       color='#fff'
@@ -33,7 +31,7 @@ export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, u
           <Button variant="contained" color="secondary">Додати статю</Button>
         </Stack>
         <Stack spacing={0.3} direction='column' alignItems='center' marginTop={8}>
-          <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Профіль</Link>
+          <Link onClick={() => redirectTo(`/profile/${userData?._id}`)} underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Профіль</Link>
           <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Мої публікації</Link>
           <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Налаштування</Link>
           <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Обране</Link>

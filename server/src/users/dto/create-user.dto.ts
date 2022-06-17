@@ -10,6 +10,8 @@ class Socials {
   twitter: string
   @Field({ nullable: true })
   youtube: string
+  @Field({ nullable: true })
+  telegram: string
 }
 
 @ObjectType()
