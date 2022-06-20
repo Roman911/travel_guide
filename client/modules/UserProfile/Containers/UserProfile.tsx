@@ -1,6 +1,7 @@
 import type { IUserProfile } from '../../../typesScript/user'
 import React from "react"
-import { useTypedSelector } from '../../../store/hooks'
+import { useRouter } from 'next/router'
+import { useActions, useTypedSelector } from '../../../store/hooks'
 import { UserProfileComponent } from '../Components'
 
 interface IProps {
@@ -8,8 +9,15 @@ interface IProps {
 }
 
 export const UserProfile: React.FC<IProps> = ({ user }) => {
+  const router = useRouter()
   const { userData } = useTypedSelector(state => state.user)
+  const { linearProgress } = useActions()
   const isHolder = userData?._id === user._id
 
-  return <UserProfileComponent isHolder={isHolder} user={user} />
+  const handleClickToSettings = () => {
+    linearProgress(true)
+    router.push('/profile/settings')
+  }
+
+  return <UserProfileComponent isHolder={isHolder} user={user} handleClickToSettings={handleClickToSettings} />
 }

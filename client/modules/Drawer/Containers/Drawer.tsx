@@ -22,11 +22,17 @@ export const Drawer: React.FC = () => {
     router.push(path)
   }
 
+  const handleClickToSettings = () => {
+    linearProgress(true)
+    router.push('/profile/settings')
+  }
+
   return <DrawerComponent
     drawerIsOpen={drawerIsOpen}
     toggleDrawer={toggleDrawer}
     userData={userData}
     logout={logout}
     redirectTo={redirectTo}
+    handleClickToSettings={handleClickToSettings}
   />
 }

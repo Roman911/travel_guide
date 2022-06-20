@@ -9,9 +9,10 @@ type Props = {
   userData: null | IUserData
   logout: () => void
   redirectTo: (path: string) => void
+  handleClickToSettings: () => void
 }
 
-export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData, logout, redirectTo }) => {
+export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData, logout, redirectTo, handleClickToSettings }) => {
   const list = () => (
     <Box
       color='#fff'
@@ -33,7 +34,7 @@ export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, u
         <Stack spacing={0.3} direction='column' alignItems='center' marginTop={8}>
           <Link onClick={() => redirectTo(`/profile/${userData?._id}`)} underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Профіль</Link>
           <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Мої публікації</Link>
-          <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Налаштування</Link>
+          <Link onClick={handleClickToSettings} underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Налаштування</Link>
           <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }}>Обране</Link>
           <Link underline="none" sx={{ color: '#fff', cursor: 'pointer', ':hover': { color: '#cb2c3b' } }} onClick={logout}>Вийти</Link>
         </Stack>
