@@ -1,12 +1,11 @@
 import type { NextPage } from 'next'
-import { Box, Typography } from '@mui/material'
+import { NewsPage } from '../modules'
 import { MainLayout } from '../Components'
 
 const News: NextPage = () => {
+
   return <MainLayout>
-    <Box marginTop='64px'>
-      <Typography >В розробці...</Typography>
-    </Box>
+    <NewsPage />
   </MainLayout>
 }
 

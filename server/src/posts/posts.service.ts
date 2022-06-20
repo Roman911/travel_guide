@@ -2,7 +2,7 @@ import { Model } from 'mongoose'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { ModuleRef } from "@nestjs/core"
-import { Post, PostDocument } from './posts.schema'
+import { Post, PostDocument, Posts } from './posts.schema'
 import { ParamsPostInput } from './inputs/params-post.input'
 import { TokenService } from '../token/token.service'
 import { LikeInput } from '../likes/inputs/create-like.input'
@@ -49,6 +49,23 @@ export class PostService {
     this.postModel.findByIdAndUpdate(postId, update, { new: true }).exec()
 
     return post
+  }
+
+  async posts(params: ParamsPostInput): Promise<Posts> {
+    const { page, limit } = params
+    const skip = page === 1 ? 0 : page * limit
+
+    const allPosts = await this.postModel.find().exec()
+    const posts = await this.postModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit).populate('author').exec()
+    const total_posts = allPosts.length
+    const total_pages = Math.ceil(total_posts / limit)
+
+    return {
+      page,
+      total_pages,
+      total_posts,
+      posts: posts
+    }
   }
 
   //async addComment(CreatePostDto: CommentInput): Promise<Post> {

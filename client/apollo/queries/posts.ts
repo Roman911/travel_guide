@@ -11,9 +11,26 @@ export const POSTS = gql`
       views
       likes
       createdAt
-      author {
-        name
-        avatar
+      ${Author}
+    }
+  }
+`
+
+export const POSTS_AND_PARAMS = gql`
+  query postsAndParams($input: ParamsPostInput!) {
+    postsAndParams(input: $input) {
+      page
+      total_pages
+      total_posts
+      posts {
+        _id
+        title
+        cover
+        small_text
+        views
+        likes
+        createdAt
+        ${Author}
       }
     }
   }

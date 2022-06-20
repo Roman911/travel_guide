@@ -2,7 +2,7 @@ import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
 import { Args, Resolver, Query, Mutation } from '@nestjs/graphql'
 import { PostService } from './posts.service'
-import { CreatePostDto } from './dto/create-post.dto'
+import { CreatePostDto, CreatePostsDto } from './dto/create-post.dto'
 import { Post, PostDocument } from "./posts.schema"
 import { ParamsPostInput } from './inputs/params-post.input'
 import { LikeInput } from '../likes/inputs/create-like.input'
@@ -16,6 +16,11 @@ export class PostsResolver {
     @InjectModel(Post.name)
     private postModel: Model<PostDocument>
   ) { }
+
+  @Query(() => CreatePostsDto)
+  async postsAndParams(@Args('input') input: ParamsPostInput) {
+    return this.postsService.posts(input)
+  }
 
   @Query(() => [CreatePostDto])
   async posts(@Args('input') input: ParamsPostInput) {

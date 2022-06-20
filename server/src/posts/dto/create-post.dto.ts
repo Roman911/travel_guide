@@ -47,3 +47,15 @@ export class CreatePostDto {
   @Field(type => CreateUserDto, { nullable: true })
   author: CreateUserDto
 }
+
+@ObjectType()
+export class CreatePostsDto {
+  @Field(() => Int)
+  page: number
+  @Field(() => Int)
+  total_pages: number
+  @Field(() => Int)
+  total_posts: number
+  @Field(type => [CreatePostDto])
+  posts: CreatePostDto[]
+}

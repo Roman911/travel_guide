@@ -50,3 +50,17 @@ export class Post {
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post)
+
+@Schema()
+export class Posts {
+  @Prop()
+  page: number
+  @Prop()
+  total_pages: number
+  @Prop()
+  total_posts: number
+  @Prop({ type: [PostSchema] })
+  posts: Post[]
+}
+
+export const PostsSchema = SchemaFactory.createForClass(Posts)

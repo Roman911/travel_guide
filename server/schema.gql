@@ -77,6 +77,13 @@ type CreatePostDto {
   author: CreateUserDto
 }
 
+type CreatePostsDto {
+  page: Int!
+  total_pages: Int!
+  total_posts: Int!
+  posts: [CreatePostDto!]!
+}
+
 type CreateTokenDto {
   userId: ID
   refreshToken: String!
@@ -84,6 +91,7 @@ type CreateTokenDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
+  postsAndParams(input: ParamsPostInput!): CreatePostsDto!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
   post(postID: String!): CreatePostDto!
   users: [CreateUserDto!]!

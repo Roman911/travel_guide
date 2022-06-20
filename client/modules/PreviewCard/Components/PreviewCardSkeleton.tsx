@@ -1,8 +1,12 @@
 import React from "react"
 import { Box, Card, CardContent, CardHeader, Grid, Skeleton } from '@mui/material'
 
-export const PreviewCardSKeleton: React.FC = () => {
-  return <Grid item xs={12} sm={6} md={3} p={1}>
+type Props = {
+  md?: number
+}
+
+export const PreviewCardSKeleton: React.FC<Props> = ({ md }) => {
+  return <Grid item xs={12} sm={6} md={md ? md : 3} p={1}>
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={<Skeleton animation="wave" variant="circular" width={40} height={40} />}

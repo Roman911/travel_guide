@@ -15,12 +15,13 @@ interface IProps {
   }
   handleClick: () => void
   useDate: ({ serverDate, format }: { serverDate: string, format: string }) => string
+  md?: number
 }
 
-export const PreviewCardComponent: React.FC<IProps> = ({ usedId, item, colors: { icon, red }, handleClick, useDate }) => {
+export const PreviewCardComponent: React.FC<IProps> = ({ usedId, item, colors: { icon, red }, handleClick, useDate, md }) => {
   const { _id, title, cover, small_text, views, likes, createdAt, author: { name, avatar } } = item
 
-  return <Grid item xs={12} sm={6} md={3} p={1}>
+  return <Grid item xs={12} sm={6} md={md || 3} p={1}>
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={<UserAvatar size={40} name={name} avatar={avatar} />}
