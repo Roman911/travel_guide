@@ -6,6 +6,7 @@ import { UserAvatar, Rating, SocSetBlock } from '../../../Components'
 interface IProps {
   isHolder: boolean
   user: IUserProfile
+  handleClickToSettings: () => void
 }
 
 function TabPanel(props: any) {
@@ -28,7 +29,7 @@ function TabPanel(props: any) {
   );
 }
 
-export const UserProfileComponent: React.FC<IProps> = ({ isHolder, user }) => {
+export const UserProfileComponent: React.FC<IProps> = ({ isHolder, user, handleClickToSettings }) => {
   const [value, setValue] = React.useState(0)
   const { avatar, name, aboutMy, rating, socials } = user
 
@@ -40,7 +41,7 @@ export const UserProfileComponent: React.FC<IProps> = ({ isHolder, user }) => {
   }
 
   const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
+    setValue(newValue)
   };
 
   return <Container maxWidth="lg">
@@ -62,7 +63,7 @@ export const UserProfileComponent: React.FC<IProps> = ({ isHolder, user }) => {
             </Box>
           </Stack>
           <Stack alignItems='flex-end' justifyContent='space-between'>
-            {isHolder && <Button variant="contained" color="secondary">Налаштування</Button>}
+            {isHolder && <Button onClick={handleClickToSettings} variant="contained" color="secondary">Налаштування</Button>}
             <SocSetBlock color='fullcolor' socials={socials} />
           </Stack>
         </Stack>
