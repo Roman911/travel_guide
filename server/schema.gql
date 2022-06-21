@@ -119,6 +119,7 @@ type Mutation {
   setLikeForPost(input: LikeInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
+  updateUser(input: UpdateUserInput!): CreateUserDataDto!
 }
 
 input CommentInput {
@@ -147,4 +148,19 @@ input RegistrationUserInput {
   name: String!
   email: String!
   password: String!
+}
+
+input UpdateUserInput {
+  token: String!
+  name: String!
+  aboutMy: String!
+  socials: Socialss!
+}
+
+input Socialss {
+  facebook: String
+  instagram: String
+  twitter: String
+  youtube: String
+  telegram: String
 }

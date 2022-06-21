@@ -1,6 +1,6 @@
 import React from "react"
 import { IconButton, Stack } from '@mui/material'
-import { Instagram, Facebook, Link, Telegram, Twitter, YouTube } from '@mui/icons-material'
+import { Instagram, Facebook, Telegram, Twitter, YouTube } from '@mui/icons-material'
 import { useColors } from '../../hooks/useColors'
 
 type Props = {

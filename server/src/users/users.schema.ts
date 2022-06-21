@@ -22,11 +22,11 @@ export class User {
   @Prop()
   aboutMy: string
   @Prop(raw({
-    facebook: { type: String },
-    instagram: { type: String },
-    twitter: { type: String },
-    youtube: { type: String },
-    telegram: { type: String }
+    facebook: { type: String, default: '' },
+    instagram: { type: String, default: '' },
+    twitter: { type: String, default: '' },
+    youtube: { type: String, default: '' },
+    telegram: { type: String, default: '' }
   }))
   socials: Record<string, any>
   @Prop({ default: new Date })
@@ -34,3 +34,15 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
+
+@Schema()
+export class UserData {
+  @Prop({ type: UserSchema })
+  user: User
+  @Prop()
+  refreshToken: string
+  @Prop()
+  accessToken: string
+}
+
+export const UserDataSchema = SchemaFactory.createForClass(UserData)

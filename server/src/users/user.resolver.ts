@@ -1,11 +1,10 @@
 import { ModuleRef } from "@nestjs/core"
 import { InjectModel } from "@nestjs/mongoose"
-import { Model, ObjectId } from "mongoose"
+import { Model } from "mongoose"
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql'
 import { UsersService } from './users.service'
 import { CreateUserDto, CreateUserDataDto } from './dto/create-user.dto'
-import { RegistrationUserInput } from "./inputs/registration-user.input"
-import { LoginUserInput } from "./inputs/login-user.input"
+import { LoginUserInput, RegistrationUserInput, UpdateUserInput } from "./inputs"
 import { User, UserDocument } from "./users.schema"
 
 @Resolver()
@@ -55,5 +54,10 @@ export class UsersResolver {
   @Mutation(() => CreateUserDataDto)
   async registration(@Args('input') input: RegistrationUserInput) {
     return await this.usersService.registration(input)
+  }
+
+  @Mutation(() => CreateUserDataDto)
+  async updateUser(@Args('input') input: UpdateUserInput) {
+    return await this.usersService.updateUserData(input)
   }
 }

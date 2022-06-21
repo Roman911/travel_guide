@@ -16,6 +16,15 @@ export const Theme: React.FC<Props> = ({ children }) => {
       secondary: {
         main: '#cb2c3b'
       }
+    },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1120,
+        xl: 1536
+      }
     }
   })
 

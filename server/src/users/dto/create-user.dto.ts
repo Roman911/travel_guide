@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql'
 
 @ObjectType()
-class Socials {
+export class Socials {
   @Field({ nullable: true })
   facebook: string
   @Field({ nullable: true })

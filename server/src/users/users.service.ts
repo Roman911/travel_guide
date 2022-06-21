@@ -1,12 +1,11 @@
-import { Model, ObjectId } from 'mongoose'
+import { Model } from 'mongoose'
 import { Injectable, BadRequestException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { ModuleRef } from "@nestjs/core"
 import { compare, hash } from "bcrypt"
 import { v4 } from "uuid"
-import { User, UserDocument } from './users.schema'
-import { RegistrationUserInput } from "./inputs/registration-user.input"
-import { LoginUserInput } from './inputs/login-user.input'
+import { User, UserData, UserDocument } from './users.schema'
+import { LoginUserInput, RegistrationUserInput, UpdateUserInput } from "./inputs"
 import { TokenService } from "../token/token.service"
 import { MailService } from "../mail/mail.service"
 import { UserTokenService } from "./user-token.service"
@@ -87,5 +86,24 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec()
+  }
+
+  async updateUserData(createUserDto: UpdateUserInput): Promise<any> {
+    const { token, name, aboutMy, socials } = createUserDto
+
+    const update = {
+      name,
+      aboutMy,
+      socials
+    }
+
+    this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
+    const userData = this.tokenService.validateRefreshToken(token)
+    await this.userModel.findByIdAndUpdate(userData._id, update, { new: true }).exec()
+    const user = await this.userModel.findById(userData._id).exec()
+
+    this.userTokenService = await this.moduleRef.get(UserTokenService, { strict: false })
+
+    return await this.userTokenService.userTokenData(user)
   }
 }

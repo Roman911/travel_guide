@@ -1,8 +1,9 @@
 import React from "react"
 import type { IUserData } from '../../../typesScript'
-import { Badge, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, Stack, Typography, styled } from '@mui/material'
+import { Badge, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, Stack, TextField, Typography, styled } from '@mui/material'
 import { PhotoCamera } from '@mui/icons-material'
 import { UserAvatar } from '../../../Components'
+import { SettingForm } from './'
 
 interface IProps {
   userData: IUserData
@@ -29,7 +30,7 @@ export const SettingsComponent: React.FC<IProps> = ({ userData }) => {
   }))
 
   return <Container maxWidth='lg'>
-    <Typography marginTop={10} textTransform='uppercase' variant="h2" >
+    <Typography marginTop={10} textTransform='uppercase' variant="h2" sx={{ fontSize: {xs: '2rem', sm: '2.75rem', md: '3.75rem'} }} >
       Налаштування
       </Typography>
     <Paper elevation={6} sx={{ padding: 4 }}>
@@ -37,7 +38,7 @@ export const SettingsComponent: React.FC<IProps> = ({ userData }) => {
         Профіль
       </Typography>
       <Grid container spacing={2} >
-        <Grid item xs={2}>
+        <Grid item xs={12} md={2} lg={2} sx={{textAlign: { xs: 'center', md: 'left' }}}>
           <Badge
             overlap="circular"
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -49,15 +50,8 @@ export const SettingsComponent: React.FC<IProps> = ({ userData }) => {
             <UserAvatar avatar={userData.avatar} size={140} />
           </Badge>
         </Grid>
-        <Grid item xs={10}>
-          <Grid container spacing={2} >
-            <Grid item xs={8}>
-              Grid item xs={8}
-            </Grid>
-            <Grid item xs={4}>
-              Grid item xs={4}
-            </Grid>
-          </Grid>
+        <Grid item xs={12} md={10} lg={10}>
+          <SettingForm />
         </Grid>
       </Grid>
     </Paper>

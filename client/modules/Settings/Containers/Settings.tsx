@@ -1,6 +1,5 @@
 import React from "react"
 import type { IUserData } from '../../../typesScript'
-import Redirect from '../../../hooks/useRedirect'
 import { SettingsComponent } from '../Components'
 
 interface IProps {
@@ -8,7 +7,5 @@ interface IProps {
 }
 
 export const SettingsContainer: React.FC<IProps> = ({ userData }) => {
-  if(!userData) return <Redirect href='/' />
-
   return <SettingsComponent userData={userData} />
 }
