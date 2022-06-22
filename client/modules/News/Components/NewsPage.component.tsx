@@ -23,14 +23,12 @@ interface IProps {
 }
 
 export const NewsPageComponent: React.FC<IProps> = ({ loading, error, data }) => {
-  const postsVievs = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-
   const post = data?.postsAndParams.posts.map(i => {
     return <PreviewCard key={i._id} item={i} usedId={'usedId'} md={3} />
   })
 
-  const postsSkeleton = postsVievs.map(i => {
-    return <PreviewCardSKeleton key={i} md={3} />
+  const postsSkeleton = [...Array(9)].map((i, index) => {
+    return <PreviewCardSKeleton key={index} md={3} />
   })
 
   //const page = parseInt(query.get('page') || '1', 10)

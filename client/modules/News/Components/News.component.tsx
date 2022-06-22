@@ -21,14 +21,13 @@ type Props = {
 
 export const NewsComponent: React.FC<Props> = ({ title, link, linkTitle, loading, error, data, userData, clickToNextPage }) => {
   const usedId = userData?._id
-  const postsVievs = ['1', '2', '3', '4', '5', '6', '7', '8']
 
   const posts = data?.posts?.map(i => {
     return <PreviewCard key={i._id} item={i} usedId={usedId} />
   })
 
-  const postsSkeleton = postsVievs.map(i => {
-    return <PreviewCardSKeleton key={i} />
+  const postsSkeleton = [...Array(8)].map((i, index) => {
+    return <PreviewCardSKeleton key={index} />
   })
 
   return <Container maxWidth='xl'>
