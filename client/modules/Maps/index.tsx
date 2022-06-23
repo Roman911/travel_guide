@@ -1,1 +1,1 @@
-export { MapsContainer } from './Containers'
+export { MapsContainer, RightMenu } from './Containers'
