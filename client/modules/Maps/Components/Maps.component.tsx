@@ -6,9 +6,10 @@ type Props = {
   center: google.maps.LatLngLiteral
   options: google.maps.MapOptions
   onLoad: any
+  settlement?: google.maps.LatLngLiteral
 }
 
-export const MapsComponents: React.FC<Props> = ({ center, options, onLoad }) => {
+export const MapsComponents: React.FC<Props> = ({ center, options, onLoad, settlement }) => {
   return <GoogleMap
     zoom={6}
     center={center}
@@ -16,6 +17,8 @@ export const MapsComponents: React.FC<Props> = ({ center, options, onLoad }) => 
     options={options}
     onLoad={onLoad}
   >
-
+    {
+      settlement && <Marker position={settlement} />
+    }
   </GoogleMap>
 }

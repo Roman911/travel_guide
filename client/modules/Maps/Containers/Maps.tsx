@@ -18,17 +18,17 @@ export const MapsContainer: React.FC = () => {
     clickableIcons: false
   }), [])
 
-  const onLoad = React.useCallback(map => (mapRef.current = map), [])
+  const onLoad = React.useCallback((map: any) => (mapRef.current = map), [])
 
   return <Grid marginTop='80px' container height='calc(100vh - 80px)'>
     <Grid item xs={10}>
-      <MapsComponents options={options} center={center} onLoad={onLoad} />
+      <MapsComponents options={options} center={center} onLoad={onLoad} settlement={settlement} />
     </Grid>
     <Grid item xs={2}>
       <RightMenu >
         <Places setSettlement={position => {
           setSettlement(position),
-          mapRef.current?.panTo(position)
+            mapRef.current?.panTo(position)
         }} />
       </RightMenu>
     </Grid>
