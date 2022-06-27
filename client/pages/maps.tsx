@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useLoadScript } from '@react-google-maps/api'
+import { GoogleMap, Marker, DirectionsRenderer, Circle, MarkerClusterer } from '@react-google-maps/api'
 import { MapsContainer } from '../modules'
 import { MainLayout } from '../Components'
 
@@ -10,9 +11,9 @@ const Maps: NextPage = () => {
     libraries: ['places']
   })
 
-  if(!isLoaded) return <p>Loading...</p>
+  if (!isLoaded) return <p>Loading...</p>
 
-  return <MainLayout>
+  return <MainLayout >
     <MapsContainer />
   </MainLayout>
 }
