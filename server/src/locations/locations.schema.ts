@@ -5,13 +5,19 @@ import { User } from '../users/users.schema'
 export type LocationDocument = Location & mongoose.Document
 
 @Schema()
+class Upload {
+  @Prop()
+  url: string
+}
+
+@Schema()
 export class Location {
   @Prop()
   title: string
   @Prop()
   small_text: string
-  @Prop()
-  cover: string
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Upload'})
+  cover: Upload
   @Prop()
   coordinates: string[]
   @Prop()

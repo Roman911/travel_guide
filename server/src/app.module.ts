@@ -12,6 +12,7 @@ import { LocationsModule } from './locations/locations.module'
 import { MailModule } from './mail/mail.module'
 import { PostsModule } from './posts/posts.module'
 import { TokenModule } from "./token/token.module"
+import { UploadModule } from './uploadFile/uploadFile.module'
 import { UsersModule } from './users/users.module'
 
 @Module({
@@ -21,6 +22,7 @@ import { UsersModule } from './users/users.module'
     MailModule,
     PostsModule,
     TokenModule,
+    UploadModule,
     UsersModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({ driver: ApolloDriver, autoSchemaFile: 'schema.gql' }),
     MongooseModule.forRoot(`mongodb+srv://Roman:${MONGO_DB_KEY}@cluster0-vogsm.mongodb.net/travel?retryWrites=true&w=majority`),

@@ -17,7 +17,7 @@ export class LocationService {
   ) { }
 
   async location(locationID: string): Promise<Location> {
-    return this.locationModel.findById(locationID).populate('author').exec()
+    return this.locationModel.findById(locationID).populate('author').populate('cover').exec()
   }
 
   async findAll(): Promise<Location[]> {
