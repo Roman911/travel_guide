@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost'
 
 export const ALL_LOCATIONS = gql`
-  query allLocationsAll {
-    allLocations {
+  query locations {
+    locations {
       _id
       coordinates
       isType
