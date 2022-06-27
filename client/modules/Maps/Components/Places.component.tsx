@@ -15,9 +15,7 @@ export const PlacesComponent: React.FC<Props> = ({ value, setValue, status, data
   return <Autocomplete
     disablePortal
     id="combo-box-demo"
-    onChange={(event, newValue) => {
-      handleSelect(newValue)
-    }}
+    onChange={(event, newValue) => { handleSelect(newValue) }}
     options={status === 'OK' ? data.map(({ description }) => description) : []}
     fullWidth
     disableClearable

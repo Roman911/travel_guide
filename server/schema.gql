@@ -54,6 +54,18 @@ type CreateCommentDto {
   author: CreateUserDto
 }
 
+type CreateLocationDto {
+  _id: String!
+  title: String!
+  small_text: String!
+  cover: String!
+  coordinates: [String!]!
+  isType: String!
+  address: [String!]!
+  createdAt: DateTime!
+  author: CreateUserDto
+}
+
 type CreatePostDto {
   _id: String!
   editor: String!
@@ -91,6 +103,8 @@ type CreateTokenDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
+  locations: [CreateLocationDto!]!
+  location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
   post(postID: String!): CreatePostDto!

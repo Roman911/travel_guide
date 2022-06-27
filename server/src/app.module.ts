@@ -8,6 +8,7 @@ import { MONGO_DB_KEY } from './config'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CommentsModule } from './comments/comments.module'
+import { LocationsModule } from './locations/locations.module'
 import { MailModule } from './mail/mail.module'
 import { PostsModule } from './posts/posts.module'
 import { TokenModule } from "./token/token.module"
@@ -16,6 +17,7 @@ import { UsersModule } from './users/users.module'
 @Module({
   imports: [
     CommentsModule,
+    LocationsModule,
     MailModule,
     PostsModule,
     TokenModule,
