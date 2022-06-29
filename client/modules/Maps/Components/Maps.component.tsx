@@ -1,6 +1,7 @@
 import React from "react"
-import { GoogleMap, Marker, DirectionsRenderer, Circle, MarkerClusterer } from '@react-google-maps/api'
+import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api'
 import { Box, Grid, Paper, Typography } from '@mui/material'
+import { Markers } from './'
 
 type Props = {
   center: google.maps.LatLngLiteral
@@ -22,39 +23,6 @@ export const MapsComponents: React.FC<Props> = ({ center, options, onLoad, settl
     options={options}
     onLoad={onLoad}
   >
-    {
-      //locations && <MarkerClusterer >
-      //{(clusterer) => locations.map(i => {
-      // const [lat, lng] = i.coordinates
-      //return <Marker
-      // key={i._id}
-      // clusterer={clusterer}
-      // position={{ lat: Number(lat), lng: Number(lng) }}
-      //icon={{
-      // url: `/static/images/${i.isType}.png`
-      // }}
-      // />
-      // })}
-      // </MarkerClusterer>
-    }
-    {
-      locations?.map(i => {
-        const [lat, lng] = i.coordinates
-        return <Marker
-          key={i._id}
-          position={{ lat: Number(lat), lng: Number(lng) }}
-          icon={{
-            url: `/static/images/${i.isType}.png`
-          }}
-        />
-      })
-    }
-    {
-      settlement && <Marker position={settlement} />
-    }
+    <Markers locations={locations} settlement={settlement} />
   </GoogleMap>
-}
-
-function createKey(location: { lat: number; lng: number }): React.Key {
-  throw new Error("Function not implemented.")
 }

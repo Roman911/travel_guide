@@ -1,8 +1,8 @@
 import { IPost } from '../../../typesScript/post'
 import { IUserData } from '../../../typesScript/user'
 import React from "react"
-import { Box, Container, Grid, Pagination, PaginationItem, Stack, Typography } from '@mui/material'
-import { PreviewCard } from '../../'
+import { Container, Grid, Pagination, PaginationItem, Stack, Typography } from '@mui/material'
+import { PreviewCard, Regions } from '../../'
 import { PreviewCardSKeleton } from '../../PreviewCard/Components'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -50,30 +50,10 @@ export const NewsPageComponent: React.FC<IProps> = ({ loading, error, data }) =>
         </Grid>
       </Grid>
       <Grid item xs={2}>
-        <Typography variant='h6'>
-          Області
-        </Typography>
-        <Typography variant='subtitle2'>
-          Львівська
-        </Typography>
-        <Typography variant='subtitle2'>
-          Рівненська
-        </Typography>
-        <Typography variant='subtitle2'>
-          Сумська
-        </Typography>
-        <Typography variant='subtitle2'>
-          Чернігівська
-        </Typography>
-        <Typography variant='subtitle2'>
-          Черкаська
-        </Typography>
-        <Typography variant='subtitle2'>
-          Закарпатьська
-        </Typography>
+        <Regions />
       </Grid>
     </Grid>
-    <Stack spacing={2}>
+    <Stack spacing={2} marginTop={4} direction='row' justifyContent='center'>
       <Pagination
         count={10}
         renderItem={(item) => (

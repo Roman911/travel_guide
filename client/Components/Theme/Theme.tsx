@@ -15,6 +15,9 @@ export const Theme: React.FC<Props> = ({ children }) => {
       mode: myTheme,
       secondary: {
         main: '#cb2c3b'
+      },
+      success: {
+        main: '#a5a5a5'
       }
     },
     breakpoints: {
