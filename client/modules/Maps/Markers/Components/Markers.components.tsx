@@ -8,9 +8,10 @@ type Props = {
     coordinates: string[]
     isType: string
   }[]
+  openDrawerGM: (locationID: string) => void
 }
 
-export const Markers: React.FC<Props> = ({ locations, settlement }) => {
+export const MarkersComponent: React.FC<Props> = ({ locations, settlement, openDrawerGM }) => {
   return <>
     {
       locations && <MarkerClusterer >
@@ -22,6 +23,7 @@ export const Markers: React.FC<Props> = ({ locations, settlement }) => {
           key={i._id}
           position={{ lat: Number(lat), lng: Number(lng) }}
           clusterer={clusterer}
+          onClick={() => openDrawerGM(i._id)}
           icon={{
             url: `/static/images/${i.isType}.png`
           }}

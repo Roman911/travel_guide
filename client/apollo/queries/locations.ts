@@ -17,11 +17,9 @@ export const LOCATION = gql`
       title
       small_text
       address
+      coordinates
       cover {
         url
-      }
-      post {
-        _id
       }
     }
   }

@@ -38,7 +38,7 @@ export const HeaderComponent: React.FC<Props> = ({ theme, pathname, userData, ha
     </Button>
   })
 
-  return <AppBar position="fixed" sx={{ backgroundColor: theme === 'dark' ? '#1A2027' : '#fff' }}>
+  return <AppBar position="fixed" sx={{ backgroundColor: theme === 'dark' ? '#1A2027' : '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
     <Toolbar >
       <Box sx={{ paddingRight: 1, flexGrow: { xs: 1, sm: 1, md: 0 } }}>
         <Logo />

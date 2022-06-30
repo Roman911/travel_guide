@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, Button, ButtonGroup, Typography } from '@mui/material'
-import { Regions } from '../../'
+import { Regions } from '../../../'
 
 type Props = {
   children: React.ReactNode

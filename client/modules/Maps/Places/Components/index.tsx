@@ -1,0 +1,1 @@
+export { PlacesComponent } from './Places.component'

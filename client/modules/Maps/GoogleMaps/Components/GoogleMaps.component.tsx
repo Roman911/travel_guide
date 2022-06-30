@@ -1,7 +1,6 @@
 import React from "react"
-import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api'
-import { Box, Grid, Paper, Typography } from '@mui/material'
-import { Markers } from './'
+import { GoogleMap } from '@react-google-maps/api'
+import { Markers } from '../../'
 
 type Props = {
   center: google.maps.LatLngLiteral
@@ -15,7 +14,7 @@ type Props = {
   }[]
 }
 
-export const MapsComponents: React.FC<Props> = ({ center, options, onLoad, settlement, locations }) => {
+export const GoogleMapsComponents: React.FC<Props> = ({ center, options, onLoad, settlement, locations }) => {
   return <GoogleMap
     zoom={6}
     center={center}

@@ -1,6 +1,6 @@
 import React from "react"
-import { Autocomplete, Box, InputLabel, InputAdornment, FormControl, OutlinedInput, Typography, TextField } from '@mui/material'
-import { Padding, Search } from '@mui/icons-material'
+import { Autocomplete, InputAdornment, TextField } from '@mui/material'
+import { Search } from '@mui/icons-material'
 
 type Props = {
   value: any
@@ -11,7 +11,6 @@ type Props = {
 }
 
 export const PlacesComponent: React.FC<Props> = ({ value, setValue, status, data, handleSelect }) => {
-
   return <Autocomplete
     disablePortal
     id="combo-box-demo"
