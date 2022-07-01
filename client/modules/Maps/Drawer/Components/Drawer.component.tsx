@@ -51,12 +51,14 @@ export const DrawerComponent: React.FC<Props> = ({ isOpen, closeDrawerGM, loadin
       </IconButton>
     </Box>
     <Box position='relative'>
-      <Image
-        src={location?.cover.url}
-        layout="responsive"
-        width={399}
-        height={260}
-      />
+      {
+        location && <Image
+          src={location?.cover.url}
+          layout="responsive"
+          width={399}
+          height={260}
+        />
+      }
       <Stack direction='row' sx={{position: 'absolute', bottom: 0, background: 'rgba(0, 0, 0, 0.5)', width: '100%'}}>
         <Likes postId="156vfd" likes={['vfdvf','vfdvfd']} />
         <Views views={5} color={'red'} />
@@ -69,7 +71,7 @@ export const DrawerComponent: React.FC<Props> = ({ isOpen, closeDrawerGM, loadin
     <Box padding="0 20px 20px" sx={{borderBottom: '1px solid #c4c4c4'}}>
       <Tags tags={['#hhh','#ggg']} />
       <Typography variant="body1" marginTop={2}>
-        { location.small_text }
+        { location?.small_text }
       </Typography>
       <Stack direction='row' alignItems='center' marginTop={2}>
         Більше <Link underline="none" marginLeft='5px'><LinkNext href={'/'}>тут</LinkNext></Link>
@@ -79,13 +81,13 @@ export const DrawerComponent: React.FC<Props> = ({ isOpen, closeDrawerGM, loadin
       <Stack direction='row' alignItems='center'>
         <FmdGood />
         <Typography variant="body2" marginLeft={1}>
-          {location.address.join(', ')}
+          {location?.address.join(', ')}
         </Typography>
       </Stack>
       <Stack direction='row' alignItems='center' marginTop={2}>
         <GpsFixed />
         <Typography variant="body2" marginLeft={1}>
-          {location.coordinates.join(', ')}
+          {location?.coordinates.join(', ')}
         </Typography>
       </Stack>
     </Box>
