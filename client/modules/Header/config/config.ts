@@ -4,12 +4,12 @@ export const linksConfig = [
     title: 'Новини'
   },
   {
-    path: '/directions',
-    title: 'Маршрути'
+    path: '/maps',
+    title: 'Цікаві місця'
   },
   {
-    path: '/maps',
-    title: 'Карти'
+    path: '/directions',
+    title: 'Маршрути'
   },
   {
     path: '/about',

@@ -17,14 +17,9 @@ export const Drawer: React.FC = () => {
     removeData()
   }
 
-  const redirectTo = (path: string) => {
+  const handleClick = (path: string) => {
     linearProgress(true)
     router.push(path)
-  }
-
-  const handleClickToSettings = () => {
-    linearProgress(true)
-    router.push('/profile/settings')
   }
 
   return <DrawerComponent
@@ -32,7 +27,6 @@ export const Drawer: React.FC = () => {
     toggleDrawer={toggleDrawer}
     userData={userData}
     logout={logout}
-    redirectTo={redirectTo}
-    handleClickToSettings={handleClickToSettings}
+    handleClick={handleClick}
   />
 }

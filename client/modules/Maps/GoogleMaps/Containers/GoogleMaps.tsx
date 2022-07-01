@@ -3,7 +3,7 @@ import { GoogleMap } from '@react-google-maps/api'
 import { useQuery } from "@apollo/react-hooks"
 import { Grid } from '@mui/material'
 import { GoogleMapsComponents } from '../Components'
-import { Drawer, Places, RightMenu } from '../../'
+import { Drawer, Places, RightMenu, SpeedDial } from '../../'
 import { ALL_LOCATIONS } from '../../../../apollo/queries/locations'
 
 type LatLngLiteral = google.maps.LatLngLiteral
@@ -27,6 +27,7 @@ export const GoogleMaps: React.FC = () => {
     <Grid item xs={10}>
       <GoogleMapsComponents options={options} center={center} onLoad={onLoad} settlement={settlement} locations={data?.locations} />
       <Drawer />
+      <SpeedDial />
     </Grid>
     <Grid item xs={2}>
       <RightMenu >
