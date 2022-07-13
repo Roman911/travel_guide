@@ -1,6 +1,6 @@
 import React from "react"
-import { AppBar, Avatar, Box, Button, FormControlLabel, IconButton, Toolbar, Typography, Stack, styled } from '@mui/material'
-import { NotificationsOutlined, PermIdentity, Search } from '@mui/icons-material'
+import { AppBar, Box, Button, FormControlLabel, IconButton, Toolbar, Typography, Stack, styled } from '@mui/material'
+import { NotificationsOutlined, Search } from '@mui/icons-material'
 import { blue, grey } from '@mui/material/colors'
 import { Logo, UserAvatar } from '../../../Components'
 import { linksConfig } from '../config/config'
@@ -19,7 +19,7 @@ type Props = {
   }
 }
 
-export const HeaderComponent: React.FC<Props> = ({ theme, pathname, userData, handleClick, handleClickUser, changeSetTheme }) => {
+const HeaderComponent: React.FC<Props> = ({ theme, pathname, userData, handleClick, handleClickUser, changeSetTheme }) => {
   const UnderLine = styled('span')(({ theme }) => ({
     borderBottom: `2px solid ${blue[700]}`,
     position: 'absolute',
@@ -37,6 +37,8 @@ export const HeaderComponent: React.FC<Props> = ({ theme, pathname, userData, ha
       {pathname === i.path && <UnderLine />}
     </Button>
   })
+
+  console.log('render: module Header, Components, HeaderComponent', userData)
 
   return <AppBar position="fixed" sx={{ backgroundColor: theme === 'dark' ? '#1A2027' : '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
     <Toolbar >
@@ -61,14 +63,11 @@ export const HeaderComponent: React.FC<Props> = ({ theme, pathname, userData, ha
           <NotificationsOutlined />
         </IconButton>
         <IconButton sx={{ p: 0 }} onClick={handleClickUser}>
-          {
-            userData ? <UserAvatar size={34} avatar={userData.avatar} name={userData.name} /> :
-              <Avatar sx={{ width: 32, height: 32, color: '#fff' }}>
-                <PermIdentity />
-              </Avatar>
-          }
+        <UserAvatar size={34} userData={userData} />
         </IconButton>
       </Stack>
     </Toolbar>
   </AppBar>
 }
+
+export default React.memo(HeaderComponent)

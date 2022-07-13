@@ -1,1 +1,1 @@
-export { DrawerComponent } from './Drawer.component'
+export { default as DrawerComponent } from './Drawer.component'

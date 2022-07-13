@@ -18,7 +18,7 @@ type Props = {
   }
 }
 
-export const AuthLayout: React.FC<Props> = ({ children, title, subtitle, bottomText }) => {
+const AuthLayout: React.FC<Props> = ({ children, title, subtitle, bottomText }) => {
   const router = useRouter()
   const { linearProgress: progress } = useTypedSelector(state => state.progress)
   const { linearProgress } = useActions()
@@ -27,12 +27,14 @@ export const AuthLayout: React.FC<Props> = ({ children, title, subtitle, bottomT
     linearProgress(false)
   }, [])
 
-  const handleClick = () => {
+  const handleClick = React.useCallback(() => {
     router.back()
     setTimeout(() => {
       router.push('/')
     }, 1000)
-  }
+  }, [])
+
+  console.log('render: Components, AuthLayout')
 
   return <Layout>
     <Box>
@@ -98,3 +100,5 @@ export const AuthLayout: React.FC<Props> = ({ children, title, subtitle, bottomT
     </Box>
   </Layout>
 }
+
+export default React.memo(AuthLayout)

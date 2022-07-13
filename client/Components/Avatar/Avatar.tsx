@@ -1,19 +1,24 @@
 import React from "react"
 import { Avatar } from '@mui/material'
+import { PermIdentity } from '@mui/icons-material'
 
 type Props = {
   size: number
-  avatar?: string
-  name?: string
   sx?: any
+  userData?: {
+    avatar?: string
+    name: string
+  }
 }
 
-export const UserAvatar: React.FC<Props> = ({ size, avatar, name, sx }) => {
+const UserAvatar: React.FC<Props> = ({ size, userData, sx }) => {
   const params = { width: size, height: size, color: '#fff', ...sx }
 
-  return avatar ?
-    <Avatar sx={params} alt={name} src={`http://localhost:3005/images${avatar}`} /> :
-    <Avatar sx={params}>
-      {name?.[0]}
-    </Avatar>
+  console.log('render: Components, UserAvatar')
+
+  return <Avatar sx={params} alt={userData?.name} src={userData?.avatar && `http://localhost:3005/images${userData?.avatar}`} >
+    { !userData && <PermIdentity /> }
+  </Avatar>
 }
+
+export default React.memo(UserAvatar)

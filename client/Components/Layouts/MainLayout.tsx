@@ -9,7 +9,7 @@ type Props = {
   img?: string
 }
 
-export const MainLayout: React.FC<Props> = ({ children, img }) => {
+const MainLayout: React.FC<Props> = ({ children, img }) => {
   //const callback = (id: any, phase: any, actualTime: any, baseTime: any, startTime: any, commitTime: any) => {
   //console.log(`${id}'s ${phase} phase:`);
   //console.log(`Actual time: ${actualTime}`);
@@ -17,6 +17,8 @@ export const MainLayout: React.FC<Props> = ({ children, img }) => {
   //console.log(`Start time: ${startTime}`);
   //console.log(`Commit time: ${commitTime}`);
   //}
+
+  console.log('render: Components, MainLayout')
 
   return <Layout>
     <Box>
@@ -46,3 +48,5 @@ export const MainLayout: React.FC<Props> = ({ children, img }) => {
     </Box>
   </Layout>
 }
+
+export default React.memo(MainLayout)

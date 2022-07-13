@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { useActions, useTypedSelector } from '../../store/hooks'
@@ -20,7 +20,14 @@ const MyImage: React.FC<MyImageProps> = ({ theme, onClick }) => {
   />
 }
 
-export const Logo: React.FC = () => {
+const Logo: React.FC = () => {
+  const callback = (id: any, phase: any, actualTime: any, baseTime: any, startTime: any, commitTime: any) => {
+  console.log(`${id}'s ${phase} phase:`);
+  console.log(`Actual time: ${actualTime}`);
+  console.log(`Base time: ${baseTime}`);
+  console.log(`Start time: ${startTime}`);
+  console.log(`Commit time: ${commitTime}`);
+  }
   const router = useRouter()
   const { theme } = useTypedSelector(state => state.theme)
   const { linearProgress } = useActions()
@@ -30,9 +37,15 @@ export const Logo: React.FC = () => {
     router.push('/')
   }
 
+  console.log('render: Components, Logo')
+
   if (router.pathname === '/') {
     return <MyImage theme={theme} />
   }
 
-  return <MyImage theme={theme} onClick={handleClick} />
+  return <React.Profiler id="Logo" onRender={callback}>
+    <MyImage theme={theme} onClick={handleClick} />
+  </React.Profiler>
 }
+
+export default React.memo(Logo)

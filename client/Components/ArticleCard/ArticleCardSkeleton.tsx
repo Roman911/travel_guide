@@ -2,6 +2,8 @@ import React from "react"
 import { Box, Card, CardContent, CardHeader, Grid, Skeleton } from '@mui/material'
 
 export const ArticleCardSKeleton: React.FC = () => {
+  console.log('render: Components, ArticleCardSKeleton')
+
   return <Grid item xs={12} sm={6} md={3} p={1}>
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader

@@ -12,6 +12,8 @@ const Maps: NextPage = () => {
 
   if (!isLoaded) return <p>Loading...</p>
 
+  console.log('render: pages, Maps')
+
   return <MainLayout >
     <GoogleMaps />
   </MainLayout>

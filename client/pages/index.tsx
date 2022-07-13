@@ -4,6 +4,9 @@ import { News } from '../modules'
 import { MainLayout, Newss } from '../Components'
 
 const Home: NextPage = () => {
+
+  console.log('render: pages, Home')
+
   return <MainLayout img='/velosipedyi-banner-1.jpg'>
     <Box marginTop='50px'>
       <News />

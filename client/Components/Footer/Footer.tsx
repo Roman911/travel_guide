@@ -3,16 +3,18 @@ import { Box, Grid, Link, Typography } from '@mui/material'
 import { useTypedSelector } from '../../store/hooks'
 import { Logo, SocSetBlock } from "../"
 
-export const Footer: React.FC = () => {
+const socials = {
+  facebook: 'facebook',
+  instagram: 'instagram',
+  twitter: 'twitter',
+  youtube: 'youtube',
+  telegram: 'telegram'
+}
+
+const Footer: React.FC = () => {
   const { theme } = useTypedSelector(state => state.theme)
 
-  const socials = {
-    facebook: 'facebook',
-    instagram: 'instagram',
-    twitter: 'twitter',
-    youtube: 'youtube',
-    telegram: 'telegram'
-  }
+  console.log('render: Components, Footer')
 
   return <Box p={2}>
     <Grid container alignItems='center' sx={{ flexDirection: { xs: 'column-reverse', sm: 'column-reverse', md: 'row' } }}>
@@ -33,3 +35,5 @@ export const Footer: React.FC = () => {
     </Box>
   </Box>
 }
+
+export default React.memo(Footer)

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useActions, useTypedSelector } from '../../../store/hooks'
 import { HeaderComponent } from '../Components'
 
-export const Header: React.FC = () => {
+const Header: React.FC = () => {
   const router = useRouter()
   const { changeTheme, linearProgress, openDrawer } = useActions()
   const { theme: { theme }, user: { userData } } = useTypedSelector(state => state)
@@ -26,6 +26,8 @@ export const Header: React.FC = () => {
     changeTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
+  console.log('render: modules/Header/Containers/Header')
+
   return <HeaderComponent
     theme={theme}
     pathname={router.pathname}
@@ -35,3 +37,5 @@ export const Header: React.FC = () => {
     userData={userData}
   />
 }
+
+export default React.memo(Header)

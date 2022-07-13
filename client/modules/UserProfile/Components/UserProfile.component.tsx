@@ -31,7 +31,7 @@ function TabPanel(props: any) {
 
 export const UserProfileComponent: React.FC<IProps> = ({ isHolder, user, handleClickToSettings }) => {
   const [value, setValue] = React.useState(0)
-  const { avatar, name, aboutMy, rating, socials } = user
+  const { name, aboutMy, rating, socials } = user
 
   function a11yProps(index: number) {
     return {
@@ -49,7 +49,7 @@ export const UserProfileComponent: React.FC<IProps> = ({ isHolder, user, handleC
       <Paper elevation={0} sx={{ background: 'hsla(0,0%,89.8%,.25)', padding: '30px 40px' }}>
         <Stack direction='row' justifyContent='space-between'>
           <Stack direction='row'>
-            <UserAvatar avatar={avatar} size={140} />
+            <UserAvatar userData={user} size={140} />
             <Box marginLeft={3}>
               <Typography variant='h5' marginTop={1} marginBottom={1}>
                 {name}

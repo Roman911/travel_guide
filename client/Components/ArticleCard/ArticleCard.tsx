@@ -24,6 +24,8 @@ export const ArticleCard: React.FC<Props> = ({ item, usedId }) => {
     router.push(`/post/${_id}`)
   }, [])
 
+  console.log('render: Components, ArticleCard')
+
   return <Grid item xs={12} sm={6} md={3} p={1}>
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader

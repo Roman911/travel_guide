@@ -12,19 +12,21 @@ type Props = {
   handleClick: (path: string) => void
 }
 
-export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData, logout, handleClick }) => {
-  const actions = [
-    { name: 'Профіль', path: `/profile/${userData?._id}` },
-    { name: 'Мої публікації', path: '/' },
-    { name: 'Налаштування', path: '/profile/settings' },
-    { name: 'Обране', path: '/' }
-  ]
+const actions = [
+  { name: 'Профіль', path: `/profile/` },
+  { name: 'Мої публікації', path: '/' },
+  { name: 'Налаштування', path: '/profile/settings' },
+  { name: 'Обране', path: '/' }
+]
 
+const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, userData, logout, handleClick }) => {
   const MyLink = styled(Link)<LinkProps>(({ theme }) => ({
     color: '#fff',
     cursor: 'pointer',
     '&:hover': { color: '#cb2c3b' }
   }))
+
+  console.log('render: modules/Drawer/Components/DrawerComponent')
 
   return <Drawer
     anchor='right'
@@ -42,7 +44,7 @@ export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, u
       onKeyDown={toggleDrawer()}
     >
       <Box p={2} marginTop={4}>
-        <UserAvatar sx={{ margin: '0 auto' }} size={80} avatar={userData?.avatar} name={userData?.name} />
+        <UserAvatar sx={{ margin: '0 auto' }} size={80} userData={userData} />
         <Typography variant="subtitle1" marginTop={2}>{userData?.email}</Typography>
         <Typography variant="body2" textAlign='center'>рейтинг: 0</Typography>
         <Stack spacing={2} direction='column' alignItems='center' marginTop={6}>
@@ -50,10 +52,12 @@ export const DrawerComponent: React.FC<Props> = ({ drawerIsOpen, toggleDrawer, u
           <Button onClick={() => handleClick('/')} variant="contained" color="secondary">Додати статю</Button>
         </Stack>
         <Stack spacing={0.3} direction='column' alignItems='center' marginTop={8}>
-          { actions.map((i,index) => <MyLink key={index} underline='none' onClick={() => handleClick(i.path)} >{i.name}</MyLink>) }
+          { actions.map((i,index) => <MyLink key={index} underline='none' onClick={() => handleClick((index === 0) ? i.path+userData?._id : i.path)} >{i.name}</MyLink>) }
           <MyLink underline='none' onClick={logout} >Вийти</MyLink>
         </Stack>
       </Box>
     </Box>
   </Drawer>
 }
+
+export default DrawerComponent

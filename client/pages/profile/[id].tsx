@@ -22,6 +22,8 @@ const Profile: NextPage<IProps> = ({ data: { loading, data } }) => {
   </MainLayout>
 }
 
+console.log('render: pages/profile/[id]/Profile')
+
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const apolloClient = initializeApollo()
 

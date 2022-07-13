@@ -9,7 +9,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<Props> = ({ children }) => {
   useAuth()
   useNotifier()
   const { linearProgress: progress } = useTypedSelector(state => state.progress)
@@ -19,8 +19,12 @@ export const Layout: React.FC<Props> = ({ children }) => {
     linearProgress(false)
   }, [])
 
+  console.log('render: Components, Layout')
+
   return <>
     {progress && <LinearProgress />}
     {children}
   </>
 }
+
+export default React.memo(Layout)
