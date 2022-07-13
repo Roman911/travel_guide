@@ -47,7 +47,7 @@ export const SettingsComponent: React.FC<IProps> = ({ userData }) => {
               <MyIcon onClick={handleClickOpen} />
             }
           >
-            <UserAvatar avatar={userData?.avatar} size={140} />
+            <UserAvatar userData={userData} size={140} />
           </Badge>
         </Grid>
         <Grid item xs={12} md={10} lg={10}>
