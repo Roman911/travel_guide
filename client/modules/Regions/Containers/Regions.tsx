@@ -1,6 +1,10 @@
-import React from "react"
+import React from 'react'
 import { RegionAutocomplete } from '../Components'
 
-export const Regions: React.FC = () => {
-  return <RegionAutocomplete />
+interface IProps {
+  width?: string
+}
+
+export const Regions: React.FC<IProps> = ({ width }) => {
+  return <RegionAutocomplete width={width} />
 }

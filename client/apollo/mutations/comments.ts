@@ -9,7 +9,7 @@ export const CREATE_COMMENT = gql`
 `
 
 export const ADDED_ANSWER = gql`
-  mutation addedCommentAnswer($input: AnswerCommentInput!){
+  mutation addedCommentAnswer($input: AnswerCommentInput!) {
     addedCommentAnswer(input: $input) {
       _id
     }
