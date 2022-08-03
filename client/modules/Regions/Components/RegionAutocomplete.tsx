@@ -13,8 +13,8 @@ export const RegionAutocomplete: React.FC<IProps> = ({ width }) => {
       disablePortal
       id="combo-box-demo"
       options={regions}
-      sx={{ marginTop: 2, width: w }}
-      renderInput={params => <TextField {...params} label="Область" />}
+      sx={{ width: w }}
+      renderInput={(params) => <TextField {...params} label="Область" />}
     />
   )
 }

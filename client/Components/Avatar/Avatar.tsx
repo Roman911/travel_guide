@@ -5,7 +5,7 @@ import { PermIdentity } from '@mui/icons-material'
 type Props = {
   size: number
   sx?: any
-  userData?: {
+  userData?: null | {
     avatar?: string
     name: string
   }

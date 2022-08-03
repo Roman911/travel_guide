@@ -12,14 +12,15 @@ const MapBoxComponent: React.FC<IProps> = ({
   setViewport,
   mapRef,
 }) => {
+  console.log(process.env.NEXT_APP_MAPBOX_TOKEN)
   return (
     <ReactMapGL
       {...viewport}
       style={{ width: 'calc(100% - 500px)', height: '100vh' }}
-      mapboxAccessToken={process.env.MAPBOX_TOKEN}
+      mapboxAccessToken={process.env.NEXT_APP_MAPBOX_TOKEN}
       mapStyle="mapbox://styles/mapbox/streets-v11"
-      onMove={evt => setViewport(evt.viewState)}
-      ref={instance => (mapRef.current = instance)}
+      onMove={(evt) => setViewport(evt.viewState)}
+      ref={(instance) => (mapRef.current = instance)}
       minZoom={5}
       maxZoom={15}
     />

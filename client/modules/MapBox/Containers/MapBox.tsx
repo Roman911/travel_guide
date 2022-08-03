@@ -8,6 +8,7 @@ import { TopBar } from '../TopBar'
 
 const MapBox: React.FC = () => {
   const mapRef = React.useRef(null)
+  const [settlement, setSettlement] = React.useState()
   const [viewport, setViewport] = React.useState({
     latitude: 49,
     longitude: 30,
@@ -17,7 +18,7 @@ const MapBox: React.FC = () => {
   return (
     <Stack direction="row" position="relative">
       <LocationsList />
-      <TopBar />
+      <TopBar mapRef={mapRef} setSettlement={setSettlement} />
       <MapBoxComponent
         viewport={viewport}
         setViewport={setViewport}
