@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Stack } from '@mui/material'
 import { Tune } from '@mui/icons-material'
 import { Regions } from '../../../'
-import { Places } from '../../../Maps/Places'
+import { SearchBox } from '../SearchBox'
 
 interface IProps {
   mapRef: any
@@ -23,7 +23,7 @@ const TopBarComponent: React.FC<IProps> = ({
       spacing={1}
       sx={{
         position: 'absolute',
-        top: 68,
+        top: 64,
         width: 'calc(100% - 500px)',
         backgroundColor: theme === 'dark' ? '#1A2027' : '#fff',
         right: 0,
@@ -32,8 +32,8 @@ const TopBarComponent: React.FC<IProps> = ({
       }}
     >
       <Regions width="33.3333%" />
-      <Places
-        setSettlement={(position) => {
+      <SearchBox
+        setSettlement={position => {
           setSettlement(position), mapRef.current?.panTo(position)
         }}
       />

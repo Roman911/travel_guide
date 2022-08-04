@@ -1,6 +1,5 @@
 export { Drawer } from './Drawer'
 export { GoogleMaps } from './GoogleMaps'
 export { Markers } from './Markers'
-export { Places } from './Places'
 export { RightMenu } from './RightMenu'
 export { SpeedDial } from './SpeedDial'

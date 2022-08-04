@@ -10,7 +10,7 @@ type Props = {
   handleSelect: (val: string) => void
 }
 
-export const PlacesComponent: React.FC<Props> = ({
+const SearchBoxComponent: React.FC<Props> = ({
   value,
   setValue,
   status,
@@ -31,10 +31,10 @@ export const PlacesComponent: React.FC<Props> = ({
       fullWidth
       disableClearable
       freeSolo
-      renderInput={(params) => (
+      renderInput={params => (
         <TextField
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={e => setValue(e.target.value)}
           {...params}
           label="Пошук"
           InputProps={{
@@ -51,3 +51,5 @@ export const PlacesComponent: React.FC<Props> = ({
     />
   )
 }
+
+export default SearchBoxComponent
