@@ -1,1 +1,5 @@
+export { LeftBox } from './LeftBox'
 export { MapBox } from './Containers'
+export { SearchBox } from './SearchBox'
+export { SpeedDial } from './SpeedDial'
+export { TopBar } from './TopBar'

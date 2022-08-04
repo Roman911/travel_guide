@@ -2,25 +2,19 @@ import React from 'react'
 import { Stack } from '@mui/material'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { MapBoxComponent } from '../Components'
-import { LocationsList } from '../LocationsList'
-import { SpeedDial } from '../SpeedDial'
-import { TopBar } from '../TopBar'
-import { SearchBox } from '../SearchBox'
+import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
 
 const MapBox: React.FC = () => {
   const mapRef = React.useRef(null)
-  //const [settlement, setSettlement] = React.useState()
   const [viewport, setViewport] = React.useState({
     latitude: 49,
     longitude: 30,
     zoom: 5.3,
   })
 
-  console.log(viewport)
-
   return (
     <Stack direction="row" position="relative">
-      <LocationsList />
+      <LeftBox />
       <TopBar>
         <SearchBox
           defaultValue=""

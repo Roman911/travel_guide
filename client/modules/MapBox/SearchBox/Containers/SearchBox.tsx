@@ -32,7 +32,6 @@ const ReadySearchBox: React.FC<IProps> = ({
   const handleSelect = async (address: string) => {
     setValue(address, false)
     clearSuggestions()
-
     try {
       const results = await getGeocode({ address })
       const { lat, lng } = getLatLng(results[0])

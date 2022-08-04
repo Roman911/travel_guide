@@ -1,7 +1,8 @@
-import { combineReducers } from "redux"
+import { combineReducers } from 'redux'
 import { HYDRATE } from 'next-redux-wrapper'
 import { drawerReducer } from './drawer'
 import { drawerGMReducer } from './drawerGoogleMap'
+import { leftBoxReducer } from './leftBox'
 import { progressReducer } from './progress'
 import { snackbarReducer } from './snackbar'
 import { themeReducer } from './theme'
@@ -12,12 +13,13 @@ import { userReducer } from './user'
 const rootReducer = combineReducers({
   drawer: drawerReducer,
   drawerGM: drawerGMReducer,
+  leftBox: leftBoxReducer,
   progress: progressReducer,
   snackbar: snackbarReducer,
   theme: themeReducer,
   //getBack: getBackReducer,
   //notification: notificationReducer,
-  user: userReducer
+  user: userReducer,
 })
 
 // create your reducer

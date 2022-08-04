@@ -1,23 +1,36 @@
 import React from 'react'
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material'
+import {
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+  SvgIconProps,
+} from '@mui/material'
 import { AddLocationAlt, Earbuds, Edit } from '@mui/icons-material'
 
-const actions = [
+type Props = {
+  handleClick: (
+    set: 'createDirection' | 'createLocation' | 'locationsList'
+  ) => void
+}
+
+interface IActionProps {
+  icon: React.ReactElement<SvgIconProps>
+  name: string
+  set: 'createDirection' | 'createLocation' | 'locationsList'
+}
+
+const actions: IActionProps[] = [
   {
     icon: <AddLocationAlt />,
     name: 'Створити локацію',
-    path: '/create-location',
+    set: 'createLocation',
   },
   {
     icon: <Earbuds sx={{ transform: 'rotate(90deg)' }} />,
     name: 'Створити маршрут',
-    path: '/create-direction',
+    set: 'createDirection',
   },
 ]
-
-type Props = {
-  handleClick: (path: string) => void
-}
 
 const SpeedDialComponent: React.FC<Props> = ({ handleClick }) => {
   return (
@@ -33,7 +46,7 @@ const SpeedDialComponent: React.FC<Props> = ({ handleClick }) => {
             icon={action.icon}
             tooltipTitle={action.name}
             tooltipOpen
-            onClick={() => handleClick(action.path)}
+            onClick={() => handleClick(action.set)}
           />
         )
       })}
