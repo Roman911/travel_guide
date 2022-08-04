@@ -2,19 +2,13 @@ import React from 'react'
 import { Button, Stack } from '@mui/material'
 import { Tune } from '@mui/icons-material'
 import { Regions } from '../../../'
-import { SearchBox } from '../SearchBox'
 
 interface IProps {
-  mapRef: any
-  setSettlement: any
+  children: React.ReactNode
   theme: 'light' | 'dark'
 }
 
-const TopBarComponent: React.FC<IProps> = ({
-  mapRef,
-  setSettlement,
-  theme,
-}) => {
+const TopBarComponent: React.FC<IProps> = ({ children, theme }) => {
   return (
     <Stack
       direction="row"
@@ -32,11 +26,7 @@ const TopBarComponent: React.FC<IProps> = ({
       }}
     >
       <Regions width="33.3333%" />
-      <SearchBox
-        setSettlement={position => {
-          setSettlement(position), mapRef.current?.panTo(position)
-        }}
-      />
+      {children}
       <Button
         sx={{ width: '33.3333%', padding: '14px 0' }}
         variant="outlined"
