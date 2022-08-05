@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLazyQuery } from '@apollo/client'
-import { Box, CircularProgress } from '@mui/material'
 import { LocationsListComponent } from '../Components'
+import { CircularProgress } from '../../../../'
 import { LOCATIONS_AND_PARAMS } from '../../../../../apollo/queries/locations'
 
 const LocationsList: React.FC = () => {
@@ -20,14 +20,9 @@ const LocationsList: React.FC = () => {
     })
   }, [])
 
-  if (!data || loading)
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 6 }}>
-        <CircularProgress />
-      </Box>
-    )
+  if (!data || loading) return <CircularProgress marginTop={6} />
 
-  if (error) return <Box>Error</Box>
+  if (error) return <h5>Error</h5>
 
   return <LocationsListComponent data={data?.locationsAndParams} />
 }

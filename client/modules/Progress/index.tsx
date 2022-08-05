@@ -1,1 +1,2 @@
-export { LinearProgress } from './Containers'
+export { CircularProgress } from './CircularProgress'
+export { LinearProgress } from './LinearProgress'

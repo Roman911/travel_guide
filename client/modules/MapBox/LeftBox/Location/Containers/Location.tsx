@@ -1,8 +1,8 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { Box, CircularProgress } from '@mui/material'
 import { useTypedSelector } from '../../../../../store/hooks'
 import { LocationComponent } from '../Components'
+import { CircularProgress } from '../../../../'
 import { LOCATION } from '../../../../../apollo/queries/locations'
 
 const Location: React.FC = () => {
@@ -11,14 +11,9 @@ const Location: React.FC = () => {
     variables: { locationID: leftBox },
   })
 
-  if (!data || loading)
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 6 }}>
-        <CircularProgress />
-      </Box>
-    )
+  if (!data || loading) return <CircularProgress marginTop={6} />
 
-  if (error) return <Box>Error</Box>
+  if (error) return <h5>Error</h5>
 
   return <LocationComponent data={data?.location} />
 }
