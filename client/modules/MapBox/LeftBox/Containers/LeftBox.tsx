@@ -1,22 +1,31 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import { useTypedSelector } from '../../../../store/hooks'
+import { useActions, useTypedSelector } from '../../../../store/hooks'
 import { LeftBoxLayout } from '../Components'
+
+interface ICreateLocationProps {
+  handleClick: () => void
+}
 
 const LocationsList = dynamic(
   () => import('../LocationsList/Containers/LocationList') as any
 )
-const CreateLocation = dynamic(
+const CreateLocation = dynamic<ICreateLocationProps>(
   () => import('../CreateLocation/Containers/CreateLocation') as any
 )
 
 const LeftBox: React.FC = () => {
   const { leftBox } = useTypedSelector(state => state.leftBox)
+  const { setLeftBox } = useActions()
+
+  const handleClick = () => {
+    setLeftBox('locationsList')
+  }
 
   if (leftBox === 'createLocation') {
     return (
       <LeftBoxLayout>
-        <CreateLocation />
+        <CreateLocation handleClick={handleClick} />
       </LeftBoxLayout>
     )
   }
