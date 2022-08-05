@@ -6,9 +6,14 @@ import { Regions } from '../../../'
 interface IProps {
   children: React.ReactNode
   theme: 'light' | 'dark'
+  widthLeftBox: string
 }
 
-const TopBarComponent: React.FC<IProps> = ({ children, theme }) => {
+const TopBarComponent: React.FC<IProps> = ({
+  children,
+  theme,
+  widthLeftBox,
+}) => {
   return (
     <Stack
       direction="row"
@@ -18,7 +23,7 @@ const TopBarComponent: React.FC<IProps> = ({ children, theme }) => {
       sx={{
         position: 'absolute',
         top: 64,
-        width: 'calc(100% - 500px)',
+        width: `calc(100% - ${widthLeftBox}px)`,
         backgroundColor: theme === 'dark' ? '#1A2027' : '#fff',
         right: 0,
         zIndex: 1,

@@ -14,7 +14,11 @@ const CreateLocation = dynamic<ICreateLocationProps>(
   () => import('../CreateLocation/Containers/CreateLocation') as any
 )
 
-const LeftBox: React.FC = () => {
+interface IProps {
+  widthLeftBox: string
+}
+
+const LeftBox: React.FC<IProps> = ({ widthLeftBox }) => {
   const { leftBox } = useTypedSelector(state => state.leftBox)
   const { setLeftBox } = useActions()
 
@@ -24,7 +28,7 @@ const LeftBox: React.FC = () => {
 
   if (leftBox === 'createLocation') {
     return (
-      <LeftBoxLayout>
+      <LeftBoxLayout widthLeftBox={widthLeftBox}>
         <CreateLocation handleClick={handleClick} />
       </LeftBoxLayout>
     )
@@ -32,14 +36,14 @@ const LeftBox: React.FC = () => {
 
   if (leftBox === 'createDirection') {
     return (
-      <LeftBoxLayout>
+      <LeftBoxLayout widthLeftBox={widthLeftBox}>
         <LocationsList />
       </LeftBoxLayout>
     )
   }
 
   return (
-    <LeftBoxLayout>
+    <LeftBoxLayout widthLeftBox={widthLeftBox}>
       <LocationsList />
     </LeftBoxLayout>
   )

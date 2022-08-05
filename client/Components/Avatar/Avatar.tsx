@@ -24,7 +24,7 @@ const UserAvatar: React.FC<Props> = ({ size, userData, sx }) => {
         userData?.avatar && `http://localhost:3005/images${userData?.avatar}`
       }
     >
-      {!userData && <PermIdentity />}
+      {!userData?.avatar && <PermIdentity />}
     </Avatar>
   )
 }

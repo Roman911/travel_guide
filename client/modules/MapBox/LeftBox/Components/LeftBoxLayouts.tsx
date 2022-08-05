@@ -3,11 +3,16 @@ import { Box } from '@mui/material'
 
 interface IProps {
   children: React.ReactNode
+  widthLeftBox: string
 }
 
-const LeftBoxLayout: React.FC<IProps> = ({ children }) => {
+const LeftBoxLayout: React.FC<IProps> = ({ children, widthLeftBox }) => {
   return (
-    <Box width={500} marginTop={8}>
+    <Box
+      width={`${widthLeftBox}px`}
+      marginTop={8}
+      sx={{ maxHeight: 'calc(100vh - 64px)' }}
+    >
       {children}
     </Box>
   )

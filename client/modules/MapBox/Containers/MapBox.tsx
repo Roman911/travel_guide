@@ -4,6 +4,8 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { MapBoxComponent } from '../Components'
 import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
 
+const widthLeftBox = '600'
+
 const MapBox: React.FC = () => {
   const mapRef = React.useRef(null)
   const [viewport, setViewport] = React.useState({
@@ -14,8 +16,8 @@ const MapBox: React.FC = () => {
 
   return (
     <Stack direction="row" position="relative">
-      <LeftBox />
-      <TopBar>
+      <LeftBox widthLeftBox={widthLeftBox} />
+      <TopBar widthLeftBox={widthLeftBox}>
         <SearchBox
           defaultValue=""
           onSelectAddress={(
@@ -39,6 +41,7 @@ const MapBox: React.FC = () => {
         />
       </TopBar>
       <MapBoxComponent
+        widthLeftBox={widthLeftBox}
         viewport={viewport}
         setViewport={setViewport}
         mapRef={mapRef}
