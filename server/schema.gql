@@ -74,6 +74,13 @@ type CreateLocationDto {
   author: CreateUserDto
 }
 
+type CreateLocationsDto {
+  page: Int!
+  total_pages: Int!
+  total_locations: Int!
+  locations: [CreateLocationDto!]!
+}
+
 type CreatePostDto {
   _id: String!
   editor: String!
@@ -112,7 +119,7 @@ type CreateTokenDto {
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
   locations: [CreateLocationDto!]!
-  locationsAndParams(input: ParamsLocationInput!): [CreateLocationDto!]!
+  locationsAndParams(input: ParamsLocationInput!): CreateLocationsDto!
   location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
@@ -130,6 +137,7 @@ type Query {
 input ParamsLocationInput {
   limit: Int!
   page: Int!
+  types: [String!]!
 }
 
 input ParamsPostInput {

@@ -44,3 +44,17 @@ export const LOCATIONS_SORT_BY_ID = gql`
     }
   }
 `
+
+export const LOCATIONS_AND_PARAMS = gql`
+  query locationsAndParams($input: ParamsLocationInput!) {
+    locationsAndParams(input: $input) {
+      _id
+      title
+      isType
+      address
+      cover {
+        url
+      }
+    }
+  }
+`

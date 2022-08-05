@@ -6,4 +6,6 @@ export class ParamsLocationInput {
   limit: number;
   @Field((type) => Int)
   page: number;
+  @Field((type) => [String])
+  types: string[];
 }

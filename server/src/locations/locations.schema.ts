@@ -31,3 +31,17 @@ export class Location {
 }
 
 export const LocationSchema = SchemaFactory.createForClass(Location);
+
+@Schema()
+export class Locations {
+  @Prop()
+  page: number;
+  @Prop()
+  total_pages: number;
+  @Prop()
+  total_locations: number;
+  @Prop({ type: [LocationSchema] })
+  locations: Location[];
+}
+
+export const LocationsSchema = SchemaFactory.createForClass(Locations);

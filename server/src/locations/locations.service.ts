@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModuleRef } from '@nestjs/core';
-import { Location, LocationDocument } from './locations.schema';
+import { Location, LocationDocument, Locations } from './locations.schema';
 import { ParamsLocationInput } from './inputs/params-location.input';
 import { TokenService } from '../token/token.service';
 //import { LikeInput } from '../likes/inputs/create-like.input'
@@ -32,17 +32,31 @@ export class LocationService {
       .exec();
   }
 
-  async locations(params: ParamsLocationInput): Promise<Location[]> {
-    const { page, limit } = params;
+  async locations(params: ParamsLocationInput): Promise<Locations> {
+    const { page, limit, types } = params;
     const skip = page === 1 ? 0 : page * limit;
-    return this.locationModel
-      .find()
+    const sort = types.length === 0 ? {} : { isType: types };
+
+    const allLocations = await this.locationModel.find(sort);
+
+    const locations = await this.locationModel
+      .find(sort)
       .sort({ createdAt: -1 })
       .populate('author')
       .populate('cover')
       .skip(skip)
       .limit(limit)
       .exec();
+
+    const total_locations = allLocations.length;
+    const total_pages = Math.ceil(total_locations / limit);
+
+    return {
+      page,
+      total_pages,
+      total_locations,
+      locations,
+    };
   }
 
   //async addComment(CreatePostDto: CommentInput): Promise<Post> {

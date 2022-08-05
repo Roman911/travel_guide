@@ -2,7 +2,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 import { LocationService } from './locations.service';
-import { CreateLocationDto } from './dto/create-location.dto';
+import {
+  CreateLocationDto,
+  CreateLocationsDto,
+} from './dto/create-location.dto';
 import { Location, LocationDocument } from './locations.schema';
 import { ParamsLocationInput } from './inputs/params-location.input';
 //import { LikeInput } from '../likes/inputs/create-like.input'
@@ -22,7 +25,7 @@ export class LocationsResolver {
     return this.locationsService.findAll();
   }
 
-  @Query(() => [CreateLocationDto])
+  @Query(() => CreateLocationsDto)
   async locationsAndParams(@Args('input') input: ParamsLocationInput) {
     return this.locationsService.locations(input);
   }

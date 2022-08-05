@@ -23,3 +23,15 @@ export class CreateLocationDto {
   @Field((type) => CreateUserDto, { nullable: true })
   author: CreateUserDto;
 }
+
+@ObjectType()
+export class CreateLocationsDto {
+  @Field(() => Int)
+  page: number;
+  @Field(() => Int)
+  total_pages: number;
+  @Field(() => Int)
+  total_locations: number;
+  @Field((type) => [CreateLocationDto])
+  locations: CreateLocationDto[];
+}
