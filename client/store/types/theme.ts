@@ -1,15 +1,15 @@
-import type { ITheme } from '../../typesScript'
+import type { ITheme } from '../../types'
 
 export interface ThemeState {
   theme: 'light' | 'dark'
 }
 
 export enum ThemeActionTypes {
-  THEME = 'THEME'
+  THEME = 'THEME',
 }
 
 interface ChangeThemeAction {
-  type: ThemeActionTypes.THEME,
+  type: ThemeActionTypes.THEME
   payload: 'light' | 'dark'
 }
 

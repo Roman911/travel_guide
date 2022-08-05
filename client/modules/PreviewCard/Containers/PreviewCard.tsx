@@ -1,6 +1,6 @@
-import type { IPost } from '../../../typesScript'
-import React from "react"
-import { useRouter } from "next/router"
+import type { IPost } from '../../../types'
+import React from 'react'
+import { useRouter } from 'next/router'
 import { useActions } from '../../../store/hooks'
 import { useColors, useDate } from '../../../hooks'
 import { PreviewCardComponent } from '../Components'
@@ -21,5 +21,14 @@ export const PreviewCard: React.FC<Props> = ({ usedId, item, md }) => {
     router.push(`/post/${item._id}`)
   }, [])
 
-  return <PreviewCardComponent usedId={usedId} item={item} handleClick={handleClick} colors={{ icon, red }} useDate={useDate} md={md} />
+  return (
+    <PreviewCardComponent
+      usedId={usedId}
+      item={item}
+      handleClick={handleClick}
+      colors={{ icon, red }}
+      useDate={useDate}
+      md={md}
+    />
+  )
 }

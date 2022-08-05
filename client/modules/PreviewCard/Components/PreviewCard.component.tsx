@@ -1,4 +1,4 @@
-import { IPost } from '../../../typesScript'
+import { IPost } from '../../../types'
 import React from 'react'
 import {
   Card,

@@ -1,7 +1,11 @@
 import { UserAction, UserActionTypes } from '../types/user'
-import type { IUserData } from '../../typesScript'
+import type { IUserData } from '../../types'
 
-export const setData = (payload: { user: IUserData, refreshToken: string, accessToken: string }): UserAction => {
+export const setData = (payload: {
+  user: IUserData
+  refreshToken: string
+  accessToken: string
+}): UserAction => {
   return { type: UserActionTypes.SET_DATA, payload }
 }
 

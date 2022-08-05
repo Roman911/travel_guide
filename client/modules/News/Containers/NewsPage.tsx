@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 import { useLazyQuery } from '@apollo/client'
-import { useActions, useTypedSelector } from '../../../store/hooks'
+import { useTypedSelector } from '../../../store/hooks'
 import { NewsPageComponent } from '../Components'
 import { POSTS_AND_PARAMS } from '../../../apollo/queries/posts'
 
@@ -13,16 +13,18 @@ export const NewsPage: React.FC = () => {
       variables: {
         input: {
           page: 1,
-          limit: 9
-        }
-      }
+          limit: 9,
+        },
+      },
     })
   }, [])
 
-  return <NewsPageComponent
-    loading={loading}
-    error={error}
-    data={data}
-    userData={userData}
-  />
+  return (
+    <NewsPageComponent
+      loading={loading}
+      error={error}
+      data={data}
+      userData={userData}
+    />
+  )
 }

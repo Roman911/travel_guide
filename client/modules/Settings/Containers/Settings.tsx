@@ -1,5 +1,5 @@
-import React from "react"
-import type { IUserData } from '../../../typesScript'
+import React from 'react'
+import type { IUserData } from '../../../types'
 import { SettingsComponent } from '../Components'
 
 interface IProps {

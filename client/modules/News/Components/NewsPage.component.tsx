@@ -1,12 +1,19 @@
-import { IPost } from '../../../typesScript/post'
-import { IUserData } from '../../../typesScript/user'
-import React from "react"
-import { Container, Grid, Pagination, PaginationItem, Stack, Typography } from '@mui/material'
+import { IPost } from '../../../types/post'
+import { IUserData } from '../../../types/user'
+import React from 'react'
+import {
+  Container,
+  Grid,
+  Pagination,
+  PaginationItem,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { PreviewCard, Regions } from '../../'
 import { PreviewCardSKeleton } from '../../PreviewCard/Components'
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 interface IProps {
   loading: boolean | undefined
@@ -22,7 +29,11 @@ interface IProps {
   }
 }
 
-export const NewsPageComponent: React.FC<IProps> = ({ loading, error, data }) => {
+export const NewsPageComponent: React.FC<IProps> = ({
+  loading,
+  error,
+  data,
+}) => {
   const post = data?.postsAndParams.posts.map(i => {
     return <PreviewCard key={i._id} item={i} usedId={'usedId'} md={3} />
   })
@@ -33,36 +44,49 @@ export const NewsPageComponent: React.FC<IProps> = ({ loading, error, data }) =>
 
   //const page = parseInt(query.get('page') || '1', 10)
 
-  return <Container maxWidth='xl' >
-    <Typography marginTop={10} marginLeft={2} variant="h3">Новини</Typography>
-    <Grid container >
-      <Grid item xs={10} padding='10px 0'>
-        <Stack direction='row' justifyContent='flex-end' spacing={2} marginRight={2}>
-          <Typography variant="body2">
-            Сортувати за популярністю
-          </Typography>
-          <Typography variant="body2">
-            За тиждень | місяць | рік
-          </Typography>
-        </Stack>
-        <Grid container alignItems='center' marginTop={2} sx={{ flexDirection: { xs: 'column', sm: 'column', md: 'row' }, padding: { xs: '0', sm: '0', md: '0 10px' } }}>
-          {data?.postsAndParams.posts ? post : postsSkeleton}
+  return (
+    <Container maxWidth="xl">
+      <Typography marginTop={10} marginLeft={2} variant="h3">
+        Новини
+      </Typography>
+      <Grid container>
+        <Grid item xs={10} padding="10px 0">
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            spacing={2}
+            marginRight={2}
+          >
+            <Typography variant="body2">Сортувати за популярністю</Typography>
+            <Typography variant="body2">За тиждень | місяць | рік</Typography>
+          </Stack>
+          <Grid
+            container
+            alignItems="center"
+            marginTop={2}
+            sx={{
+              flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+              padding: { xs: '0', sm: '0', md: '0 10px' },
+            }}
+          >
+            {data?.postsAndParams.posts ? post : postsSkeleton}
+          </Grid>
+        </Grid>
+        <Grid item xs={2}>
+          <Regions />
         </Grid>
       </Grid>
-      <Grid item xs={2}>
-        <Regions />
-      </Grid>
-    </Grid>
-    <Stack spacing={2} marginTop={4} direction='row' justifyContent='center'>
-      <Pagination
-        count={10}
-        renderItem={(item) => (
-          <PaginationItem
-            components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-            {...item}
-          />
-        )}
-      />
-    </Stack>
-  </Container>
+      <Stack spacing={2} marginTop={4} direction="row" justifyContent="center">
+        <Pagination
+          count={10}
+          renderItem={item => (
+            <PaginationItem
+              components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+              {...item}
+            />
+          )}
+        />
+      </Stack>
+    </Container>
+  )
 }

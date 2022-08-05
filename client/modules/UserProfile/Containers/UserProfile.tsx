@@ -1,5 +1,5 @@
-import type { IUserProfile } from '../../../typesScript/user'
-import React from "react"
+import type { IUserProfile } from '../../../types/user'
+import React from 'react'
 import { useRouter } from 'next/router'
 import { useActions, useTypedSelector } from '../../../store/hooks'
 import { UserProfileComponent } from '../Components'
@@ -19,5 +19,11 @@ export const UserProfile: React.FC<IProps> = ({ user }) => {
     router.push('/profile/settings')
   }
 
-  return <UserProfileComponent isHolder={isHolder} user={user} handleClickToSettings={handleClickToSettings} />
+  return (
+    <UserProfileComponent
+      isHolder={isHolder}
+      user={user}
+      handleClickToSettings={handleClickToSettings}
+    />
+  )
 }

@@ -1,5 +1,5 @@
 export interface LeftBoxState {
-  leftBox: 'createDirection' | 'createLocation' | 'locationsList'
+  leftBox: 'createDirection' | 'createLocation' | 'locationsList' | string
 }
 
 export enum LeftBoxActionTypes {
@@ -8,7 +8,7 @@ export enum LeftBoxActionTypes {
 
 interface SetLeftBoxAction {
   type: LeftBoxActionTypes.LEFT_BOX
-  payload: 'createDirection' | 'createLocation' | 'locationsList'
+  payload: 'createDirection' | 'createLocation' | 'locationsList' | string
 }
 
 export type LeftBoxAction = SetLeftBoxAction

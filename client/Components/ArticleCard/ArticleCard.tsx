@@ -1,4 +1,4 @@
-import type { IPost } from '../../typesScript'
+import type { IPost } from '../../types'
 import React from 'react'
 import { useRouter } from 'next/router'
 import {
@@ -56,7 +56,7 @@ export const ArticleCard: React.FC<Props> = ({ item, usedId }) => {
     <Grid item xs={12} sm={6} md={3} p={1}>
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
-          avatar={<UserAvatar size={40} name={name} avatar={avatar} />}
+          avatar={<UserAvatar size={40} userData={{ name, avatar }} />}
           action={
             <IconButton aria-label="settings">
               <MoreVert />

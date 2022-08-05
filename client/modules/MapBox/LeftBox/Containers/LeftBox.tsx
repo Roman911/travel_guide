@@ -10,6 +10,7 @@ interface ICreateLocationProps {
 const LocationsList = dynamic(
   () => import('../LocationsList/Containers/LocationList') as any
 )
+const Location = dynamic(() => import('../Location/Containers/Location') as any)
 const CreateLocation = dynamic<ICreateLocationProps>(
   () => import('../CreateLocation/Containers/CreateLocation') as any
 )
@@ -42,9 +43,17 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox }) => {
     )
   }
 
+  if (leftBox === 'locationsList') {
+    return (
+      <LeftBoxLayout widthLeftBox={widthLeftBox}>
+        <LocationsList />
+      </LeftBoxLayout>
+    )
+  }
+
   return (
     <LeftBoxLayout widthLeftBox={widthLeftBox}>
-      <LocationsList />
+      <Location />
     </LeftBoxLayout>
   )
 }
