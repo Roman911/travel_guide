@@ -1,33 +1,33 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import * as mongoose from 'mongoose'
-import { User } from '../users/users.schema'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
+import { User } from '../users/users.schema';
 
-export type LocationDocument = Location & mongoose.Document
+export type LocationDocument = Location & mongoose.Document;
 
 @Schema()
 class Upload {
   @Prop()
-  url: string
+  url: string;
 }
 
 @Schema()
 export class Location {
   @Prop()
-  title: string
+  title: string;
   @Prop()
-  small_text: string
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Upload'})
-  cover: Upload
+  small_text: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Upload' })
+  cover: Upload;
   @Prop()
-  coordinates: string[]
+  coordinates: string[];
   @Prop()
-  isType:string
+  isType: string;
   @Prop()
-  address: string[]
-  @Prop({ default: new Date })
-  createdAt: Date
+  address: string;
+  @Prop({ default: new Date() })
+  createdAt: Date;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  author: User
+  author: User;
 }
 
-export const LocationSchema = SchemaFactory.createForClass(Location)
+export const LocationSchema = SchemaFactory.createForClass(Location);

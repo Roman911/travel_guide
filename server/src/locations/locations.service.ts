@@ -1,27 +1,48 @@
-import { Model } from 'mongoose'
-import { Injectable } from '@nestjs/common'
-import { InjectModel } from '@nestjs/mongoose'
-import { ModuleRef } from "@nestjs/core"
-import { Location, LocationDocument } from './locations.schema'
-//import { ParamsPostInput } from './inputs/params-post.input'
-import { TokenService } from '../token/token.service'
+import { Model } from 'mongoose';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { ModuleRef } from '@nestjs/core';
+import { Location, LocationDocument } from './locations.schema';
+import { ParamsLocationInput } from './inputs/params-location.input';
+import { TokenService } from '../token/token.service';
 //import { LikeInput } from '../likes/inputs/create-like.input'
 
 @Injectable()
 export class LocationService {
-  private tokenService: TokenService
+  private tokenService: TokenService;
   constructor(
     private moduleRef: ModuleRef,
     @InjectModel(Location.name)
-    private locationModel: Model<LocationDocument>
-  ) { }
+    private locationModel: Model<LocationDocument>,
+  ) {}
 
   async location(locationID: string): Promise<Location> {
-    return this.locationModel.findById(locationID).populate('author').populate('cover').exec()
+    return this.locationModel
+      .findById(locationID)
+      .populate('author')
+      .populate('cover')
+      .exec();
   }
 
   async findAll(): Promise<Location[]> {
-    return this.locationModel.find().sort({ createdAt: -1 }).populate('author').exec()
+    return this.locationModel
+      .find()
+      .sort({ createdAt: -1 })
+      .populate('author')
+      .exec();
+  }
+
+  async locations(params: ParamsLocationInput): Promise<Location[]> {
+    const { page, limit } = params;
+    const skip = page === 1 ? 0 : page * limit;
+    return this.locationModel
+      .find()
+      .sort({ createdAt: -1 })
+      .populate('author')
+      .populate('cover')
+      .skip(skip)
+      .limit(limit)
+      .exec();
   }
 
   //async addComment(CreatePostDto: CommentInput): Promise<Post> {

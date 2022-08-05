@@ -69,7 +69,7 @@ type CreateLocationDto {
   cover: CreateUploadDto!
   coordinates: [String!]!
   isType: String!
-  address: [String!]!
+  address: String
   createdAt: DateTime!
   author: CreateUserDto
 }
@@ -112,6 +112,7 @@ type CreateTokenDto {
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
   locations: [CreateLocationDto!]!
+  locationsAndParams(input: ParamsLocationInput!): [CreateLocationDto!]!
   location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
@@ -124,6 +125,11 @@ type Query {
   login(input: LoginUserInput!): CreateUserDataDto!
   logout(refreshToken: String!): CreateUserDataDto!
   refresh(refreshToken: String!): CreateUserDataDto!
+}
+
+input ParamsLocationInput {
+  limit: Int!
+  page: Int!
 }
 
 input ParamsPostInput {
