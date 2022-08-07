@@ -5,7 +5,12 @@ import { LocationComponent } from '../Components'
 import { CircularProgress } from '../../../../'
 import { LOCATION } from '../../../../../apollo/queries/locations'
 
-const Location: React.FC = () => {
+interface IProps {
+  widthLeftBox: string
+  handleClick: () => void
+}
+
+const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
   const { leftBox } = useTypedSelector(state => state.leftBox)
   const { loading, error, data } = useQuery(LOCATION, {
     variables: { locationID: leftBox },
@@ -15,7 +20,13 @@ const Location: React.FC = () => {
 
   if (error) return <h5>Error</h5>
 
-  return <LocationComponent data={data?.location} />
+  return (
+    <LocationComponent
+      data={data?.location}
+      widthLeftBox={widthLeftBox}
+      handleClick={handleClick}
+    />
+  )
 }
 
 export default Location

@@ -18,6 +18,7 @@ export const LOCATION = gql`
       small_text
       address
       coordinates
+      isType
       cover {
         url
       }

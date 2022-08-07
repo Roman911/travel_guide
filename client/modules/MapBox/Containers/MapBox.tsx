@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { MapBoxComponent } from '../Components'
 import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
 
-const widthLeftBox = '600'
+const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
   const mapRef = React.useRef(null)
