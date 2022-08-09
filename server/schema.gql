@@ -118,7 +118,7 @@ type CreateTokenDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
-  locations: [CreateLocationDto!]!
+  locations(input: ParamsAllLocationInput!): [CreateLocationDto!]!
   locationsAndParams(input: ParamsLocationInput!): CreateLocationsDto!
   location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
@@ -132,6 +132,10 @@ type Query {
   login(input: LoginUserInput!): CreateUserDataDto!
   logout(refreshToken: String!): CreateUserDataDto!
   refresh(refreshToken: String!): CreateUserDataDto!
+}
+
+input ParamsAllLocationInput {
+  types: [String!]!
 }
 
 input ParamsLocationInput {

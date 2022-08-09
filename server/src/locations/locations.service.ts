@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModuleRef } from '@nestjs/core';
 import { Location, LocationDocument, Locations } from './locations.schema';
-import { ParamsLocationInput } from './inputs/params-location.input';
+import { ParamsLocationInput, ParamsAllLocationInput } from './inputs';
 import { TokenService } from '../token/token.service';
 //import { LikeInput } from '../likes/inputs/create-like.input'
 
@@ -24,9 +24,11 @@ export class LocationService {
       .exec();
   }
 
-  async findAll(): Promise<Location[]> {
+  async findAll(params: ParamsAllLocationInput): Promise<Location[]> {
+    const sort = params.types.length === 0 ? {} : { isType: params.types };
+
     return this.locationModel
-      .find()
+      .find(sort)
       .sort({ createdAt: -1 })
       .populate('author')
       .exec();
