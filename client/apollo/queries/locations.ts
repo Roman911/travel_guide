@@ -26,6 +26,18 @@ export const LOCATION = gql`
   }
 `
 
+export const LOCATION_FOR_POPUR = gql`
+  query location($locationID: String!) {
+    location(locationID: $locationID) {
+      title
+      address
+      cover {
+        url
+      }
+    }
+  }
+`
+
 export const LOCATIONS_SORT_BY_ID = gql`
   query locationsSortById($_id: [ID]) {
     locationsSortById(_id: $_id) {

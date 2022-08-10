@@ -2,11 +2,11 @@ import React from 'react'
 import ReactMapGL, {
   Layer,
   Marker,
-  Popup,
   NavigationControl,
   ViewState,
   Source,
 } from 'react-map-gl'
+import { Popur } from '../'
 
 import {
   clusterLayer,
@@ -33,10 +33,15 @@ const MapBoxComponent: React.FC<IProps> = ({
   mapRef,
   locations,
 }) => {
+  const [selected, setSelected] = React.useState(null)
   return (
     <ReactMapGL
       {...viewport}
-      style={{ width: `calc(100% - ${widthLeftBox}px)`, height: '100vh' }}
+      style={{
+        width: `calc(100% - ${widthLeftBox}px)`,
+        height: 'calc(100vh - 135px)',
+        marginTop: '135px',
+      }}
       mapboxAccessToken={process.env.NEXT_APP_MAPBOX_TOKEN}
       mapStyle="mapbox://styles/mapbox/streets-v11"
       onMove={evt => setViewport(evt.viewState)}
@@ -73,13 +78,15 @@ const MapBoxComponent: React.FC<IProps> = ({
             offset={[0, -10]}
           >
             <button
+              onClick={() => setSelected(i)}
               style={{ border: 0, background: 'none', cursor: 'pointer' }}
             >
-              <img src={'/static/images/little-known-places.png'} />
+              <img src={`/static/images/${i.isType}.png`} />
             </button>
           </Marker>
         )
       })}
+      {selected && <Popur selected={selected} setSelected={setSelected} />}
     </ReactMapGL>
   )
 }

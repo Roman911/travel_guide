@@ -20,7 +20,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+  -webkit-transition: 'color 9999s ease-out, background-color 9999s ease-out';
   -webkit-transition-delay: 9999s;
 }
 
@@ -31,9 +31,7 @@ h4,
 h5,
 h6,
 p {
-  font-family: 'Roboto', Helvetica,
-    Arial,
-    sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
 .editorWrapper h1 {
@@ -84,4 +82,12 @@ p {
 
 .editorWrapper img {
   width: 100%;
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
 }

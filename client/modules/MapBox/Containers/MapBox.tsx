@@ -1,7 +1,9 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { Stack } from '@mui/material'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useLazyQuery } from '@apollo/react-hooks'
+import { useActions } from '../../../store/hooks'
 import { MapBoxComponent } from '../Components'
 import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
 import { ALL_LOCATIONS } from '../../../apollo/queries/locations'
@@ -9,6 +11,8 @@ import { ALL_LOCATIONS } from '../../../apollo/queries/locations'
 const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
+  const router = useRouter()
+  const { setLeftBox } = useActions()
   const mapRef = React.useRef(null)
   const [locations, { loading, error, data }] = useLazyQuery(ALL_LOCATIONS)
   const [viewport, setViewport] = React.useState({
@@ -20,6 +24,15 @@ const MapBox: React.FC = () => {
   React.useEffect(() => {
     locations({ variables: { input: { types: [] } } })
   }, [])
+
+  React.useEffect(() => {
+    if (router.query.id) {
+      const id = Array.isArray(router.query.id)
+        ? router.query.id[0]
+        : router.query.id
+      setLeftBox(id)
+    }
+  }, [router])
 
   return (
     <Stack direction="row" position="relative">
