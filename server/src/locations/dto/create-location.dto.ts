@@ -16,20 +16,22 @@ export class CreateLocationDto {
   coordinates: string[];
   @Field()
   isType: string;
-  @Field({ nullable: true })
+  @Field()
   address: string;
+  @Field()
+  region: string;
   @Field()
   createdAt: Date;
   @Field((type) => CreateUserDto, { nullable: true })
   author: CreateUserDto;
+  @Field(() => Int)
+  latitude: number;
+  @Field(() => Int)
+  longitude: number;
 }
 
 @ObjectType()
 export class CreateLocationsDto {
-  @Field(() => Int)
-  page: number;
-  @Field(() => Int)
-  total_pages: number;
   @Field(() => Int)
   total_locations: number;
   @Field((type) => [CreateLocationDto])

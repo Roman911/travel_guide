@@ -1,11 +1,11 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field, Float } from '@nestjs/graphql';
 
 @InputType()
 export class ParamsLocationInput {
-  @Field((type) => Int)
-  limit: number;
-  @Field((type) => Int)
-  page: number;
   @Field((type) => [String])
   types: string[];
+  @Field()
+  region: string;
+  @Field((type) => [[Float], [Float]] || [])
+  debounced: [number[], number[]] | [];
 }

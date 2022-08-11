@@ -69,14 +69,15 @@ type CreateLocationDto {
   cover: CreateUploadDto!
   coordinates: [String!]!
   isType: String!
-  address: String
+  address: String!
+  region: String!
   createdAt: DateTime!
   author: CreateUserDto
+  latitude: Int!
+  longitude: Int!
 }
 
 type CreateLocationsDto {
-  page: Int!
-  total_pages: Int!
   total_locations: Int!
   locations: [CreateLocationDto!]!
 }
@@ -118,8 +119,7 @@ type CreateTokenDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
-  locations(input: ParamsAllLocationInput!): [CreateLocationDto!]!
-  locationsAndParams(input: ParamsLocationInput!): CreateLocationsDto!
+  locations(input: ParamsLocationInput!): CreateLocationsDto!
   location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
@@ -134,14 +134,10 @@ type Query {
   refresh(refreshToken: String!): CreateUserDataDto!
 }
 
-input ParamsAllLocationInput {
-  types: [String!]!
-}
-
 input ParamsLocationInput {
-  limit: Int!
-  page: Int!
   types: [String!]!
+  region: String!
+  debounced: [[Float!]!]!
 }
 
 input ParamsPostInput {

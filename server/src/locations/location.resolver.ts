@@ -7,7 +7,7 @@ import {
   CreateLocationsDto,
 } from './dto/create-location.dto';
 import { Location, LocationDocument } from './locations.schema';
-import { ParamsLocationInput, ParamsAllLocationInput } from './inputs';
+import { ParamsLocationInput } from './inputs';
 //import { LikeInput } from '../likes/inputs/create-like.input'
 //import { CommentInput } from '../comments/inputs/create-comment.input'
 //import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
@@ -20,14 +20,9 @@ export class LocationsResolver {
     private locationModel: Model<LocationDocument>,
   ) {}
 
-  @Query(() => [CreateLocationDto])
-  async locations(@Args('input') input: ParamsAllLocationInput) {
-    return this.locationsService.findAll(input);
-  }
-
   @Query(() => CreateLocationsDto)
-  async locationsAndParams(@Args('input') input: ParamsLocationInput) {
-    return this.locationsService.locations(input);
+  async locations(@Args('input') input: ParamsLocationInput) {
+    return this.locationsService.allLocations(input);
   }
 
   @Query(() => CreateLocationDto)

@@ -1,30 +1,21 @@
 import React from 'react'
-import { useLazyQuery } from '@apollo/client'
 import { LocationsListComponent } from '../Components'
-import { CircularProgress } from '../../../../'
-import { LOCATIONS_AND_PARAMS } from '../../../../../apollo/queries/locations'
+//import { CircularProgress } from '../../../../'
+import type { ILocation } from '../../../types/location'
 
-const LocationsList: React.FC = () => {
-  const [locationsAndParams, { loading, error, data }] =
-    useLazyQuery(LOCATIONS_AND_PARAMS)
+interface IProps {
+  locations?: {
+    total_locations: number
+    locations: ILocation[]
+  }
+}
 
-  React.useEffect(() => {
-    locationsAndParams({
-      variables: {
-        input: {
-          page: 1,
-          limit: 12,
-          types: [],
-        },
-      },
-    })
-  }, [])
+const LocationsList: React.FC<IProps> = ({ locations }) => {
+  //if (!data || loading) return <CircularProgress marginTop={6} />
 
-  if (!data || loading) return <CircularProgress marginTop={6} />
+  //if (error) return <h5>Error</h5>
 
-  if (error) return <h5>Error</h5>
-
-  return <LocationsListComponent data={data?.locationsAndParams} />
+  return <LocationsListComponent data={locations} />
 }
 
 export default LocationsList

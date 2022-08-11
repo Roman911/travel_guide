@@ -1,15 +1,5 @@
 import { gql } from 'apollo-boost'
 
-export const ALL_LOCATIONS = gql`
-  query locations($input: ParamsAllLocationInput!) {
-    locations(input: $input) {
-      _id
-      coordinates
-      isType
-    }
-  }
-`
-
 export const LOCATION = gql`
   query location($locationID: String!) {
     location(locationID: $locationID) {
@@ -26,39 +16,16 @@ export const LOCATION = gql`
   }
 `
 
-export const LOCATION_FOR_POPUR = gql`
-  query location($locationID: String!) {
-    location(locationID: $locationID) {
-      title
-      address
-      cover {
-        url
-      }
-    }
-  }
-`
-
-export const LOCATIONS_SORT_BY_ID = gql`
-  query locationsSortById($_id: [ID]) {
-    locationsSortById(_id: $_id) {
-      _id
-      coordinates
-      isType
-    }
-  }
-`
-
-export const LOCATIONS_AND_PARAMS = gql`
-  query locationsAndParams($input: ParamsLocationInput!) {
-    locationsAndParams(input: $input) {
-      page
-      total_pages
+export const LOCATIONS = gql`
+  query locations($input: ParamsLocationInput!) {
+    locations(input: $input) {
       total_locations
       locations {
         _id
         title
         isType
         address
+        coordinates
         cover {
           url
         }

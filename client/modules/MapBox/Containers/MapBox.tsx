@@ -1,29 +1,40 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+//import { useDebounce } from 'use-debounce'
 import { Stack } from '@mui/material'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { useActions } from '../../../store/hooks'
 import { MapBoxComponent } from '../Components'
 import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
-import { ALL_LOCATIONS } from '../../../apollo/queries/locations'
+import { LOCATIONS } from '../../../apollo/queries/locations'
+import { useLocalState } from '../../../hooks/useLocalState'
 
 const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
   const router = useRouter()
   const { setLeftBox } = useActions()
+  const [dataBounds, setDataBounds] = useLocalState<string>(
+    'bounds',
+    '[[0,0],[0,0]]'
+  )
+  //const [debouncedDataBounds] = useDebounce(dataBounds, 200)
   const mapRef = React.useRef(null)
-  const [locations, { loading, error, data }] = useLazyQuery(ALL_LOCATIONS)
+  const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
   const [viewport, setViewport] = React.useState({
-    latitude: 49,
-    longitude: 30,
-    zoom: 5.3,
+    latitude: 48.6,
+    longitude: 31.48307,
+    zoom: 5.5,
   })
 
   React.useEffect(() => {
-    locations({ variables: { input: { types: [] } } })
-  }, [])
+    locations({
+      variables: {
+        input: { types: [], region: '', debounced: JSON.parse(dataBounds) },
+      },
+    })
+  }, [dataBounds])
 
   React.useEffect(() => {
     if (router.query.id) {
@@ -36,7 +47,7 @@ const MapBox: React.FC = () => {
 
   return (
     <Stack direction="row" position="relative">
-      <LeftBox widthLeftBox={widthLeftBox} />
+      <LeftBox widthLeftBox={widthLeftBox} locations={data?.locations} />
       <TopBar widthLeftBox={widthLeftBox}>
         <SearchBox
           defaultValue=""
@@ -53,8 +64,8 @@ const MapBox: React.FC = () => {
                 zoom: 12,
               }))
               if (mapRef.current) {
-                //const bounds = mapRef.current.getMap().getBounds()
-                //setDataBounds(JSON.stringify(bounds.toArray()))
+                const bounds = mapRef.current.getMap().getBounds()
+                setDataBounds(JSON.stringify(bounds.toArray()))
               }
             }
           }}
@@ -65,7 +76,8 @@ const MapBox: React.FC = () => {
         viewport={viewport}
         setViewport={setViewport}
         mapRef={mapRef}
-        locations={data?.locations}
+        locations={data?.locations.locations}
+        setDataBounds={setDataBounds}
       />
       <SpeedDial />
     </Stack>

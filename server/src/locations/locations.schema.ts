@@ -24,20 +24,22 @@ export class Location {
   isType: string;
   @Prop()
   address: string;
+  @Prop()
+  region: string;
   @Prop({ default: new Date() })
   createdAt: Date;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   author: User;
+  @Prop()
+  latitude: Number;
+  @Prop()
+  longitude: Number;
 }
 
 export const LocationSchema = SchemaFactory.createForClass(Location);
 
 @Schema()
 export class Locations {
-  @Prop()
-  page: number;
-  @Prop()
-  total_pages: number;
   @Prop()
   total_locations: number;
   @Prop({ type: [LocationSchema] })

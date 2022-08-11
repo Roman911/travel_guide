@@ -24,6 +24,7 @@ interface IProps {
     isType: string
     coordinates: string[]
   }[]
+  setDataBounds: (bounds: string) => void
 }
 
 const MapBoxComponent: React.FC<IProps> = ({
@@ -32,6 +33,7 @@ const MapBoxComponent: React.FC<IProps> = ({
   setViewport,
   mapRef,
   locations,
+  setDataBounds,
 }) => {
   const [selected, setSelected] = React.useState(null)
   return (
@@ -44,17 +46,23 @@ const MapBoxComponent: React.FC<IProps> = ({
       }}
       mapboxAccessToken={process.env.NEXT_APP_MAPBOX_TOKEN}
       mapStyle="mapbox://styles/mapbox/streets-v11"
-      onMove={evt => setViewport(evt.viewState)}
+      onMove={e => {
+        setViewport(e.viewState)
+        const bounds = mapRef.current.getMap().getBounds()
+        setDataBounds(JSON.stringify(bounds.toArray()))
+      }}
       ref={instance => (mapRef.current = instance)}
       minZoom={5}
       maxZoom={15}
+      onLoad={() => {
+        if (mapRef.current) {
+          const bounds = mapRef.current.getMap().getBounds()
+          setDataBounds(JSON.stringify(bounds.toArray()))
+        }
+      }}
     >
-      <NavigationControl
-        showCompass={false}
-        position="top-left"
-        style={{ marginTop: 150 }}
-      />
-      <Source
+      <NavigationControl showCompass={false} position="top-left" />
+      {/*<Source
         id="earthquakes"
         type="geojson"
         data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
@@ -67,7 +75,7 @@ const MapBoxComponent: React.FC<IProps> = ({
         <Layer {...unclusteredPointLayer}>
           <img src={'/static/images/little-known-places.png'} />
         </Layer>
-      </Source>
+    </Source>*/}
       {locations?.map(i => {
         const [lat, long] = i.coordinates
         return (
