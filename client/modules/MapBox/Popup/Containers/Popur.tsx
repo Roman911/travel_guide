@@ -3,13 +3,10 @@ import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { PopurComponent } from '../Components'
 import { LOCATION_FOR_POPUR } from '../../../../apollo/queries/locations'
+import type { ILocation } from '../../types'
 
 interface IProps {
-  selected: {
-    _id: string
-    isType: string
-    coordinates: string[]
-  } | null
+  selected: ILocation | null
   setSelected: (props: null) => void
 }
 

@@ -15,6 +15,7 @@ const widthLeftBox = '550'
 const MapBox: React.FC = () => {
   const router = useRouter()
   const { setLeftBox } = useActions()
+  const [highlightedId, setHighlightedId] = React.useState<string | null>(null)
   const [dataBounds, setDataBounds] = useLocalState<string>(
     'bounds',
     '[[0,0],[0,0]]'
@@ -51,6 +52,7 @@ const MapBox: React.FC = () => {
         widthLeftBox={widthLeftBox}
         data={data?.locations}
         loading={loading}
+        setHighlightedId={setHighlightedId}
       />
       <TopBar widthLeftBox={widthLeftBox}>
         <SearchBox
@@ -82,6 +84,7 @@ const MapBox: React.FC = () => {
         mapRef={mapRef}
         locations={data?.locations.locations}
         setDataBounds={setDataBounds}
+        highlightedId={highlightedId}
       />
       <SpeedDial />
     </Stack>

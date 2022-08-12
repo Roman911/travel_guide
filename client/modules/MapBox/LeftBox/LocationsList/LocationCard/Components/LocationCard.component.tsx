@@ -14,12 +14,21 @@ import type { ILocation } from '../../../../types/location'
 interface IProps {
   item: ILocation
   handleClick: () => void
+  setHighlightedId: (id: string | null) => void
 }
 
-const LocationCardComponent: React.FC<IProps> = ({ item, handleClick }) => {
+const LocationCardComponent: React.FC<IProps> = ({
+  item,
+  handleClick,
+  setHighlightedId,
+}) => {
   return (
     <Grid item xs={6}>
-      <Card onClick={handleClick}>
+      <Card
+        onClick={handleClick}
+        onMouseEnter={() => setHighlightedId(item._id)}
+        onMouseLeave={() => setHighlightedId(null)}
+      >
         <CardActionArea>
           <CardMedia
             component="img"

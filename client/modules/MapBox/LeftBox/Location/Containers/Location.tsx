@@ -22,7 +22,7 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
 
   return (
     <LocationComponent
-      data={data?.location}
+      location={data?.location}
       widthLeftBox={widthLeftBox}
       handleClick={handleClick}
     />

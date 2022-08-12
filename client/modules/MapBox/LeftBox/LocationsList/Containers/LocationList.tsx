@@ -9,9 +9,14 @@ interface IProps {
     locations: ILocation[]
   }
   loading?: boolean
+  setHighlightedId: (id: string | null) => void
 }
 
-const LocationsList: React.FC<IProps> = ({ data, loading }) => {
+const LocationsList: React.FC<IProps> = ({
+  data,
+  loading,
+  setHighlightedId,
+}) => {
   const { ref, inView } = useInView({ threshold: 0 })
   const [page, setPage] = React.useState(1)
   const [locations, setLocations] = React.useState([])
@@ -40,6 +45,7 @@ const LocationsList: React.FC<IProps> = ({ data, loading }) => {
       total_locations={data?.total_locations}
       loading={loading}
       refm={ref}
+      setHighlightedId={setHighlightedId}
     />
   )
 }

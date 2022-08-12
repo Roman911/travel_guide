@@ -22,6 +22,7 @@ interface IProps {
   mapRef: any
   locations?: ILocation[]
   setDataBounds: (bounds: string) => void
+  highlightedId: string | null
 }
 
 const MapBoxComponent: React.FC<IProps> = ({
@@ -31,6 +32,7 @@ const MapBoxComponent: React.FC<IProps> = ({
   mapRef,
   locations,
   setDataBounds,
+  highlightedId,
 }) => {
   const [selected, setSelected] = React.useState(null)
   return (
@@ -80,12 +82,26 @@ const MapBoxComponent: React.FC<IProps> = ({
             latitude={i.latitude}
             longitude={i.longitude}
             offset={[0, -10]}
+            style={
+              highlightedId === i._id
+                ? {
+                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                    zIndex: 10,
+                    padding: '12px 8px 6px',
+                    borderRadius: '50%',
+                  }
+                : { background: 'none', zIndex: 0 }
+            }
           >
             <button
               onClick={() => setSelected(i)}
               style={{ border: 0, background: 'none', cursor: 'pointer' }}
             >
-              <img src={`/static/images/${i.isType}.png`} />
+              <img
+                src={`/static/images/${i.isType}${
+                  highlightedId === i._id ? '-hover' : ''
+                }.png`}
+              />
             </button>
           </Marker>
         )

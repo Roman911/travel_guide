@@ -11,20 +11,11 @@ import {
   Typography,
 } from '@mui/material'
 import { LocationOn } from '@mui/icons-material'
+import type { ILocation } from '../../types'
 
 interface IProps {
-  selected: {
-    _id: string
-    isType: string
-    coordinates: string[]
-  }
-  location?: {
-    address: string
-    title: string
-    cover: {
-      url: string
-    }
-  }
+  selected: ILocation
+  location?: ILocation
   closeOnClick: () => void
   editOnClick: () => void
 }
@@ -37,8 +28,8 @@ const PopurComponent: React.FC<IProps> = ({
 }) => {
   return (
     <Popup
-      latitude={Number(selected.coordinates[0])}
-      longitude={Number(selected.coordinates[1])}
+      latitude={selected.latitude}
+      longitude={selected.longitude}
       closeOnClick={false}
       style={{ maxWidth: 250 }}
     >

@@ -6,9 +6,10 @@ import type { ILocation } from '../../../../types/location'
 
 interface IProps {
   item: ILocation
+  setHighlightedId: (id: string | null) => void
 }
 
-const LocationCard: React.FC<IProps> = ({ item }) => {
+const LocationCard: React.FC<IProps> = ({ item, setHighlightedId }) => {
   const router = useRouter()
   const { setLeftBox } = useActions()
 
@@ -17,7 +18,13 @@ const LocationCard: React.FC<IProps> = ({ item }) => {
     setLeftBox(item._id)
   }
 
-  return <LocationCardComponent item={item} handleClick={handleClick} />
+  return (
+    <LocationCardComponent
+      item={item}
+      handleClick={handleClick}
+      setHighlightedId={setHighlightedId}
+    />
+  )
 }
 
 export default LocationCard
