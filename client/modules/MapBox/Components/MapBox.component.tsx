@@ -7,6 +7,7 @@ import ReactMapGL, {
   Source,
 } from 'react-map-gl'
 import { Popur } from '../'
+import type { ILocation } from '../types'
 
 import {
   clusterLayer,
@@ -19,11 +20,7 @@ interface IProps {
   viewport: any
   setViewport: (evt: ViewState) => void
   mapRef: any
-  locations?: {
-    _id: string
-    isType: string
-    coordinates: string[]
-  }[]
+  locations?: ILocation[]
   setDataBounds: (bounds: string) => void
 }
 
@@ -75,14 +72,13 @@ const MapBoxComponent: React.FC<IProps> = ({
         <Layer {...unclusteredPointLayer}>
           <img src={'/static/images/little-known-places.png'} />
         </Layer>
-    </Source>*/}
+      </Source>*/}
       {locations?.map(i => {
-        const [lat, long] = i.coordinates
         return (
           <Marker
             key={i._id}
-            latitude={Number(lat)}
-            longitude={Number(long)}
+            latitude={i.latitude}
+            longitude={i.longitude}
             offset={[0, -10]}
           >
             <button

@@ -7,7 +7,8 @@ export const LOCATION = gql`
       title
       small_text
       address
-      coordinates
+      latitude
+      longitude
       isType
       cover {
         url
@@ -25,7 +26,8 @@ export const LOCATIONS = gql`
         title
         isType
         address
-        coordinates
+        latitude
+        longitude
         cover {
           url
         }

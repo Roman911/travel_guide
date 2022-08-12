@@ -73,8 +73,8 @@ type CreateLocationDto {
   region: String!
   createdAt: DateTime!
   author: CreateUserDto
-  latitude: Int!
-  longitude: Int!
+  latitude: Float!
+  longitude: Float!
 }
 
 type CreateLocationsDto {

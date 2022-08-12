@@ -47,7 +47,11 @@ const MapBox: React.FC = () => {
 
   return (
     <Stack direction="row" position="relative">
-      <LeftBox widthLeftBox={widthLeftBox} locations={data?.locations} />
+      <LeftBox
+        widthLeftBox={widthLeftBox}
+        data={data?.locations}
+        loading={loading}
+      />
       <TopBar widthLeftBox={widthLeftBox}>
         <SearchBox
           defaultValue=""

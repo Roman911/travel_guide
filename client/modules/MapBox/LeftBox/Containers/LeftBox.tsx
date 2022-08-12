@@ -14,10 +14,11 @@ interface ILocationProps extends ICreateLocationProps {
 }
 
 interface ILocationsProps {
-  locations?: {
+  data?: {
     total_locations: number
     locations: ILocation[]
   }
+  loading?: boolean
 }
 
 interface IProps extends ILocationsProps {
@@ -34,7 +35,7 @@ const CreateLocation = dynamic<ICreateLocationProps>(
   () => import('../CreateLocation/Containers/CreateLocation') as any
 )
 
-const LeftBox: React.FC<IProps> = ({ widthLeftBox, locations }) => {
+const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
   const router = useRouter()
   const { leftBox } = useTypedSelector(state => state.leftBox)
   const { setLeftBox } = useActions()
@@ -55,7 +56,7 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, locations }) => {
   if (leftBox === 'createDirection') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <LocationsList locations={locations} />
+        <LocationsList data={data} loading={loading} />
       </LeftBoxLayout>
     )
   }
@@ -63,7 +64,7 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, locations }) => {
   if (leftBox === 'locationsList') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <LocationsList locations={locations} />
+        <LocationsList data={data} loading={loading} />
       </LeftBoxLayout>
     )
   }

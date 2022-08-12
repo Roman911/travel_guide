@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
 import { CreateUploadDto } from '../../uploadFile/dto/create-uploadFile.dto';
 
@@ -24,9 +24,9 @@ export class CreateLocationDto {
   createdAt: Date;
   @Field((type) => CreateUserDto, { nullable: true })
   author: CreateUserDto;
-  @Field(() => Int)
+  @Field(() => Float)
   latitude: number;
-  @Field(() => Int)
+  @Field(() => Float)
   longitude: number;
 }
 
