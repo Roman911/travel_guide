@@ -7,7 +7,7 @@ import {
   CreateLocationsDto,
 } from './dto/create-location.dto';
 import { Location, LocationDocument } from './locations.schema';
-import { ParamsLocationInput } from './inputs';
+import { CreateLocationInput, ParamsLocationInput } from './inputs';
 //import { LikeInput } from '../likes/inputs/create-like.input'
 //import { CommentInput } from '../comments/inputs/create-comment.input'
 //import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
@@ -30,10 +30,10 @@ export class LocationsResolver {
     return this.locationsService.location(locationID);
   }
 
-  //@Mutation(() => CreatePostDto)
-  //async setLikeForPost(@Args('input') input: LikeInput) {
-  //return this.postsService.setLike(input)
-  //}
+  @Mutation(() => CreateLocationDto)
+  async createLocation(@Args('input') input: CreateLocationInput) {
+    return this.locationsService.saveLocation(input);
+  }
 
   //@Mutation(() => CreatePostDto)
   //async addCommentForPost(@Args('input') input: CommentInput) {

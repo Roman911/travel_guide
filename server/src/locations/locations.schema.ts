@@ -19,21 +19,19 @@ export class Location {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Upload' })
   cover: Upload;
   @Prop()
-  coordinates: string[];
-  @Prop()
   isType: string;
   @Prop()
   address: string;
   @Prop()
   region: string;
-  @Prop({ default: new Date() })
-  createdAt: Date;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  author: User;
   @Prop()
   latitude: Number;
   @Prop()
   longitude: Number;
+  @Prop({ default: new Date() })
+  createdAt: Date;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  author: User;
 }
 
 export const LocationSchema = SchemaFactory.createForClass(Location);

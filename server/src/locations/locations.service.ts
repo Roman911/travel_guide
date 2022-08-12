@@ -3,9 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModuleRef } from '@nestjs/core';
 import { Location, LocationDocument, Locations } from './locations.schema';
-import { ParamsLocationInput } from './inputs';
+import { CreateLocationInput, ParamsLocationInput } from './inputs';
 import { TokenService } from '../token/token.service';
-//import { LikeInput } from '../likes/inputs/create-like.input'
 
 @Injectable()
 export class LocationService {
@@ -62,35 +61,19 @@ export class LocationService {
     };
   }
 
-  //async addComment(CreatePostDto: CommentInput): Promise<Post> {
-  //const { id, token, comment } = CreatePostDto
+  async saveLocation(
+    createLocationInput: CreateLocationInput,
+  ): Promise<Location> {
+    const { token } = createLocationInput;
 
-  //this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
-  //const userData = this.tokenService.validateRefreshToken(token)
+    this.tokenService = await this.moduleRef.get(TokenService, {
+      strict: false,
+    });
+    const userData = this.tokenService.validateRefreshToken(token);
 
-  //const update = {
-  //comments: {
-  //author: userData.id,
-  //comment
-  //}
-  //}
-
-  //return this.postModel.findByIdAndUpdate(id, { $push: update }, { new: true }).exec()
-  //}
-
-  //async addAnswer(CreatePostDto: AnswerCommentInput): Promise<Post> {
-  //const { id, commentId, token, comment } = CreatePostDto
-
-  // this.tokenService = await this.moduleRef.get(TokenService, { strict: false })
-  // const userData = this.tokenService.validateRefreshToken(token)
-
-  // const update = {
-  // answers: {
-  // author: userData.id,
-  // comment
-  // }
-  // }
-
-  // return this.postModel.findById(id).findOneAndUpdate({ comments: commentId }, { $push: update }, { new: true }).exec()
-  //}
+    return await this.locationModel.create({
+      ...createLocationInput,
+      author: userData._id,
+    });
+  }
 }

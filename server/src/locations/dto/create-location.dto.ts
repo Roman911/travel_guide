@@ -12,8 +12,6 @@ export class CreateLocationDto {
   small_text: string;
   @Field((type) => CreateUploadDto)
   cover: CreateUploadDto;
-  @Field((type) => [String])
-  coordinates: string[];
   @Field()
   isType: string;
   @Field()

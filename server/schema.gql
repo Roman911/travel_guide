@@ -67,7 +67,6 @@ type CreateLocationDto {
   title: String!
   small_text: String!
   cover: CreateUploadDto!
-  coordinates: [String!]!
   isType: String!
   address: String!
   region: String!
@@ -153,6 +152,7 @@ input LoginUserInput {
 type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
+  createLocation(input: CreateLocationInput!): CreateLocationDto!
   setLikeForPost(input: LikeInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
@@ -168,6 +168,17 @@ input CommentInput {
 input AnswerCommentInput {
   id: ID!
   comment: String!
+  token: String!
+}
+
+input CreateLocationInput {
+  title: String!
+  small_text: String!
+  isType: String!
+  address: String!
+  region: String!
+  latitude: Float!
+  longitude: Float!
   token: String!
 }
 
