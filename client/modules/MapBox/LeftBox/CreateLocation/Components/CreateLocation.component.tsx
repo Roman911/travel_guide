@@ -1,4 +1,5 @@
 import React from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
 import {
   Autocomplete,
   Box,
@@ -30,6 +31,8 @@ const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }))
 
 const CreateLocationComponent: React.FC<IProps> = ({ handleClick }) => {
+  const { control } = useFormContext()
+
   return (
     <Box padding={2} position="relative">
       <IconButton
@@ -48,7 +51,13 @@ const CreateLocationComponent: React.FC<IProps> = ({ handleClick }) => {
         <Typography variant="h5" textAlign="center">
           Додати нове цікаве місце
         </Typography>
-        <TextField label="Назва локації" variant="outlined" />
+        <Controller
+          name="title"
+          control={control}
+          render={({ field }) => (
+            <TextField {...field} label="Назва локації" variant="outlined" />
+          )}
+        />
         <UploadButton
           variant="outlined"
           //@ts-ignore
@@ -57,19 +66,36 @@ const CreateLocationComponent: React.FC<IProps> = ({ handleClick }) => {
           Обрати фото
           <input hidden accept="image/*" multiple type="file" />
         </UploadButton>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={locations}
-          //sx={{ width: w }}
-          renderInput={params => <TextField {...params} label="Тип локації" />}
+        <Controller
+          name="small_text"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Короткий опис локації"
+              multiline
+              rows={4}
+              variant="outlined"
+            />
+          )}
         />
-        <TextField
-          id="filled-multiline-static"
-          label="Короткий опис локації"
-          multiline
-          rows={4}
-          variant="outlined"
+        <Controller
+          name="isType"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Autocomplete
+              disablePortal
+              options={locations}
+              onChange={(event, item) => {
+                onChange(item)
+              }}
+              value={value}
+              //sx={{ width: w }}
+              renderInput={params => (
+                <TextField {...params} label="Тип локації" />
+              )}
+            />
+          )}
         />
         <TextField label="Адрес" variant="outlined" />
         <Typography variant="body1">Координати</Typography>
@@ -78,7 +104,7 @@ const CreateLocationComponent: React.FC<IProps> = ({ handleClick }) => {
           <TextField sx={{ width: '50%' }} label="Довгота" variant="outlined" />
         </Stack>
         <Stack direction="row" justifyContent="flex-end">
-          <Button variant="contained" color="secondary">
+          <Button type="submit" variant="contained" color="secondary">
             Завантажити
           </Button>
         </Stack>

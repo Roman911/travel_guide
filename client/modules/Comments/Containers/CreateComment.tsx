@@ -1,15 +1,18 @@
-import React from "react"
-import { useMutation } from '@apollo/react-hooks'
+import React from 'react'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { useMutation } from '@apollo/react-hooks'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Box } from '@mui/material'
 import { useTypedSelector } from '../../../store/hooks/useTypedSelector'
 import { CreateCommentComponent } from '../Components'
-import { ADDED_ANSWER, CREATE_COMMENT } from '../../../apollo/mutations/comments'
+import {
+  ADDED_ANSWER,
+  CREATE_COMMENT,
+} from '../../../apollo/mutations/comments'
 
 const schema = yup.object().shape({
-  comment: yup.string().required('Поле не може бути пустим')
+  comment: yup.string().required('Поле не може бути пустим'),
 })
 
 interface IFormInput {
@@ -17,7 +20,7 @@ interface IFormInput {
 }
 
 const defaultValues = {
-  comment: ''
+  comment: '',
 }
 
 type Props = {
@@ -28,50 +31,66 @@ type Props = {
   refetch: () => void
 }
 
-export const CreateComment: React.FC<Props> = ({ isAnswer, postId, commentId, handleCloseOpenAnswer, refetch }) => {
+export const CreateComment: React.FC<Props> = ({
+  isAnswer,
+  postId,
+  commentId,
+  handleCloseOpenAnswer,
+  refetch,
+}) => {
   const { userData, refreshToken } = useTypedSelector(state => state.user)
   const [createComment] = useMutation(CREATE_COMMENT)
   const [addedCommentAnswer] = useMutation(ADDED_ANSWER)
-  const methods = useForm<IFormInput>({ mode: "all", defaultValues, resolver: yupResolver(schema) })
+  const methods = useForm<IFormInput>({
+    mode: 'all',
+    defaultValues,
+    resolver: yupResolver(schema),
+  })
   const { handleSubmit } = methods
 
   const onSubmit: SubmitHandler<IFormInput> = values => {
     console.log(values)
-    isAnswer ?
-      addedCommentAnswer({
-        variables: {
-          input: {
-            token: refreshToken,
-            id: commentId,
-            comment: values.comment
+    isAnswer
+      ? addedCommentAnswer({
+          variables: {
+            input: {
+              token: refreshToken,
+              id: commentId,
+              comment: values.comment,
+            },
+          },
+        }).then(data => {
+          if (data) {
+            methods.reset()
+            refetch()
+            if (handleCloseOpenAnswer) handleCloseOpenAnswer()
           }
-        }
-      }).then(data => {
-        if (data) {
-          methods.reset()
-          refetch()
-          if (handleCloseOpenAnswer) handleCloseOpenAnswer()
-        }
-      }) :
-      createComment({
-        variables: {
-          input: {
-            token: refreshToken,
-            postId,
-            comment: values.comment
+        })
+      : createComment({
+          variables: {
+            input: {
+              token: refreshToken,
+              postId,
+              comment: values.comment,
+            },
+          },
+        }).then(data => {
+          if (data) {
+            refetch()
+            methods.reset()
           }
-        }
-      }).then(data => {
-        if (data) {
-          refetch()
-          methods.reset()
-        }
-      })
+        })
   }
 
-  return <FormProvider {...methods}>
-    <Box component="form" margin='auto' onSubmit={handleSubmit(onSubmit)}>
-      <CreateCommentComponent userData={userData} isAnswer={isAnswer} handleCloseOpenAnswer={handleCloseOpenAnswer} />
-    </Box>
-  </FormProvider>
+  return (
+    <FormProvider {...methods}>
+      <Box component="form" margin="auto" onSubmit={handleSubmit(onSubmit)}>
+        <CreateCommentComponent
+          userData={userData}
+          isAnswer={isAnswer}
+          handleCloseOpenAnswer={handleCloseOpenAnswer}
+        />
+      </Box>
+    </FormProvider>
+  )
 }
