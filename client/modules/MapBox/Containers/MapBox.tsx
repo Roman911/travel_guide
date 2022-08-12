@@ -9,6 +9,7 @@ import { MapBoxComponent } from '../Components'
 import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
 import { LOCATIONS } from '../../../apollo/queries/locations'
 import { useLocalState } from '../../../hooks/useLocalState'
+import type { ILocation } from '../types'
 
 const widthLeftBox = '550'
 
@@ -16,6 +17,7 @@ const MapBox: React.FC = () => {
   const router = useRouter()
   const { setLeftBox } = useActions()
   const [highlightedId, setHighlightedId] = React.useState<string | null>(null)
+  const [selected, setSelected] = React.useState<ILocation | null>(null)
   const [dataBounds, setDataBounds] = useLocalState<string>(
     'bounds',
     '[[0,0],[0,0]]'
@@ -53,6 +55,7 @@ const MapBox: React.FC = () => {
         data={data?.locations}
         loading={loading}
         setHighlightedId={setHighlightedId}
+        setSelected={setSelected}
       />
       <TopBar widthLeftBox={widthLeftBox}>
         <SearchBox
@@ -85,6 +88,8 @@ const MapBox: React.FC = () => {
         locations={data?.locations.locations}
         setDataBounds={setDataBounds}
         highlightedId={highlightedId}
+        selected={selected}
+        setSelected={setSelected}
       />
       <SpeedDial />
     </Stack>

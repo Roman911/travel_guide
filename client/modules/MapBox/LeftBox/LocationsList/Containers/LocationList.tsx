@@ -10,12 +10,14 @@ interface IProps {
   }
   loading?: boolean
   setHighlightedId: (id: string | null) => void
+  setSelected: (props: ILocation | null) => void
 }
 
 const LocationsList: React.FC<IProps> = ({
   data,
   loading,
   setHighlightedId,
+  setSelected,
 }) => {
   const { ref, inView } = useInView({ threshold: 0 })
   const [page, setPage] = React.useState(1)
@@ -46,6 +48,7 @@ const LocationsList: React.FC<IProps> = ({
       loading={loading}
       refm={ref}
       setHighlightedId={setHighlightedId}
+      setSelected={setSelected}
     />
   )
 }

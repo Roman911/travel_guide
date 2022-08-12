@@ -18,23 +18,26 @@ import {
 interface IProps {
   widthLeftBox: string
   viewport: any
-  setViewport: (evt: ViewState) => void
   mapRef: any
   locations?: ILocation[]
-  setDataBounds: (bounds: string) => void
   highlightedId: string | null
+  selected: ILocation | null
+  setViewport: (evt: ViewState) => void
+  setDataBounds: (bounds: string) => void
+  setSelected: (props: ILocation | null) => void
 }
 
 const MapBoxComponent: React.FC<IProps> = ({
   widthLeftBox,
   viewport,
-  setViewport,
   mapRef,
   locations,
-  setDataBounds,
   highlightedId,
+  selected,
+  setViewport,
+  setDataBounds,
+  setSelected,
 }) => {
-  const [selected, setSelected] = React.useState(null)
   return (
     <ReactMapGL
       {...viewport}

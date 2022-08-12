@@ -20,6 +20,7 @@ interface ILocationsProps {
   }
   loading?: boolean
   setHighlightedId: (id: string | null) => void
+  setSelected: (props: ILocation | null) => void
 }
 
 interface IProps extends ILocationsProps {
@@ -41,6 +42,7 @@ const LeftBox: React.FC<IProps> = ({
   data,
   loading,
   setHighlightedId,
+  setSelected,
 }) => {
   const router = useRouter()
   const { leftBox } = useTypedSelector(state => state.leftBox)
@@ -49,6 +51,7 @@ const LeftBox: React.FC<IProps> = ({
   const handleClick = () => {
     setLeftBox('locationsList')
     router.push('')
+    setSelected(null)
   }
 
   if (leftBox === 'createLocation') {
@@ -66,6 +69,7 @@ const LeftBox: React.FC<IProps> = ({
           data={data}
           loading={loading}
           setHighlightedId={setHighlightedId}
+          setSelected={setSelected}
         />
       </LeftBoxLayout>
     )
@@ -78,6 +82,7 @@ const LeftBox: React.FC<IProps> = ({
           data={data}
           loading={loading}
           setHighlightedId={setHighlightedId}
+          setSelected={setSelected}
         />
       </LeftBoxLayout>
     )

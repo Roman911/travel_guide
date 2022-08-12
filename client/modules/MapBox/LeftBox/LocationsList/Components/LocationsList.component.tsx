@@ -11,6 +11,7 @@ interface IProps {
   total_locations?: number
   refm: (node?: Element | null | undefined) => void
   setHighlightedId: (id: string | null) => void
+  setSelected: (props: ILocation | null) => void
 }
 
 const LocationsListComponent: React.FC<IProps> = ({
@@ -19,6 +20,7 @@ const LocationsListComponent: React.FC<IProps> = ({
   total_locations,
   refm,
   setHighlightedId,
+  setSelected,
 }) => {
   return (
     <Box padding={2} height="100%" sx={{ overflowY: 'auto' }}>
@@ -43,6 +45,7 @@ const LocationsListComponent: React.FC<IProps> = ({
                 key={i._id}
                 item={i}
                 setHighlightedId={setHighlightedId}
+                setSelected={setSelected}
               />
             )
           })}
