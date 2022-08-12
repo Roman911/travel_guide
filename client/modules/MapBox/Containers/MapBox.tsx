@@ -1,6 +1,5 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-//import { useDebounce } from 'use-debounce'
 import { Stack } from '@mui/material'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useLazyQuery } from '@apollo/react-hooks'
@@ -15,21 +14,20 @@ const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
   const router = useRouter()
-  const { setLeftBox } = useActions()
+  const mapRef = React.useRef(null)
   const [highlightedId, setHighlightedId] = React.useState<string | null>(null)
   const [selected, setSelected] = React.useState<ILocation | null>(null)
   const [dataBounds, setDataBounds] = useLocalState<string>(
     'bounds',
     '[[0,0],[0,0]]'
   )
-  //const [debouncedDataBounds] = useDebounce(dataBounds, 200)
-  const mapRef = React.useRef(null)
-  const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
   const [viewport, setViewport] = React.useState({
     latitude: 48.6,
     longitude: 31.48307,
     zoom: 5.5,
   })
+  const { setLeftBox } = useActions()
+  const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
 
   React.useEffect(() => {
     locations({
