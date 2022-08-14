@@ -62,6 +62,7 @@ const MapBoxComponent: React.FC<IProps> = ({
           setDataBounds(JSON.stringify(bounds.toArray()))
         }
       }}
+      onClick={e => console.log(e)}
     >
       <NavigationControl showCompass={false} position="top-left" />
       {/*<Source

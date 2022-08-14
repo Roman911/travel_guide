@@ -15,6 +15,8 @@ import { Close } from '@mui/icons-material'
 import { locations } from '../config/locationsType'
 
 interface IProps {
+  previewImage?: string
+  setPreviewImage: (props: string) => void
   handleClick: () => void
 }
 
@@ -30,7 +32,11 @@ const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
   },
 }))
 
-const CreateLocationComponent: React.FC<IProps> = ({ handleClick }) => {
+const CreateLocationComponent: React.FC<IProps> = ({
+  previewImage,
+  setPreviewImage,
+  handleClick,
+}) => {
   const { control } = useFormContext()
 
   return (
@@ -58,14 +64,42 @@ const CreateLocationComponent: React.FC<IProps> = ({ handleClick }) => {
             <TextField {...field} label="Назва локації" variant="outlined" />
           )}
         />
-        <UploadButton
-          variant="outlined"
-          //@ts-ignore
-          component="label"
-        >
-          Обрати фото
-          <input hidden accept="image/*" multiple type="file" />
-        </UploadButton>
+        <Controller
+          name="uploadFile"
+          control={control}
+          render={({ field }) => (
+            <UploadButton
+              {...field}
+              variant="outlined"
+              //@ts-ignore
+              component="label"
+            >
+              Обрати фото
+              <input
+                hidden
+                accept="image/*"
+                multiple
+                type="file"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  if (event?.target?.files?.[0]) {
+                    const file = event.target.files[0]
+                    const reader = new FileReader()
+                    reader.onloadend = () => {
+                      setPreviewImage(reader.result as string)
+                    }
+                    reader.readAsDataURL(file)
+                  }
+                }}
+              />
+            </UploadButton>
+          )}
+        />
+        {previewImage && (
+          <img
+            src={previewImage}
+            style={{ maxWidth: '518px', height: `${(9 / 16) * 518}px` }}
+          />
+        )}
         <Controller
           name="small_text"
           control={control}

@@ -31,6 +31,7 @@ interface IFormInput {
   latitude: number
   longitude: number
   token: string
+  uploadFile?: File
 }
 
 const defaultValues = {
@@ -45,9 +46,11 @@ const defaultValues = {
   latitude: 0,
   longitude: 0,
   token: '',
+  uploadFile: undefined,
 }
 
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
+  const [previewImage, setPreviewImage] = React.useState<string>()
   const [createComment] = useMutation(CREATE_LOCATION)
   const methods = useForm<IFormInput>({
     mode: 'all',
@@ -56,13 +59,22 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const { handleSubmit } = methods
 
   const onSubmit: SubmitHandler<IFormInput> = values => {
-    console.log('click', values)
+    console.log('click', values, values.uploadFile)
   }
 
   return (
     <FormProvider {...methods}>
-      <Box component="form" margin="auto" onSubmit={handleSubmit(onSubmit)}>
-        <CreateLocationComponent handleClick={handleClick} />
+      <Box
+        component="form"
+        margin="auto"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{ height: '100%', overflowY: 'auto' }}
+      >
+        <CreateLocationComponent
+          handleClick={handleClick}
+          previewImage={previewImage}
+          setPreviewImage={setPreviewImage}
+        />
       </Box>
     </FormProvider>
   )
