@@ -1,16 +1,16 @@
-import { ObjectType, Field } from '@nestjs/graphql'
-import { CreateUserDto } from '../../users/dto/create-user.dto'
+import { ObjectType, Field } from '@nestjs/graphql';
+import { CreateUserDto } from '../../users/dto/create-user.dto';
 
 @ObjectType()
 export class CreateUploadDto {
   @Field()
-  _id: string
+  _id: string;
   @Field()
-  name: string
+  name: string;
   @Field()
-  url: string
+  url: string;
   @Field()
-  createdAt: Date
-  @Field(type => CreateUserDto, { nullable: true })
-  author: CreateUserDto
+  createdAt: Date;
+  @Field((type) => CreateUserDto, { nullable: true })
+  author: CreateUserDto;
 }
