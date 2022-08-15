@@ -1,27 +1,29 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { LocationCardComponent } from '../Components'
 import { useActions } from '../../../../../../store/hooks'
+import { LocationCardComponent } from '../Components'
 import type { ILocation } from '../../../../types/location'
 
 interface IProps {
   item: ILocation
-  setHighlightedId: (id: string | null) => void
-  setSelected: (props: ILocation | null) => void
 }
 
-const LocationCard: React.FC<IProps> = ({
-  item,
-  setHighlightedId,
-  setSelected,
-}) => {
+const LocationCard: React.FC<IProps> = ({ item }) => {
   const router = useRouter()
-  const { setLeftBox } = useActions()
+  const { setLeftBox, setHighlightedId, setSelected, setViewport } =
+    useActions()
 
   const handleClick = () => {
     router.push(`?id=${item._id}`)
     setLeftBox(item._id)
-    setSelected(item)
+    setSelected({ selected: item })
+    setViewport({
+      viewport: {
+        latitude: item.latitude,
+        longitude: item.longitude,
+        zoom: 12,
+      },
+    })
   }
 
   return (

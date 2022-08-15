@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 import { useMutation } from '@apollo/react-hooks'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useTypedSelector } from '../../../../../store/hooks'
 import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
 
@@ -50,6 +51,7 @@ const defaultValues = {
 }
 
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
+  const { userData } = useTypedSelector(state => state.user)
   const [previewImage, setPreviewImage] = React.useState<string>()
   const [createComment] = useMutation(CREATE_LOCATION)
   const methods = useForm<IFormInput>({

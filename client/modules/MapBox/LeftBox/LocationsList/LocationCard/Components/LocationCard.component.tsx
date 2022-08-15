@@ -14,7 +14,7 @@ import type { ILocation } from '../../../../types/location'
 interface IProps {
   item: ILocation
   handleClick: () => void
-  setHighlightedId: (id: string | null) => void
+  setHighlightedId: (arg: { highlightedId: string | null }) => void
 }
 
 const LocationCardComponent: React.FC<IProps> = ({
@@ -26,8 +26,8 @@ const LocationCardComponent: React.FC<IProps> = ({
     <Grid item xs={6}>
       <Card
         onClick={handleClick}
-        onMouseEnter={() => setHighlightedId(item._id)}
-        onMouseLeave={() => setHighlightedId(null)}
+        onMouseEnter={() => setHighlightedId({ highlightedId: item._id })}
+        onMouseLeave={() => setHighlightedId({ highlightedId: null })}
       >
         <CardActionArea>
           <CardMedia

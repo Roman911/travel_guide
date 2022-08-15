@@ -17,14 +17,24 @@ import {
 
 interface IProps {
   widthLeftBox: string
-  viewport: any
+  viewport: {
+    latitude: number
+    longitude: number
+    zoom: number
+  }
   mapRef: any
   locations?: ILocation[]
   highlightedId: string | null
   selected: ILocation | null
-  setViewport: (evt: ViewState) => void
+  setViewport: (arg: {
+    viewport: {
+      latitude: number
+      longitude: number
+      zoom: number
+    }
+  }) => void
   setDataBounds: (bounds: string) => void
-  setSelected: (props: ILocation | null) => void
+  setSelected: (props: { selected: ILocation | null }) => void
 }
 
 const MapBoxComponent: React.FC<IProps> = ({
@@ -49,7 +59,7 @@ const MapBoxComponent: React.FC<IProps> = ({
       mapboxAccessToken={process.env.NEXT_APP_MAPBOX_TOKEN}
       mapStyle="mapbox://styles/mapbox/streets-v11"
       onMove={e => {
-        setViewport(e.viewState)
+        setViewport({ viewport: e.viewState })
         const bounds = mapRef.current.getMap().getBounds()
         setDataBounds(JSON.stringify(bounds.toArray()))
       }}
@@ -98,7 +108,7 @@ const MapBoxComponent: React.FC<IProps> = ({
             }
           >
             <button
-              onClick={() => setSelected(i)}
+              onClick={() => setSelected({ selected: i })}
               style={{ border: 0, background: 'none', cursor: 'pointer' }}
             >
               <img

@@ -10,8 +10,6 @@ interface IProps {
   loading?: boolean
   total_locations?: number
   refm: (node?: Element | null | undefined) => void
-  setHighlightedId: (id: string | null) => void
-  setSelected: (props: ILocation | null) => void
 }
 
 const LocationsListComponent: React.FC<IProps> = ({
@@ -19,8 +17,6 @@ const LocationsListComponent: React.FC<IProps> = ({
   loading,
   total_locations,
   refm,
-  setHighlightedId,
-  setSelected,
 }) => {
   return (
     <Box padding={2} height="100%" sx={{ overflowY: 'auto' }}>
@@ -40,14 +36,7 @@ const LocationsListComponent: React.FC<IProps> = ({
       ) : (
         <Grid container spacing={2} marginTop={1}>
           {locations?.map(i => {
-            return (
-              <LocationCard
-                key={i._id}
-                item={i}
-                setHighlightedId={setHighlightedId}
-                setSelected={setSelected}
-              />
-            )
+            return <LocationCard key={i._id} item={i} />
           })}
           <Box ref={refm} />
         </Grid>

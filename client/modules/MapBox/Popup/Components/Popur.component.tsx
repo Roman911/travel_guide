@@ -31,7 +31,7 @@ const PopurComponent: React.FC<IProps> = ({
       latitude={selected.latitude}
       longitude={selected.longitude}
       closeOnClick={false}
-      style={{ maxWidth: 250 }}
+      style={{ maxWidth: 250, top: '-46px' }}
     >
       <Card sx={{ maxWidth: 250 }}>
         {location ? (

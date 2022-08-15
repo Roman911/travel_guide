@@ -3,6 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { drawerReducer } from './drawer'
 import { drawerGMReducer } from './drawerGoogleMap'
 import { leftBoxReducer } from './leftBox'
+import { mapBoxReducer } from './mapBox'
 import { progressReducer } from './progress'
 import { snackbarReducer } from './snackbar'
 import { themeReducer } from './theme'
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   drawer: drawerReducer,
   drawerGM: drawerGMReducer,
   leftBox: leftBoxReducer,
+  mapBox: mapBoxReducer,
   progress: progressReducer,
   snackbar: snackbarReducer,
   theme: themeReducer,

@@ -19,8 +19,6 @@ interface ILocationsProps {
     locations: ILocation[]
   }
   loading?: boolean
-  setHighlightedId: (id: string | null) => void
-  setSelected: (props: ILocation | null) => void
 }
 
 interface IProps extends ILocationsProps {
@@ -37,21 +35,15 @@ const CreateLocation = dynamic<ICreateLocationProps>(
   () => import('../CreateLocation/Containers/CreateLocation') as any
 )
 
-const LeftBox: React.FC<IProps> = ({
-  widthLeftBox,
-  data,
-  loading,
-  setHighlightedId,
-  setSelected,
-}) => {
+const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
   const router = useRouter()
   const { leftBox } = useTypedSelector(state => state.leftBox)
-  const { setLeftBox } = useActions()
+  const { setLeftBox, setSelected } = useActions()
 
   const handleClick = () => {
     setLeftBox('locationsList')
     router.push('')
-    setSelected(null)
+    setSelected({ selected: null })
   }
 
   if (leftBox === 'createLocation') {
@@ -65,12 +57,7 @@ const LeftBox: React.FC<IProps> = ({
   if (leftBox === 'createDirection') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <LocationsList
-          data={data}
-          loading={loading}
-          setHighlightedId={setHighlightedId}
-          setSelected={setSelected}
-        />
+        <LocationsList data={data} loading={loading} />
       </LeftBoxLayout>
     )
   }
@@ -78,12 +65,7 @@ const LeftBox: React.FC<IProps> = ({
   if (leftBox === 'locationsList') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <LocationsList
-          data={data}
-          loading={loading}
-          setHighlightedId={setHighlightedId}
-          setSelected={setSelected}
-        />
+        <LocationsList data={data} loading={loading} />
       </LeftBoxLayout>
     )
   }
