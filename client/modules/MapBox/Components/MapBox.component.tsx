@@ -25,7 +25,12 @@ interface IProps {
   mapRef: any
   locations?: ILocation[]
   highlightedId: string | null
+  latLng: {
+    latitude: number
+    longitude: number
+  }
   selected: ILocation | null
+  type: string
   setViewport: (arg: {
     viewport: {
       latitude: number
@@ -43,7 +48,9 @@ const MapBoxComponent: React.FC<IProps> = ({
   mapRef,
   locations,
   highlightedId,
+  latLng,
   selected,
+  type,
   setViewport,
   setDataBounds,
   setSelected,
@@ -120,6 +127,15 @@ const MapBoxComponent: React.FC<IProps> = ({
           </Marker>
         )
       })}
+      {latLng.latitude !== 0 && (
+        <Marker
+          latitude={latLng.latitude}
+          longitude={latLng.longitude}
+          offset={[0, -10]}
+        >
+          <img src={`/static/images/${type}-hover.png`} />
+        </Marker>
+      )}
       {selected && <Popur selected={selected} setSelected={setSelected} />}
     </ReactMapGL>
   )

@@ -14,12 +14,10 @@ const widthLeftBox = '550'
 const MapBox: React.FC = () => {
   const router = useRouter()
   const mapRef = React.useRef(null)
-  const { highlightedId, selected, viewport } = useTypedSelector(
+  const { highlightedId, latLng, selected, type, viewport } = useTypedSelector(
     state => state.mapBox
   )
   const { setLeftBox, setSelected, setViewport } = useActions()
-  //const [highlightedId, setHighlightedId] = React.useState<string | null>(null)
-  //const [selected, setSelected] = React.useState<ILocation | null>(null)
   const [dataBounds, setDataBounds] = useLocalState<string>(
     'bounds',
     '[[0,0],[0,0]]'
@@ -80,7 +78,9 @@ const MapBox: React.FC = () => {
         mapRef={mapRef}
         locations={data?.locations.locations}
         highlightedId={highlightedId}
+        latLng={latLng}
         selected={selected}
+        type={type}
         setDataBounds={setDataBounds}
         setSelected={setSelected}
         setViewport={setViewport}

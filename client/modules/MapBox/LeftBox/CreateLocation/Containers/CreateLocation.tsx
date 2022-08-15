@@ -4,14 +4,14 @@ import { Box } from '@mui/material'
 import { useMutation } from '@apollo/react-hooks'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useTypedSelector } from '../../../../../store/hooks'
+import { useActions, useTypedSelector } from '../../../../../store/hooks'
 import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
 
 const schema = yup.object().shape({
   title: yup.string().min(5).max(50).required('Поле не може бути пустим'),
   small_text: yup.string().min(10).max(60).required('Поле не може бути пустим'),
-  address: yup.string().min(10).max(50).required('Поле не може бути пустим'),
+  address: yup.string().min(10).max(100).required('Поле не може бути пустим'),
   latitude: yup.number().min(3).max(50).required('Поле не може бути пустим'),
   longitude: yup.number().min(3).max(50).required('Поле не може бути пустим'),
 })
@@ -51,18 +51,35 @@ const defaultValues = {
 }
 
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
-  const { userData } = useTypedSelector(state => state.user)
+  const {
+    user: { refreshToken },
+    mapBox: { address, latLng },
+  } = useTypedSelector(state => state)
+  const { setType } = useActions()
   const [previewImage, setPreviewImage] = React.useState<string>()
   const [createComment] = useMutation(CREATE_LOCATION)
   const methods = useForm<IFormInput>({
     mode: 'all',
     defaultValues,
+    resolver: yupResolver(schema),
   })
   const { handleSubmit } = methods
 
   const onSubmit: SubmitHandler<IFormInput> = values => {
-    console.log('click', values, values.uploadFile)
+    console.log('click', values, previewImage)
   }
+
+  console.log(methods.formState.errors)
+
+  React.useEffect(() => {
+    if (address) {
+      methods.setValue('address', address)
+    }
+    if (latLng) {
+      methods.setValue('latitude', latLng.latitude)
+      methods.setValue('longitude', latLng.longitude)
+    }
+  }, [address, latLng])
 
   return (
     <FormProvider {...methods}>
@@ -76,6 +93,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
           handleClick={handleClick}
           previewImage={previewImage}
           setPreviewImage={setPreviewImage}
+          setType={setType}
         />
       </Box>
     </FormProvider>

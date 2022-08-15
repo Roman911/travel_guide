@@ -18,6 +18,7 @@ interface IProps {
   previewImage?: string
   setPreviewImage: (props: string) => void
   handleClick: () => void
+  setType: (arg: { type: string }) => void
 }
 
 const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -34,10 +35,14 @@ const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
 
 const CreateLocationComponent: React.FC<IProps> = ({
   previewImage,
-  setPreviewImage,
   handleClick,
+  setPreviewImage,
+  setType,
 }) => {
-  const { control } = useFormContext()
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext()
 
   return (
     <Box padding={2} position="relative">
@@ -61,7 +66,12 @@ const CreateLocationComponent: React.FC<IProps> = ({
           name="title"
           control={control}
           render={({ field }) => (
-            <TextField {...field} label="Назва локації" variant="outlined" />
+            <TextField
+              {...field}
+              error={!!errors['title']}
+              label="Назва локації"
+              variant="outlined"
+            />
           )}
         />
         <Controller
@@ -119,8 +129,10 @@ const CreateLocationComponent: React.FC<IProps> = ({
           render={({ field: { onChange, value } }) => (
             <Autocomplete
               disablePortal
+              isOptionEqualToValue={(option, value) => option.id === value.id}
               options={locations}
               onChange={(event, item) => {
+                setType({ type: item.id })
                 onChange(item)
               }}
               value={value}
@@ -131,11 +143,39 @@ const CreateLocationComponent: React.FC<IProps> = ({
             />
           )}
         />
-        <TextField label="Адрес" variant="outlined" />
+        <Controller
+          name="address"
+          control={control}
+          render={({ field }) => (
+            <TextField {...field} label="Адрес" variant="outlined" />
+          )}
+        />
         <Typography variant="body1">Координати</Typography>
         <Stack direction="row" spacing={1}>
-          <TextField sx={{ width: '50%' }} label="Широта" variant="outlined" />
-          <TextField sx={{ width: '50%' }} label="Довгота" variant="outlined" />
+          <Controller
+            name="latitude"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                sx={{ width: '50%' }}
+                label="Широта"
+                variant="outlined"
+              />
+            )}
+          />
+          <Controller
+            name="longitude"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                sx={{ width: '50%' }}
+                label="Довгота"
+                variant="outlined"
+              />
+            )}
+          />
         </Stack>
         <Stack direction="row" justifyContent="flex-end">
           <Button type="submit" variant="contained" color="secondary">
