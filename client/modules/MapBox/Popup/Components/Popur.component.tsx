@@ -40,7 +40,7 @@ const PopurComponent: React.FC<IProps> = ({
             component="img"
             alt="green iguana"
             height="140"
-            image={`http://localhost:3005/images${location.cover.url}`}
+            image={`${process.env.NEXT_APP_HOST_API}images/${location.cover}m.webp`}
           />
         ) : (
           <Skeleton variant="rectangular" width={250} height={140} />

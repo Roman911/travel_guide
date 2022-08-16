@@ -6,9 +6,7 @@ export interface ILocation {
   longitude: number
   isType: string
   address: string
-  cover: {
-    url: string
-  }
+  cover: string
 }
 
 export interface IViewport {

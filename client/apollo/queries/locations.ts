@@ -10,9 +10,7 @@ export const LOCATION = gql`
       latitude
       longitude
       isType
-      cover {
-        url
-      }
+      cover
     }
   }
 `
@@ -28,9 +26,7 @@ export const LOCATIONS = gql`
         address
         latitude
         longitude
-        cover {
-          url
-        }
+        cover
       }
     }
   }
@@ -41,9 +37,7 @@ export const LOCATION_FOR_POPUR = gql`
     location(locationID: $locationID) {
       title
       address
-      cover {
-        url
-      }
+      cover
     }
   }
 `

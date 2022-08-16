@@ -33,7 +33,7 @@ const LocationCardComponent: React.FC<IProps> = ({
           <CardMedia
             component="img"
             height="120"
-            image={`http://localhost:3005/images${item.cover.url}`}
+            image={`${process.env.NEXT_APP_HOST_API}images/${item.cover}m.webp`}
             alt="green iguana"
           />
           <CardContent>

@@ -39,7 +39,7 @@ const LocationComponent: React.FC<IProps> = ({
         {location.title}
       </Typography>
       <Image
-        src={location.cover.url}
+        src={`/${location.cover}l.webp`}
         layout="intrinsic"
         alt={location.title}
         width={`${widthLeftBox}px`}
