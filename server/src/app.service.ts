@@ -1,8 +1,27 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
+import * as path from 'path';
+import * as sharp from 'sharp';
 
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World!'
+    return 'Hello World!';
+  }
+}
+
+@Injectable()
+export class SharpPipe
+  implements PipeTransform<Express.Multer.File, Promise<string>>
+{
+  async transform(image: Express.Multer.File): Promise<string> {
+    const originalName = path.parse(image.originalname).name;
+    const filename = Date.now() + '-' + originalName + '.webp';
+
+    await sharp(image.buffer)
+      .resize(800)
+      .webp({ effort: 3 })
+      .toFile(path.join('uploads/images', filename));
+
+    return filename;
   }
 }
