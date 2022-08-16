@@ -16,11 +16,7 @@ export class LocationService {
   ) {}
 
   async location(locationID: string): Promise<Location> {
-    return this.locationModel
-      .findById(locationID)
-      .populate('author')
-      .populate('cover')
-      .exec();
+    return this.locationModel.findById(locationID).populate('author').exec();
   }
 
   async allLocations(params: ParamsLocationInput): Promise<Locations> {
@@ -50,7 +46,6 @@ export class LocationService {
       })
       .sort({ createdAt: -1 })
       .populate('author')
-      .populate('cover')
       .exec();
 
     const total_locations = locations.length;

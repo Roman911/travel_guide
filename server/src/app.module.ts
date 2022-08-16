@@ -33,9 +33,6 @@ import { UsersModule } from './users/users.module';
       `mongodb+srv://Roman:${MONGO_DB_KEY}@cluster0-vogsm.mongodb.net/travel?retryWrites=true&w=majority`,
     ),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'uploads') }),
-    MulterModule.register({
-      dest: './uploads/images',
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],

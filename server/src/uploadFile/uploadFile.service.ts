@@ -9,7 +9,6 @@ import { Upload, UploadDocument } from './uploadFile.schema';
 //import { ParamsPostInput } from './inputs/params-post.input'
 import { TokenService } from '../token/token.service';
 //import { LikeInput } from '../likes/inputs/create-like.input'
-import { GenerateRandomString } from './helpers/generateRandomeString';
 
 @Injectable()
 export class UploadService {

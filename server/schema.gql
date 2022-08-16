@@ -54,19 +54,11 @@ type CreateCommentDto {
   author: CreateUserDto
 }
 
-type CreateUploadDto {
-  _id: String!
-  name: String!
-  url: String!
-  createdAt: DateTime!
-  author: CreateUserDto
-}
-
 type CreateLocationDto {
   _id: String!
   title: String!
   small_text: String!
-  cover: CreateUploadDto!
+  cover: String!
   isType: String!
   address: String!
   region: String!
@@ -114,6 +106,14 @@ type CreatePostsDto {
 type CreateTokenDto {
   userId: ID
   refreshToken: String!
+}
+
+type CreateUploadDto {
+  _id: String!
+  name: String!
+  url: String!
+  createdAt: DateTime!
+  author: CreateUserDto
 }
 
 type Query {
