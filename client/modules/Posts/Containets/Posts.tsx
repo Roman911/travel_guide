@@ -10,13 +10,25 @@ interface IProps {
     link?: string
     linkTitle?: string
   }
+  loading?: boolean
+  numberPosts: number
   posts?: IPost[]
 }
 
-const Posts: React.FC<IProps> = ({ home, layout }) => {
+const Posts: React.FC<IProps> = ({
+  home,
+  layout,
+  loading,
+  numberPosts,
+  posts,
+}) => {
   return (
     <Layouts home={home} layout={layout}>
-      <PostsComponent />
+      <PostsComponent
+        loading={loading}
+        numberPosts={numberPosts}
+        posts={posts}
+      />
     </Layouts>
   )
 }

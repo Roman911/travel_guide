@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   // Query for Directions
   //const { loading, data, error } = useQuery(POST, { variables: { postID: '60f5371f35006bb0c2f7755b' }})
 
-  console.log('render: pages, Home', dataByPost)
+  console.log('render: pages, Home')
 
   return (
     <MainLayout img="/velosipedyi-banner-1.jpg">
@@ -29,6 +29,8 @@ const Home: NextPage = () => {
             link: '/news',
             linkTitle: 'Більше маршрутів',
           }}
+          loading={loadingByPost}
+          numberPosts={8}
           posts={dataByPost?.posts}
         />
         <News />

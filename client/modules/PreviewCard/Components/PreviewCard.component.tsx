@@ -53,8 +53,6 @@ export const PreviewCardComponent: React.FC<IProps> = ({
     author: { name, avatar },
   } = item
 
-  console.log(name)
-
   return (
     <Grid item xs={12} sm={6} md={md || 3} p={1}>
       <Card sx={{ maxWidth: 345 }}>
