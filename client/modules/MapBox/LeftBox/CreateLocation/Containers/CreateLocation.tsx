@@ -8,6 +8,9 @@ import { useActions, useTypedSelector } from '../../../../../store/hooks'
 import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
 
+import axios from 'axios'
+import useFileUpload from 'react-use-file-upload'
+
 const schema = yup.object().shape({
   title: yup.string().min(5).max(50).required('Поле не може бути пустим'),
   small_text: yup.string().min(10).max(60).required('Поле не може бути пустим'),
@@ -61,15 +64,29 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const methods = useForm<IFormInput>({
     mode: 'all',
     defaultValues,
-    resolver: yupResolver(schema),
   })
   const { handleSubmit } = methods
 
-  const onSubmit: SubmitHandler<IFormInput> = values => {
-    console.log('click', values, previewImage)
-  }
+  const {
+    files,
+    fileNames,
+    fileTypes,
+    totalSize,
+    totalSizeInBytes,
+    handleDragDropEvent,
+    clearAllFiles,
+    createFormData,
+    setFiles,
+    removeFile,
+  } = useFileUpload()
 
-  console.log(methods.formState.errors)
+  const onSubmit: SubmitHandler<IFormInput> = async values => {
+    const formData = createFormData()
+
+    const response = await axios.post('http://localhost:3005', formData)
+
+    console.log('click', values, previewImage, response, formData)
+  }
 
   React.useEffect(() => {
     if (address) {
@@ -94,6 +111,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
           previewImage={previewImage}
           setPreviewImage={setPreviewImage}
           setType={setType}
+          setFiles={setFiles}
         />
       </Box>
     </FormProvider>

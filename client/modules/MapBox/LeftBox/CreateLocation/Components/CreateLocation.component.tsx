@@ -19,6 +19,7 @@ interface IProps {
   setPreviewImage: (props: string) => void
   handleClick: () => void
   setType: (arg: { type: string }) => void
+  setFiles: (any) => void
 }
 
 const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -38,6 +39,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
   handleClick,
   setPreviewImage,
   setType,
+  setFiles,
 }) => {
   const {
     control,
@@ -91,6 +93,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
                 multiple
                 type="file"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setFiles(event)
                   if (event?.target?.files?.[0]) {
                     const file = event.target.files[0]
                     const reader = new FileReader()
