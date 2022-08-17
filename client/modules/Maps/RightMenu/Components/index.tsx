@@ -1,1 +1,0 @@
-export { RightMenuComponent } from './RightMenu.component'

@@ -1,1 +1,0 @@
-export { News, NewsPage } from './Containers'

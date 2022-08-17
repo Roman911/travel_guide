@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import { gql } from '@apollo/client'
 import { Author } from '../variabels'
 
 export const POSTS = gql`

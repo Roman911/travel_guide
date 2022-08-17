@@ -1,7 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { useLazyQuery } from '@apollo/react-hooks'
-import { NewsPage, Posts } from '../modules'
+import { Posts } from '../modules'
 import { MainLayout } from '../Components'
 import { POSTS_AND_PARAMS } from '../apollo/queries/posts'
 
@@ -27,7 +27,6 @@ const News: NextPage = () => {
         numberPosts={numberPosts}
         posts={data?.postsAndParams.posts}
       />
-      <NewsPage />
     </MainLayout>
   )
 }

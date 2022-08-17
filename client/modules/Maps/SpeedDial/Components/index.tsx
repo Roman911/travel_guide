@@ -1,1 +1,0 @@
-export { SpeedDialComponent } from './SpeedDial.component'

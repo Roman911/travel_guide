@@ -1,4 +1,5 @@
 export { Card } from './Card'
 export { Layouts } from './Layouts'
 export { Posts } from './Containets'
-export { PostsSort } from './PostsSort'
+export { PostsHomePage } from './PostsHomePage'
+export { PostsNewsPage } from './PostsNewsPage'

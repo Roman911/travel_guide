@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import { Box } from '@mui/material'
 import { useQuery } from '@apollo/react-hooks'
-import { News, Posts } from '../modules'
-import { MainLayout, Newss } from '../Components'
+import { Posts } from '../modules'
+import { MainLayout } from '../Components'
 import { POSTS, POST } from '../apollo/queries/posts'
 
 const Home: NextPage = () => {
@@ -27,16 +27,23 @@ const Home: NextPage = () => {
           layout={{
             title: 'Новини',
             link: '/news',
+            linkTitle: 'Більше новин',
+          }}
+          loading={loadingByPost}
+          numberPosts={8}
+          posts={dataByPost?.posts}
+        />
+        <Posts
+          home={true}
+          layout={{
+            title: 'Маршрути',
+            link: '/directions',
             linkTitle: 'Більше маршрутів',
           }}
           loading={loadingByPost}
           numberPosts={8}
           posts={dataByPost?.posts}
         />
-        <News />
-        <Newss title="Маршрути" link="/routes" linkTitle="Більше маршрутів">
-          <div>1321321321</div>
-        </Newss>
       </Box>
     </MainLayout>
   )

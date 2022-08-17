@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTypedSelector } from '../../../store/hooks'
 import { Layouts } from '../'
 import { PostsComponent } from '../Components'
 import { IPost } from '../../../types/post'
@@ -22,12 +23,16 @@ const Posts: React.FC<IProps> = ({
   numberPosts,
   posts,
 }) => {
+  const { userData } = useTypedSelector(state => state.user)
+
   return (
     <Layouts home={home} layout={layout}>
       <PostsComponent
+        home={home}
         loading={loading}
         numberPosts={numberPosts}
         posts={posts}
+        userId={userData?._id}
       />
     </Layouts>
   )

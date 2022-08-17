@@ -1,19 +1,19 @@
-import { gql } from 'apollo-boost'
+import { gql } from '@apollo/client'
 
 export const USER = gql`
-  query user($userID: String!){
-  user(userID: $userID){
-    _id
-    name
-    aboutMy
-    avatar
-    rating
-    socials {
-      facebook
-      instagram
-      twitter
-      youtube
+  query user($userID: String!) {
+    user(userID: $userID) {
+      _id
+      name
+      aboutMy
+      avatar
+      rating
+      socials {
+        facebook
+        instagram
+        twitter
+        youtube
+      }
     }
   }
-}
 `
