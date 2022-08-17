@@ -1,1 +1,2 @@
-export { PostContainer } from './Containers'
+export { Post } from './Containers'
+export { PostSkeleton } from './Skeleton'

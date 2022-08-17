@@ -1,8 +1,15 @@
-import type { IProps } from '../Containers/Post.container'
+import type { IPost } from '../../../../types/post'
 
-export interface IPropsComponent extends IProps {
+export interface IPropsComponent {
+  post: IPost
   refm: (node?: Element | null | undefined) => void
-  useDate: ({ serverDate, format }: { serverDate: string, format?: string }) => string
+  useDate: ({
+    serverDate,
+    format,
+  }: {
+    serverDate: string
+    format?: string
+  }) => string
   handleClickToUser: (userId: string) => void
   steps: {
     label: string

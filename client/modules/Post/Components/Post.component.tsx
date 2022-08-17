@@ -1,4 +1,3 @@
-import type { IPropsComponent } from './typeScript'
 import React from 'react'
 import Image from 'next/image'
 import {
@@ -16,6 +15,7 @@ import { Facebook, Favorite, Share, Twitter } from '@mui/icons-material'
 import LinkIcon from '@mui/icons-material/Link'
 import { Comments, Likes } from '../../'
 import { MyStepper, Rating, Tags, Views, UserAvatar } from '../../../Components'
+import { IPropsComponent } from './types/post'
 
 export const PostComponent: React.FC<IPropsComponent> = ({
   post,
@@ -83,7 +83,7 @@ export const PostComponent: React.FC<IPropsComponent> = ({
             {small_text}
           </Typography>
           <Image
-            src={cover}
+            src={`/${cover}l.webp`}
             layout="intrinsic"
             alt={title}
             width={1030}

@@ -5,8 +5,9 @@ import { useInView } from 'react-intersection-observer'
 import { useActions } from '../../../store/hooks'
 import { useColors, useDate } from '../../../hooks'
 import { PostComponent } from '../Components'
+import { PostSkeleton } from '../'
 
-export interface IProps {
+interface IProps {
   post: IPost
 }
 
@@ -18,7 +19,7 @@ const steps = [
   { label: 'Легенда Підгорецької фортеці' },
 ]
 
-export const PostContainer: React.FC<IProps> = ({ post }) => {
+const Post: React.FC<IProps> = ({ post }) => {
   const router = useRouter()
   const { linearProgress } = useActions()
   const { ref, inView } = useInView({ threshold: 0 })
@@ -32,6 +33,8 @@ export const PostContainer: React.FC<IProps> = ({ post }) => {
     router.push(`/profile/${userId}`)
   }
 
+  if (!post) return <PostSkeleton />
+
   return (
     <PostComponent
       post={post}
@@ -44,3 +47,5 @@ export const PostContainer: React.FC<IProps> = ({ post }) => {
     />
   )
 }
+
+export default Post
