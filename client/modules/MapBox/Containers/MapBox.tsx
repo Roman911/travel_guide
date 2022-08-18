@@ -24,6 +24,8 @@ const MapBox: React.FC = () => {
   )
   const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
 
+  console.log(viewport)
+
   React.useEffect(() => {
     locations({
       variables: {

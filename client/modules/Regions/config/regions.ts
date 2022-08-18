@@ -1,11 +1,11 @@
 export const regions = [
   {
     label: 'Автономна республіка Крим',
-    center: { lat: 49.026151, lng: 31.48307 },
+    center: { lat: 45.257, lng: 34.5183 },
   },
   {
     label: 'Вінницька область',
-    center: { lat: 49.026151, lng: 31.48307 },
+    center: { lat: 48.9983, lng: 28.6304 },
   },
   {
     label: 'Волинська область',

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useActions } from '../../../store/hooks'
 import { RegionAutocomplete } from '../Components'
 
 interface IProps {
@@ -6,5 +7,7 @@ interface IProps {
 }
 
 export const Regions: React.FC<IProps> = ({ width }) => {
-  return <RegionAutocomplete width={width} />
+  const { setRegion } = useActions()
+
+  return <RegionAutocomplete width={width} setRegion={setRegion} />
 }

@@ -5,6 +5,7 @@ import { drawerGMReducer } from './drawerGoogleMap'
 import { leftBoxReducer } from './leftBox'
 import { mapBoxReducer } from './mapBox'
 import { progressReducer } from './progress'
+import { regionsReducer } from './regions'
 import { snackbarReducer } from './snackbar'
 import { themeReducer } from './theme'
 //import { loadingPageReducer } from "./loadingPage"
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   leftBox: leftBoxReducer,
   mapBox: mapBoxReducer,
   progress: progressReducer,
+  regions: regionsReducer,
   snackbar: snackbarReducer,
   theme: themeReducer,
   //getBack: getBackReducer,

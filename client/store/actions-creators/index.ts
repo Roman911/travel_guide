@@ -3,6 +3,7 @@ import * as DrawerGMActionCreators from './drawerGoogleMap'
 import * as LeftBoxActionCreators from './leftBox'
 import * as MapBoxActionCreators from './mapBox'
 import * as ProgressActionCreators from './progress'
+import * as RegionsActionCreators from './regions'
 import * as SnackbarActionCreators from './snackbar'
 import * as ThemeActionCreators from './theme'
 //import * as LoadingPageActionCreators from "./loadingPage"
@@ -15,6 +16,7 @@ export default {
   ...LeftBoxActionCreators,
   ...MapBoxActionCreators,
   ...ProgressActionCreators,
+  ...RegionsActionCreators,
   ...SnackbarActionCreators,
   ...ThemeActionCreators,
   //...GetBackActionCreators,

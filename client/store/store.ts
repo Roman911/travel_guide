@@ -1,11 +1,31 @@
-import { Context, createWrapper } from 'next-redux-wrapper'
-import { applyMiddleware, createStore, Store } from "redux"
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from "redux-thunk"
-import { reducer, RootState } from "./reducers"
+import {
+  combineReducers,
+  configureStore,
+  ThunkAction,
+  Action,
+} from '@reduxjs/toolkit'
 
-// create a makeStore function
-const makeStore = (context: Context) => createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
+//import counterReducer from '../features/counter/counterSlice'
 
-// export an assembled wrapper
-export const wrapper = createWrapper<Store<RootState>>(makeStore, { debug: true })
+const rootReducer = combineReducers({})
+
+export function makeStore() {
+  return configureStore({
+    reducer: rootReducer,
+  })
+}
+
+const store = makeStore()
+
+export type AppState = ReturnType<typeof store.getState>
+
+export type AppDispatch = typeof store.dispatch
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppState,
+  unknown,
+  Action<string>
+>
+
+export default store
