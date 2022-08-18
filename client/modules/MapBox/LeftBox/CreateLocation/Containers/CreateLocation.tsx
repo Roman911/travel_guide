@@ -8,12 +8,13 @@ import { useActions, useTypedSelector } from '../../../../../store/hooks'
 import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
 
-import axios from 'axios'
-import useFileUpload from 'react-use-file-upload'
-
 const schema = yup.object().shape({
   title: yup.string().min(5).max(50).required('Поле не може бути пустим'),
-  small_text: yup.string().min(10).max(60).required('Поле не може бути пустим'),
+  small_text: yup
+    .string()
+    .min(10)
+    .max(260)
+    .required('Поле не може бути пустим'),
   address: yup.string().min(10).max(100).required('Поле не може бути пустим'),
   latitude: yup.number().min(3).max(50).required('Поле не може бути пустим'),
   longitude: yup.number().min(3).max(50).required('Поле не може бути пустим'),
@@ -50,42 +51,68 @@ const defaultValues = {
   latitude: 0,
   longitude: 0,
   token: '',
-  uploadFile: undefined,
+  uploadFile: null,
 }
+
+const baseUrl = 'http://localhost:3005'
 
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const {
     user: { refreshToken },
     mapBox: { address, latLng },
   } = useTypedSelector(state => state)
-  const { setType } = useActions()
+  const { linearProgress, setType } = useActions()
   const [previewImage, setPreviewImage] = React.useState<string>()
-  const [createComment] = useMutation(CREATE_LOCATION)
+  const [file, setFile] = React.useState(null)
+  const [isDisabled, setDisabled] = React.useState(false)
+  const [CreateLocation] = useMutation(CREATE_LOCATION)
   const methods = useForm<IFormInput>({
     mode: 'all',
     defaultValues,
+    resolver: yupResolver(schema),
   })
   const { handleSubmit } = methods
 
-  const {
-    files,
-    fileNames,
-    fileTypes,
-    totalSize,
-    totalSizeInBytes,
-    handleDragDropEvent,
-    clearAllFiles,
-    createFormData,
-    setFiles,
-    removeFile,
-  } = useFileUpload()
-
   const onSubmit: SubmitHandler<IFormInput> = async values => {
-    const formData = createFormData()
+    const { address, title, small_text, isType, latitude, longitude } = values
 
-    const response = await axios.post('http://localhost:3005', formData)
+    setDisabled(true)
+    linearProgress(true)
+    let formData = new FormData()
+    formData.append('image', file)
 
-    console.log('click', values, previewImage, response, formData)
+    await fetch(baseUrl, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        CreateLocation({
+          variables: {
+            input: {
+              token: refreshToken,
+              title,
+              small_text,
+              isType: isType.id,
+              address,
+              region: 'Вінницька область',
+              cover: data.image,
+              latitude,
+              longitude,
+            },
+          },
+        })
+          .then(data => {
+            methods.reset()
+          })
+          .finally(() => setDisabled(false))
+      })
+      .catch(error =>
+        methods.setError('uploadFile', {
+          type: 'custom',
+          message: 'Добавте обкладинку',
+        })
+      )
   }
 
   React.useEffect(() => {
@@ -107,11 +134,12 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
         sx={{ height: '100%', overflowY: 'auto' }}
       >
         <CreateLocationComponent
+          isDisabled={isDisabled}
           handleClick={handleClick}
           previewImage={previewImage}
           setPreviewImage={setPreviewImage}
           setType={setType}
-          setFiles={setFiles}
+          setFile={setFile}
         />
       </Box>
     </FormProvider>

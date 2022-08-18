@@ -15,11 +15,12 @@ import { Close } from '@mui/icons-material'
 import { locations } from '../config/locationsType'
 
 interface IProps {
+  isDisabled: boolean
   previewImage?: string
   setPreviewImage: (props: string) => void
   handleClick: () => void
   setType: (arg: { type: string }) => void
-  setFiles: (any) => void
+  setFile: (arg: any) => void
 }
 
 const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -35,11 +36,12 @@ const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }))
 
 const CreateLocationComponent: React.FC<IProps> = ({
+  isDisabled,
   previewImage,
   handleClick,
   setPreviewImage,
   setType,
-  setFiles,
+  setFile,
 }) => {
   const {
     control,
@@ -93,7 +95,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
                 multiple
                 type="file"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setFiles(event)
+                  setFile(event?.target?.files?.[0])
                   if (event?.target?.files?.[0]) {
                     const file = event.target.files[0]
                     const reader = new FileReader()
@@ -181,7 +183,12 @@ const CreateLocationComponent: React.FC<IProps> = ({
           />
         </Stack>
         <Stack direction="row" justifyContent="flex-end">
-          <Button type="submit" variant="contained" color="secondary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            disabled={isDisabled}
+          >
             Завантажити
           </Button>
         </Stack>

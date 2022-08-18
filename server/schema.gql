@@ -177,6 +177,7 @@ input CreateLocationInput {
   isType: String!
   address: String!
   region: String!
+  cover: String!
   latitude: Float!
   longitude: Float!
   token: String!

@@ -20,8 +20,8 @@ export class AppController {
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  uploadFile(@UploadedFile(SharpPipeForLocation) image: string) {
-    return image;
+  uploadFile(@UploadedFile(SharpPipeForPost) image: string) {
+    return { image };
   }
 
   @Post('/create-post')
