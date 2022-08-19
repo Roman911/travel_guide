@@ -1,24 +1,25 @@
-import React from "react"
+import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import { useTypedSelector } from '../../store/hooks'
+import { useAppSelector } from '../../hooks'
+import { selectLayout } from '../../store/reducers/layoutSlice'
 
 type Props = {
   children?: React.ReactNode
 }
 
 export const Theme: React.FC<Props> = ({ children }) => {
-  const { theme: myTheme } = useTypedSelector(state => state.theme)
+  const { theme: myTheme } = useAppSelector(selectLayout)
 
   const theme = createTheme({
     palette: {
       mode: myTheme,
       secondary: {
-        main: '#cb2c3b'
+        main: '#cb2c3b',
       },
       success: {
-        main: '#a5a5a5'
-      }
+        main: '#a5a5a5',
+      },
     },
     breakpoints: {
       values: {
@@ -26,13 +27,15 @@ export const Theme: React.FC<Props> = ({ children }) => {
         sm: 600,
         md: 900,
         lg: 1120,
-        xl: 1536
-      }
-    }
+        xl: 1536,
+      },
+    },
   })
 
-  return <ThemeProvider theme={theme}>
-    <CssBaseline />
-    {children}
-  </ThemeProvider>
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  )
 }

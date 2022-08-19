@@ -1,9 +1,9 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useActions } from '../../../../store/hooks'
-import { useColors, useDate } from '../../../../hooks'
+import { useAppDispatch, useColors, useDate } from '../../../../hooks'
 import { CardComponent } from '../Components'
 import { IPost } from '../../../../types/post'
+import { changeLinearProgress } from '../../../../store/reducers/layoutSlice'
 
 interface IProps {
   usedId?: string
@@ -13,11 +13,11 @@ interface IProps {
 
 const Card: React.FC<IProps> = ({ usedId, item, md }) => {
   const router = useRouter()
-  const { linearProgress } = useActions()
+  const dispatch = useAppDispatch()
   const { icon, red } = useColors()
 
   const handleClick = React.useCallback(() => {
-    linearProgress(true)
+    dispatch(changeLinearProgress(true))
     router.push(`/post/${item._id}`)
   }, [])
 

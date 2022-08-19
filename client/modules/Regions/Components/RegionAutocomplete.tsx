@@ -9,10 +9,10 @@ interface IRegionOption {
 
 interface IProps {
   width?: string
-  setRegion: (val: IRegionOption | null) => void
+  redirect: (val: IRegionOption | null) => void
 }
 
-export const RegionAutocomplete: React.FC<IProps> = ({ setRegion, width }) => {
+export const RegionAutocomplete: React.FC<IProps> = ({ redirect, width }) => {
   const w = width ? width : '100%'
   return (
     <Autocomplete
@@ -20,7 +20,7 @@ export const RegionAutocomplete: React.FC<IProps> = ({ setRegion, width }) => {
       id="combo-box-demo"
       options={regions}
       sx={{ width: w }}
-      onChange={(e: any, newValue: IRegionOption | null) => setRegion(newValue)}
+      onChange={(e: any, newValue: IRegionOption | null) => redirect(newValue)}
       renderInput={params => <TextField {...params} label="Область" />}
     />
   )

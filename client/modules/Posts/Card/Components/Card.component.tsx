@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import { MoreVert, Share } from '@mui/icons-material'
 import { LikesComponent } from '../../../Likes/Components'
-import { PreviewComments } from '../../../Comments/Containers'
+//import { PreviewComments } from '../../../Comments/Containers'
 import { UserAvatar, Views } from '../../../../Components'
 import { IPost } from '../../../../types/post'
 
@@ -109,7 +109,7 @@ const CardComponent: React.FC<IProps> = ({
             likes={likes}
           />
           <Views views={views} color={icon} />
-          <PreviewComments postId={_id} />
+          {/*<PreviewComments postId={_id} />*/}
           <IconButton
             aria-label="share"
             sx={{ marginLeft: 'auto', color: icon }}

@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { Box } from '@mui/material'
 import { useQuery } from '@apollo/react-hooks'
 import { Posts } from '../modules'
-import { MainLayout } from '../Components'
+import { MainLayout } from '../modules'
 import { POSTS, POST } from '../apollo/queries/posts'
 
 const Home: NextPage = () => {

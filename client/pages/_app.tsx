@@ -9,12 +9,11 @@ import 'react-quill/dist/quill.snow.css'
 import { useApollo } from '../lib/apolloClient'
 import '../styles/globals.css'
 import store from '../store/store'
-//import { wrapper } from '../store/store'
 import { Theme } from '../Components'
 
 moment.locale('uk')
 
-export const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+export default function MyApp({ Component, pageProps }) {
   const client = useApollo(pageProps.initialApolloState)
 
   return (

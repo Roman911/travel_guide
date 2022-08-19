@@ -1,8 +1,9 @@
 import React from 'react'
-import { useTypedSelector } from '../../../store/hooks'
+import { useAppSelector } from '../../../hooks'
 import { Layouts } from '../'
 import { PostsComponent } from '../Components'
 import { IPost } from '../../../types/post'
+import { selectUser } from '../../../store/reducers/userSlice'
 
 interface IProps {
   home: boolean
@@ -23,7 +24,7 @@ const Posts: React.FC<IProps> = ({
   numberPosts,
   posts,
 }) => {
-  const { userData } = useTypedSelector(state => state.user)
+  const { userData } = useAppSelector(selectUser)
 
   return (
     <Layouts home={home} layout={layout}>

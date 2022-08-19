@@ -1,7 +1,8 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useActions } from '../../../../store/hooks'
+import { useAppDispatch } from '../../../../hooks'
 import { PostHomePageComponents } from '../Components'
+import { changeLinearProgress } from '../../../../store/reducers/layoutSlice'
 
 interface IProps {
   children: React.ReactNode
@@ -11,9 +12,9 @@ interface IProps {
 
 const PostsHomePage: React.FC<IProps> = ({ children, link, linkTitle }) => {
   const router = useRouter()
-  const { linearProgress } = useActions()
+  const dispatch = useAppDispatch()
   const clickToNextPage = () => {
-    linearProgress(true)
+    dispatch(changeLinearProgress(true))
     router.push(link)
   }
 

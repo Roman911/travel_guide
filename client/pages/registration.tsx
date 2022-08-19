@@ -1,27 +1,36 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { useMutation } from "@apollo/react-hooks"
+import { useMutation } from '@apollo/react-hooks'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Box } from '@mui/material'
-import { useActions } from '../store/hooks/useActions'
-import { AuthLayout, RegistrationForm } from '../Components'
+import { useAppDispatch } from '../hooks'
+import { AuthLayout, RegistrationForm } from '../modules'
 import { REGISTRATION } from '../apollo/mutations/registration'
 import Redirect from '../hooks/useRedirect'
+import {
+  addedNotification,
+  changeLinearProgress,
+} from '../store/reducers/layoutSlice'
 
 export enum types {
   NAME = 'name',
   EMAIL = 'email',
   PASSWORD = 'password',
-  PASSWORD_CONFIRMATION = 'passwordConfirmation'
+  PASSWORD_CONFIRMATION = 'passwordConfirmation',
 }
 
 const schema = yup.object().shape({
   name: yup.string().required('Поле не може бути пустим'),
-  email: yup.string().required('Поле не може бути пустим').email('Некоректний емейл'),
+  email: yup
+    .string()
+    .required('Поле не може бути пустим')
+    .email('Некоректний емейл'),
   password: yup.string().required().min(6, 'Мінімум 6 символів'),
-  passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Не співпадає пароль')
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Не співпадає пароль'),
 })
 
 interface IFormInput {
@@ -35,20 +44,25 @@ const defaultValues = {
   name: '',
   email: '',
   password: '',
-  passwordConfirmation: ''
+  passwordConfirmation: '',
 }
 
 const Registration: NextPage = () => {
   const [config, setConfig] = React.useState({
     isDisabled: false,
-    showPassword: false
+    showPassword: false,
   })
-  const { enqueueSnackbar, linearProgress } = useActions()
+  const dispatch = useAppDispatch()
   const [registration, { data, loading, error }] = useMutation(REGISTRATION)
-  const methods = useForm<IFormInput>({ mode: "onTouched", defaultValues, resolver: yupResolver(schema) })
+  const methods = useForm<IFormInput>({
+    mode: 'onTouched',
+    defaultValues,
+    resolver: yupResolver(schema),
+  })
   const { handleSubmit, setError } = methods
 
-  const handleClickShowPassword = () => setConfig({ ...config, showPassword: !config.showPassword })
+  const handleClickShowPassword = () =>
+    setConfig({ ...config, showPassword: !config.showPassword })
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     setConfig({ ...config, isDisabled: true })
@@ -58,32 +72,55 @@ const Registration: NextPage = () => {
 
   React.useEffect(() => {
     if (loading) {
-      linearProgress(true)
+      dispatch(changeLinearProgress(true))
     }
     if (error) {
-      enqueueSnackbar({ message: 'Користувач з таким емейлом уже зараєстрований', key: `${new Date().getTime()}+${Math.random()}` })
+      addedNotification({
+        message: 'Користувач з таким емейлом уже зараєстрований',
+        key: `${new Date().getTime()}+${Math.random()}`,
+      })
       setError(types.NAME, { type: 'custom', message: 'error' })
       setError(types.EMAIL, { type: 'custom', message: 'error' })
       setError(types.PASSWORD, { type: 'custom', message: 'error' })
-      setError(types.PASSWORD_CONFIRMATION, { type: 'custom', message: 'error' })
+      setError(types.PASSWORD_CONFIRMATION, {
+        type: 'custom',
+        message: 'error',
+      })
       setConfig({ ...config, isDisabled: false })
-      linearProgress(false)
+      dispatch(changeLinearProgress(false))
     }
     if (data) {
-      enqueueSnackbar({ message: 'Ви успішно зареєструвалися!', key: `${new Date().getTime()}+${Math.random()}` })
-      linearProgress(true)
+      addedNotification({
+        message: 'Ви успішно зареєструвалися!',
+        key: `${new Date().getTime()}+${Math.random()}`,
+      })
+      dispatch(changeLinearProgress(true))
     }
   }, [error, loading, data])
 
   if (data) return <Redirect href={'/activate'} />
 
-  return <AuthLayout title='Реєстрація' bottomText='Реєструючись' subtitle={{ title: 'Вже є акаунт?', btn: 'Вхід', link: '/login' }}>
-    <FormProvider {...methods}>
-      <Box component="form" maxWidth='360px' margin='auto' onSubmit={handleSubmit(onSubmit)}>
-        <RegistrationForm config={config} handleClickShowPassword={handleClickShowPassword} />
-      </Box>
-    </FormProvider>
-  </AuthLayout>
+  return (
+    <AuthLayout
+      title="Реєстрація"
+      bottomText="Реєструючись"
+      subtitle={{ title: 'Вже є акаунт?', btn: 'Вхід', link: '/login' }}
+    >
+      <FormProvider {...methods}>
+        <Box
+          component="form"
+          maxWidth="360px"
+          margin="auto"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <RegistrationForm
+            config={config}
+            handleClickShowPassword={handleClickShowPassword}
+          />
+        </Box>
+      </FormProvider>
+    </AuthLayout>
+  )
 }
 
 export default Registration

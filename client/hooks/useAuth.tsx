@@ -1,16 +1,16 @@
 import React from 'react'
-import { useActions } from '../store/hooks/useActions'
-import { useTypedSelector } from "../store/hooks/useTypedSelector"
+import { useAppDispatch, useAppSelector } from './'
+import { addedData, selectUser } from '../store/reducers/userSlice'
 
 const storageName = 'userData'
 
 export const useAuth = () => {
-  const { userData } = useTypedSelector(state => state.user)
-  const { setData } = useActions()
+  const { userData } = useAppSelector(selectUser)
+  const dispatch = useAppDispatch()
   React.useEffect(() => {
     if (!userData) {
       const data = JSON.parse(localStorage.getItem(storageName) as string)
-      if (data) setData(data)
+      if (data) dispatch(addedData(data))
     }
   }, [userData])
 }

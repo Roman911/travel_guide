@@ -1,8 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { useLazyQuery } from '@apollo/react-hooks'
-import { Posts } from '../modules'
-import { MainLayout } from '../Components'
+import { MainLayout, Posts } from '../modules'
 import { POSTS_AND_PARAMS } from '../apollo/queries/posts'
 
 const News: NextPage = () => {

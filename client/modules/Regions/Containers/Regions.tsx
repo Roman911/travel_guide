@@ -1,5 +1,5 @@
 import React from 'react'
-import { useActions } from '../../../store/hooks'
+import { useAppDispatch } from '../../../hooks'
 import { RegionAutocomplete } from '../Components'
 
 interface IProps {
@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export const Regions: React.FC<IProps> = ({ width }) => {
-  const { setRegion } = useActions()
+  const redirect = useAppDispatch()
 
-  return <RegionAutocomplete width={width} setRegion={setRegion} />
+  return <RegionAutocomplete width={width} redirect={redirect} />
 }

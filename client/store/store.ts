@@ -1,13 +1,5 @@
-import {
-  combineReducers,
-  configureStore,
-  ThunkAction,
-  Action,
-} from '@reduxjs/toolkit'
-
-//import counterReducer from '../features/counter/counterSlice'
-
-const rootReducer = combineReducers({})
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { rootReducer } from './reducers'
 
 export function makeStore() {
   return configureStore({
