@@ -1,15 +1,11 @@
 import React from 'react'
 import {
-  useAppDispatch,
-  useAppSelector,
+  useActions,
   useAuth,
   useNotifier,
+  useTypedSelector,
 } from '../../../../hooks'
 import { LinearProgress } from '../../../'
-import {
-  changeLinearProgress,
-  selectLayout,
-} from '../../../../store/reducers/layoutSlice'
 
 type Props = {
   children: React.ReactNode
@@ -18,11 +14,11 @@ type Props = {
 const LayoutForAllPages: React.FC<Props> = ({ children }) => {
   useAuth()
   useNotifier()
-  const { linearProgress } = useAppSelector(selectLayout)
-  const dispatch = useAppDispatch()
+  const { linearProgress } = useTypedSelector(state => state.layout)
+  const { changeLinearProgress } = useActions()
 
   React.useEffect(() => {
-    dispatch(changeLinearProgress(false))
+    changeLinearProgress(false)
   }, [])
 
   return (

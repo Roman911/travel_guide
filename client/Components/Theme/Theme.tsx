@@ -1,15 +1,14 @@
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import { useAppSelector } from '../../hooks'
-import { selectLayout } from '../../store/reducers/layoutSlice'
+import { useTypedSelector } from '../../hooks'
 
 type Props = {
   children?: React.ReactNode
 }
 
 export const Theme: React.FC<Props> = ({ children }) => {
-  const { theme: myTheme } = useAppSelector(selectLayout)
+  const { theme: myTheme } = useTypedSelector(state => state.layout)
 
   const theme = createTheme({
     palette: {

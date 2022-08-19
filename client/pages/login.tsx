@@ -5,15 +5,10 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box } from '@mui/material'
-import { useAppDispatch } from '../hooks'
+import { useActions } from '../hooks'
 import Redirect from '../hooks/useRedirect'
 import { AuthLayout, AuthForm } from '../modules'
 import { LOGIN } from '../apollo/queries/login'
-import {
-  addedNotification,
-  changeLinearProgress,
-} from '../store/reducers/layoutSlice'
-import { addedData } from '../store/reducers/userSlice'
 
 export enum types {
   EMAIL = 'email',
@@ -43,7 +38,7 @@ const Login: NextPage = () => {
     isDisabled: false,
     showPassword: false,
   })
-  const dispatch = useAppDispatch()
+  const { addUserData, addedNotification, changeLinearProgress } = useActions()
   const [userData, { loading, data, error }] = useLazyQuery(LOGIN)
   const methods = useForm<IFormInput>({
     mode: 'onTouched',
@@ -63,7 +58,7 @@ const Login: NextPage = () => {
 
   React.useEffect(() => {
     if (loading) {
-      dispatch(changeLinearProgress(true))
+      changeLinearProgress(true)
     }
     if (error) {
       addedNotification({
@@ -73,16 +68,16 @@ const Login: NextPage = () => {
       setError(types.EMAIL, { type: 'custom', message: 'error' })
       setError(types.PASSWORD, { type: 'custom', message: 'error' })
       setConfig({ ...config, isDisabled: false })
-      dispatch(changeLinearProgress(false))
+      changeLinearProgress(false)
     }
     if (data) {
-      dispatch(addedData(data.login))
+      addUserData(data.login)
       localStorage.setItem('userData', JSON.stringify({ ...data.login }))
       addedNotification({
         message: 'Ви успішно увійшли!',
         key: `${new Date().getTime()}+${Math.random()}`,
       })
-      dispatch(changeLinearProgress(true))
+      changeLinearProgress(true)
     }
   }, [error, loading, data])
 

@@ -1,31 +1,27 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useAppDispatch, useAppSelector } from '../../../../hooks'
+import { useActions, useTypedSelector } from '../../../../hooks'
 import { DrawerComponent } from '../Components'
-import {
-  changeDraver,
-  changeLinearProgress,
-  selectLayout,
-} from '../../../../store/reducers/layoutSlice'
-import { removeData, selectUser } from '../../../../store/reducers/userSlice'
 
 const Drawer: React.FC = () => {
   const router = useRouter()
-  const { drawerIsOpen } = useAppSelector(selectLayout)
-  const { userData } = useAppSelector(selectUser)
-  const dispatch = useAppDispatch()
+  const {
+    layout: { drawerIsOpen },
+    user: { userData },
+  } = useTypedSelector(state => state)
+  const { changeDraver, changeLinearProgress, removeUserData } = useActions()
 
   const toggleDrawer = () => {
-    dispatch(changeDraver(false))
+    changeDraver(false)
   }
 
   const logout = () => {
     localStorage.removeItem('userData')
-    dispatch(removeData())
+    removeUserData()
   }
 
   const handleClick = (path: string) => {
-    dispatch(changeLinearProgress(true))
+    changeLinearProgress(true)
     router.push(path)
   }
 

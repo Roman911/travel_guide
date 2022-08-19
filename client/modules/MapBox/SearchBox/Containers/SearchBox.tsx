@@ -4,7 +4,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from 'use-places-autocomplete'
 import { useGoogleMapsScript, Libraries } from 'use-google-maps-script'
-import { useActions } from '../../../../store/hooks'
+import { useActions } from '../../../../hooks'
 import { SearchBoxComponent } from '../Components'
 
 interface IProps {

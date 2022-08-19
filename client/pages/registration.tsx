@@ -5,14 +5,10 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box } from '@mui/material'
-import { useAppDispatch } from '../hooks'
+import { useActions } from '../hooks'
 import { AuthLayout, RegistrationForm } from '../modules'
 import { REGISTRATION } from '../apollo/mutations/registration'
 import Redirect from '../hooks/useRedirect'
-import {
-  addedNotification,
-  changeLinearProgress,
-} from '../store/reducers/layoutSlice'
 
 export enum types {
   NAME = 'name',
@@ -52,7 +48,7 @@ const Registration: NextPage = () => {
     isDisabled: false,
     showPassword: false,
   })
-  const dispatch = useAppDispatch()
+  const { addedNotification, changeLinearProgress } = useActions()
   const [registration, { data, loading, error }] = useMutation(REGISTRATION)
   const methods = useForm<IFormInput>({
     mode: 'onTouched',
@@ -72,7 +68,7 @@ const Registration: NextPage = () => {
 
   React.useEffect(() => {
     if (loading) {
-      dispatch(changeLinearProgress(true))
+      changeLinearProgress(true)
     }
     if (error) {
       addedNotification({
@@ -87,14 +83,14 @@ const Registration: NextPage = () => {
         message: 'error',
       })
       setConfig({ ...config, isDisabled: false })
-      dispatch(changeLinearProgress(false))
+      changeLinearProgress(false)
     }
     if (data) {
       addedNotification({
         message: 'Ви успішно зареєструвалися!',
         key: `${new Date().getTime()}+${Math.random()}`,
       })
-      dispatch(changeLinearProgress(true))
+      changeLinearProgress(true)
     }
   }, [error, loading, data])
 
