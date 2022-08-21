@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTypedSelector } from '../../../../store/hooks'
+import { useTypedSelector } from '../../../../hooks'
 import { TopBarComponent } from '../Components'
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const TopBar: React.FC<IProps> = ({ children, widthLeftBox }) => {
-  const { theme } = useTypedSelector(state => state.theme)
+  const { theme } = useTypedSelector(state => state.layout)
 
   return (
     <TopBarComponent theme={theme} widthLeftBox={widthLeftBox}>

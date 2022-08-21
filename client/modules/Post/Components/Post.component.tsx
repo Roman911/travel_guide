@@ -13,8 +13,8 @@ import {
 } from '@mui/material'
 import { Facebook, Favorite, Share, Twitter } from '@mui/icons-material'
 import LinkIcon from '@mui/icons-material/Link'
-import { Comments, Likes } from '../../'
-import { MyStepper, Rating, Tags, Views, UserAvatar } from '../../../Components'
+import { Avatar, Comments, Likes } from '../../'
+import { MyStepper, Rating, Tags, Views } from '../../../Components'
 import { IPropsComponent } from './types/post'
 
 export const PostComponent: React.FC<IPropsComponent> = ({
@@ -133,7 +133,7 @@ export const PostComponent: React.FC<IPropsComponent> = ({
                 onClick={() => handleClickToUser(author._id)}
                 sx={{ padding: 0, borderRadius: '50%' }}
               >
-                <UserAvatar
+                <Avatar
                   size={70}
                   userData={{ name: author.name, avatar: author.avatar }}
                 />

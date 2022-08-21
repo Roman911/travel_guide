@@ -5,7 +5,7 @@ import {
   useNotifier,
   useTypedSelector,
 } from '../../../../hooks'
-import { LinearProgress } from '../../../'
+import { LinearProgress } from '../../'
 
 type Props = {
   children: React.ReactNode

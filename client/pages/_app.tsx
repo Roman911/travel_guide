@@ -13,7 +13,7 @@ import { Theme } from '../Components'
 
 moment.locale('uk')
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   const client = useApollo(pageProps.initialApolloState)
 
   return (

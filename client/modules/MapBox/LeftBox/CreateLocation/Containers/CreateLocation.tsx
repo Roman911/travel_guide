@@ -4,7 +4,7 @@ import { Box } from '@mui/material'
 import { useMutation } from '@apollo/react-hooks'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useActions, useTypedSelector } from '../../../../../store/hooks'
+import { useActions, useTypedSelector } from '../../../../../hooks'
 import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
 
@@ -36,7 +36,7 @@ interface IFormInput {
   latitude: number
   longitude: number
   token: string
-  uploadFile?: File
+  uploadFile: File | null
 }
 
 const defaultValues = {
@@ -61,9 +61,9 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
     user: { refreshToken },
     mapBox: { address, latLng },
   } = useTypedSelector(state => state)
-  const { linearProgress, setType } = useActions()
+  const { changeLinearProgress, setType } = useActions()
   const [previewImage, setPreviewImage] = React.useState<string>()
-  const [file, setFile] = React.useState(null)
+  const [file, setFile] = React.useState<string | Blob>('')
   const [isDisabled, setDisabled] = React.useState(false)
   const [CreateLocation] = useMutation(CREATE_LOCATION)
   const methods = useForm<IFormInput>({
@@ -77,7 +77,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
     const { address, title, small_text, isType, latitude, longitude } = values
 
     setDisabled(true)
-    linearProgress(true)
+    changeLinearProgress(true)
     let formData = new FormData()
     formData.append('image', file)
 

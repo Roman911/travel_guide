@@ -1,6 +1,6 @@
-import React from "react"
-import { useRouter } from "next/router"
-import { useTypedSelector } from "../store/hooks"
+import React from 'react'
+import { useRouter } from 'next/router'
+import { useTypedSelector } from './'
 
 function Redirect(props: { href: string }) {
   //const { href } = useTypedSelector(state => state.getBack)

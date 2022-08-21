@@ -14,7 +14,7 @@ import { LocationOn } from '@mui/icons-material'
 import type { ILocation } from '../../types'
 
 interface IProps {
-  selected: ILocation
+  selected: ILocation | null
   location?: ILocation
   closeOnClick: () => void
   editOnClick: () => void
@@ -28,8 +28,8 @@ const PopurComponent: React.FC<IProps> = ({
 }) => {
   return (
     <Popup
-      latitude={selected.latitude}
-      longitude={selected.longitude}
+      latitude={selected ? selected.latitude : 0}
+      longitude={selected ? selected.longitude : 0}
       closeOnClick={false}
       maxWidth="250px"
       offset={46}

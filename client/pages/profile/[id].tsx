@@ -3,8 +3,7 @@ import type { IUserProfile } from '../../types/user'
 import { GetServerSideProps } from 'next'
 import { initializeApollo } from '../../lib/apolloClient'
 import { USER } from '../../apollo/queries/user'
-import { MainLayout } from '../../Components'
-import { UserProfile } from '../../modules'
+import { MainLayout, UserProfile } from '../../modules'
 
 interface IProps {
   data: {

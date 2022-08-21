@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
-import { MapBox } from '../modules'
-import { MainLayout } from '../Components'
+import { MainLayout, MapBox } from '../modules'
 
 const Maps: NextPage = () => {
   console.log('render: pages, Maps')

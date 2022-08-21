@@ -19,7 +19,7 @@ interface IProps {
   previewImage?: string
   setPreviewImage: (props: string) => void
   handleClick: () => void
-  setType: (arg: { type: string }) => void
+  setType: (arg: string) => void
   setFile: (arg: any) => void
 }
 
@@ -137,7 +137,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
               isOptionEqualToValue={(option, value) => option.id === value.id}
               options={locations}
               onChange={(event, item) => {
-                setType({ type: item.id })
+                setType(item.id)
                 onChange(item)
               }}
               value={value}

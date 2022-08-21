@@ -7,7 +7,7 @@ import type { ILocation } from '../../types'
 
 interface IProps {
   selected: ILocation | null
-  setSelected: (props: { selected: null }) => void
+  setSelected: (props: null) => void
 }
 
 const Popur: React.FC<IProps> = ({ selected, setSelected }) => {
@@ -15,21 +15,21 @@ const Popur: React.FC<IProps> = ({ selected, setSelected }) => {
   const [location, { data }] = useLazyQuery(LOCATION_FOR_POPUR)
 
   const closeOnClick = () => {
-    setSelected({ selected: null })
+    setSelected(null)
   }
 
   const editOnClick = () => {
-    setSelected({ selected: null })
-    router.push(`?id=${selected._id}`)
+    setSelected(null)
+    router.push(`?id=${selected}`)
   }
 
   React.useEffect(() => {
     location({
       variables: {
-        locationID: selected._id,
+        locationID: selected,
       },
     })
-  }, [selected._id])
+  }, [selected])
 
   return (
     <PopurComponent

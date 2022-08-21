@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { useActions, useTypedSelector } from '../../../../store/hooks'
+import { useActions, useTypedSelector } from '../../../../hooks'
 import { LeftBoxLayout } from '../Components'
 import type { ILocation } from '../../types/location'
 
@@ -37,16 +37,16 @@ const CreateLocation = dynamic<ICreateLocationProps>(
 
 const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
   const router = useRouter()
-  const { leftBox } = useTypedSelector(state => state.leftBox)
+  const { leftBoxView } = useTypedSelector(state => state.mapBox)
   const { setLeftBox, setSelected } = useActions()
 
   const handleClick = () => {
     setLeftBox('locationsList')
     router.push('')
-    setSelected({ selected: null })
+    setSelected(null)
   }
 
-  if (leftBox === 'createLocation') {
+  if (leftBoxView === 'createLocation') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
         <CreateLocation handleClick={handleClick} />
@@ -54,7 +54,7 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
     )
   }
 
-  if (leftBox === 'createDirection') {
+  if (leftBoxView === 'createDirection') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
         <LocationsList data={data} loading={loading} />
@@ -62,7 +62,7 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
     )
   }
 
-  if (leftBox === 'locationsList') {
+  if (leftBoxView === 'locationsList') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
         <LocationsList data={data} loading={loading} />

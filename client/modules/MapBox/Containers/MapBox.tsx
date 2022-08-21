@@ -3,7 +3,8 @@ import { useRouter } from 'next/router'
 import { Stack } from '@mui/material'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useLazyQuery } from '@apollo/react-hooks'
-import { useActions, useTypedSelector } from '../../../store/hooks'
+import ReactMapGL from 'react-map-gl'
+import { useActions, useTypedSelector } from '../../../hooks'
 import { MapBoxComponent } from '../Components'
 import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
 import { LOCATIONS } from '../../../apollo/queries/locations'
@@ -13,7 +14,7 @@ const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
   const router = useRouter()
-  const mapRef = React.useRef(null)
+  const mapRef = React.useRef<ReturnType<typeof ReactMapGL> | null>(null)
   const { highlightedId, latLng, selected, type, viewport } = useTypedSelector(
     state => state.mapBox
   )
@@ -23,8 +24,6 @@ const MapBox: React.FC = () => {
     '[[0,0],[0,0]]'
   )
   const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
-
-  console.log(viewport)
 
   React.useEffect(() => {
     locations({
@@ -60,13 +59,12 @@ const MapBox: React.FC = () => {
           ) => {
             if (latitude && longitude) {
               setViewport({
-                viewport: {
-                  latitude,
-                  longitude,
-                  zoom: 12,
-                },
+                latitude,
+                longitude,
+                zoom: 12,
               })
               if (mapRef.current) {
+                //@ts-ignore
                 const bounds = mapRef.current.getMap().getBounds()
                 setDataBounds(JSON.stringify(bounds.toArray()))
               }

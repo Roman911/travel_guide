@@ -2,7 +2,7 @@ import type { IUserData } from '../../../../types'
 import React from 'react'
 import { Box, Button, Drawer, Stack, Typography, styled } from '@mui/material'
 import Link, { LinkProps } from '@mui/material/Link'
-import { UserAvatar } from '../../../../Components'
+import { Avatar } from '../../../'
 
 type Props = {
   drawerIsOpen: boolean
@@ -51,7 +51,7 @@ const DrawerComponent: React.FC<Props> = ({
         onKeyDown={toggleDrawer}
       >
         <Box p={2} marginTop={4}>
-          <UserAvatar sx={{ margin: '0 auto' }} size={80} userData={userData} />
+          <Avatar sx={{ margin: '0 auto' }} size={80} userData={userData} />
           <Typography variant="subtitle1" marginTop={2}>
             {userData?.email}
           </Typography>

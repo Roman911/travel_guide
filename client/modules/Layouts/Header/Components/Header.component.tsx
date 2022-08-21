@@ -12,8 +12,7 @@ import {
 } from '@mui/material'
 import { NotificationsOutlined, Search } from '@mui/icons-material'
 import { blue, grey } from '@mui/material/colors'
-import { Logo } from '../../..'
-import { UserAvatar } from '../../../../Components'
+import { Avatar, Logo } from '../../..'
 import { linksConfig } from '../config/config'
 import { MaterialUISwitch } from './MaterialUISwitch'
 
@@ -102,7 +101,7 @@ const HeaderComponent: React.FC<Props> = ({
             <NotificationsOutlined />
           </IconButton>
           <IconButton sx={{ p: 0 }} onClick={handleClickUser}>
-            <UserAvatar size={34} userData={userData} />
+            <Avatar size={34} userData={userData} />
           </IconButton>
         </Stack>
       </Toolbar>

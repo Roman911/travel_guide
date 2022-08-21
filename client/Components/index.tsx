@@ -1,4 +1,3 @@
-export { UserAvatar } from './Avatar'
 export { MyStepper } from './MaterialUI'
 export { Rating } from './Rating'
 export { SocSetBlock } from './SocSetBlock'
