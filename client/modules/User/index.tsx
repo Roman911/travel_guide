@@ -1,3 +1,3 @@
 export { Avatar } from './Avatar'
-export { Profile } from './Profile'
+export { UserProfile } from './Profile'
 export { SettingsContainer } from './Settings'

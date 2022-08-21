@@ -12,4 +12,4 @@ export {
 export { Post } from './Post'
 export { Posts } from './Posts'
 export { Regions } from './Regions'
-export { Avatar, Profile, SettingsContainer } from './User'
+export { Avatar, SettingsContainer, UserProfile } from './User'

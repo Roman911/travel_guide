@@ -1,1 +1,1 @@
-export { Profile } from './Containers'
+export { UserProfile } from './Containers'
