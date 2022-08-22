@@ -1,12 +1,13 @@
 import React from 'react'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { Box } from '@mui/material'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useActions, useTypedSelector } from '../../../../../hooks'
 import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
+import { uploadFileAPI } from '../../../../../store/reducers/uloadFileSlice'
 
 const schema = yup.object().shape({
   title: yup.string().min(5).max(50).required('Поле не може бути пустим'),
@@ -36,7 +37,7 @@ interface IFormInput {
   latitude: number
   longitude: number
   token: string
-  uploadFile: File | null
+  uploadFile: null
 }
 
 const defaultValues = {
@@ -54,15 +55,14 @@ const defaultValues = {
   uploadFile: null,
 }
 
-const baseUrl = 'http://localhost:3005'
-
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const {
     user: { refreshToken },
     mapBox: { address, latLng },
+    uploadFile: { previewImage },
   } = useTypedSelector(state => state)
+  const [createFile] = uploadFileAPI.useCreateFileMutation()
   const { changeLinearProgress, setType } = useActions()
-  const [previewImage, setPreviewImage] = React.useState<string>()
   const [file, setFile] = React.useState<string | Blob>('')
   const [isDisabled, setDisabled] = React.useState(false)
   const [CreateLocation] = useMutation(CREATE_LOCATION)
@@ -75,44 +75,41 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
 
   const onSubmit: SubmitHandler<IFormInput> = async values => {
     const { address, title, small_text, isType, latitude, longitude } = values
-
     setDisabled(true)
     changeLinearProgress(true)
-    let formData = new FormData()
-    formData.append('image', file)
 
-    await fetch(baseUrl, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(response => response.json())
-      .then(data => {
-        CreateLocation({
-          variables: {
-            input: {
-              token: refreshToken,
-              title,
-              small_text,
-              isType: isType.id,
-              address,
-              region: 'Вінницька область',
-              cover: data.image,
-              latitude,
-              longitude,
+    if (file) {
+      await createFile({ url: '', file })
+        .then(data => {
+          //@ts-ignore
+          const cover = data.image
+          CreateLocation({
+            variables: {
+              input: {
+                token: refreshToken,
+                title,
+                small_text,
+                isType: isType.id,
+                address,
+                region: 'Вінницька область',
+                cover,
+                latitude,
+                longitude,
+              },
             },
-          },
-        })
-          .then(data => {
-            methods.reset()
           })
-          .finally(() => setDisabled(false))
-      })
-      .catch(error =>
-        methods.setError('uploadFile', {
-          type: 'custom',
-          message: 'Добавте обкладинку',
+            .then(data => {
+              methods.reset()
+            })
+            .finally(() => setDisabled(false))
         })
-      )
+        .catch(error =>
+          methods.setError('uploadFile', {
+            type: 'custom',
+            message: 'Добавте обкладинку',
+          })
+        )
+    }
   }
 
   React.useEffect(() => {
@@ -137,7 +134,6 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
           isDisabled={isDisabled}
           handleClick={handleClick}
           previewImage={previewImage}
-          setPreviewImage={setPreviewImage}
           setType={setType}
           setFile={setFile}
         />

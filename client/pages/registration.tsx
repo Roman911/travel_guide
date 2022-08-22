@@ -1,6 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'

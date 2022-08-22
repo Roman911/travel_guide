@@ -1,6 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { useLazyQuery } from '@apollo/react-hooks'
+//import { useLazyQuery, useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -39,22 +40,31 @@ const Login: NextPage = () => {
     showPassword: false,
   })
   const { addUserData, addedNotification, changeLinearProgress } = useActions()
-  const [userData, { loading, data, error }] = useLazyQuery(LOGIN)
+
   const methods = useForm<IFormInput>({
     mode: 'onTouched',
     defaultValues,
     resolver: yupResolver(schema),
   })
   const { handleSubmit, setError } = methods
-
+  const [userData, { loading, data, error }] = useLazyQuery(LOGIN)
   const handleClickShowPassword = () =>
     setConfig({ ...config, showPassword: !config.showPassword })
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     setConfig({ ...config, isDisabled: true })
     const { email, password } = data
-    userData({ variables: { input: { email, password } } })
+    userData({
+      variables: {
+        input: {
+          email,
+          password,
+        },
+      },
+    })
   }
+
+  console.log(data)
 
   React.useEffect(() => {
     if (loading) {

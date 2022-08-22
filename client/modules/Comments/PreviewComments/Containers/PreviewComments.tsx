@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { CircularProgress } from '@mui/material'
 import { useColors } from '../../../../hooks'
 import { COMMENTS_FOR_PREVIEW } from '../../../../apollo/queries/comments'

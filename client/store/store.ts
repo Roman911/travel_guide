@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
-import { rootReducer } from './reducers'
+import { rootReducer, UploadFileAPI } from './reducers'
 
-export function makeStore() {
+export const makeStore = () => {
   return configureStore({
     reducer: rootReducer,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(UploadFileAPI.middleware),
   })
 }
 

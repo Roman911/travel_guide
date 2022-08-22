@@ -12,4 +12,5 @@ export {
 export { Post } from './Post'
 export { Posts } from './Posts'
 export { Regions } from './Regions'
+export { UploadFile } from './UploadFile'
 export { Avatar, SettingsContainer, UserProfile } from './User'

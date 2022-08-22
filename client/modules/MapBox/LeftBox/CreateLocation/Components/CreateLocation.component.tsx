@@ -13,14 +13,14 @@ import {
 } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { locations } from '../config/locationsType'
+import { UploadFile } from '../../../../'
 
 interface IProps {
   isDisabled: boolean
   previewImage?: string
-  setPreviewImage: (props: string) => void
   handleClick: () => void
   setType: (arg: string) => void
-  setFile: (arg: any) => void
+  setFile: (arg: string | Blob) => void
 }
 
 const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -39,7 +39,6 @@ const CreateLocationComponent: React.FC<IProps> = ({
   isDisabled,
   previewImage,
   handleClick,
-  setPreviewImage,
   setType,
   setFile,
 }) => {
@@ -78,37 +77,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
             />
           )}
         />
-        <Controller
-          name="uploadFile"
-          control={control}
-          render={({ field }) => (
-            <UploadButton
-              {...field}
-              variant="outlined"
-              //@ts-ignore
-              component="label"
-            >
-              Обрати фото
-              <input
-                hidden
-                accept="image/*"
-                multiple
-                type="file"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setFile(event?.target?.files?.[0])
-                  if (event?.target?.files?.[0]) {
-                    const file = event.target.files[0]
-                    const reader = new FileReader()
-                    reader.onloadend = () => {
-                      setPreviewImage(reader.result as string)
-                    }
-                    reader.readAsDataURL(file)
-                  }
-                }}
-              />
-            </UploadButton>
-          )}
-        />
+        <UploadFile name="Обрати фото" uploadButton={true} setFile={setFile} />
         {previewImage && (
           <img
             src={previewImage}

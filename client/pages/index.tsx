@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Box } from '@mui/material'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { Posts } from '../modules'
 import { MainLayout } from '../modules'
 import { POSTS, POST } from '../apollo/queries/posts'

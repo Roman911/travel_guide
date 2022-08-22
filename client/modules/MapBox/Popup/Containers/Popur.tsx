@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useLazyQuery } from '@apollo/client'
 import { PopurComponent } from '../Components'
 import { LOCATION_FOR_POPUR } from '../../../../apollo/queries/locations'
 import type { ILocation } from '../../types'

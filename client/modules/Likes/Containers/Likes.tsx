@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { useActions, useTypedSelector } from '../../../hooks'
 import { useColors } from '../../../hooks'
 import { LikesComponent } from '../Components'

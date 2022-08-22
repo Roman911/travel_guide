@@ -1,23 +1,26 @@
 type Props = {
-  email: string,
-  _id: string,
-  name: string,
-  isActivated: boolean,
-  avatar: string
-}
+  email: string;
+  _id: string;
+  name: string;
+  isActivated: boolean;
+  rating: number;
+  avatars: string[];
+};
 
 export class UserDto {
-  email: string
-  _id: string
-  name: string
-  isActivated: boolean
-  avatar: string
+  email: string;
+  _id: string;
+  name: string;
+  isActivated: boolean;
+  rating: number;
+  avatars: string[];
 
   constructor(model: Props) {
-    this.email = model.email
-    this._id = model._id
-    this.name = model.name
-    this.isActivated = model.isActivated
-    this.avatar = model.avatar
+    this.email = model.email;
+    this._id = model._id;
+    this.name = model.name;
+    this.isActivated = model.isActivated;
+    this.rating = model.rating;
+    this.avatars = model.avatars;
   }
 }

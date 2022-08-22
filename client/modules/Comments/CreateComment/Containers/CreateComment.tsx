@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box } from '@mui/material'
