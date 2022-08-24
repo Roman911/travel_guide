@@ -11,25 +11,32 @@ import { Close } from '@mui/icons-material'
 import { Main, UploadAvatar } from '../'
 
 interface IProps {
-  isMain: boolean
+  file: File | string
+  isDisabled: boolean
   isOpen: boolean
-  handleClick: () => void
+  handleCansel: () => void
   handleClose: () => void
-  setFile: (arg: string | Blob) => void
-  setPreviewImage: (props: string) => void
+  onSubmit: () => void
+  editor: any
+  setFile: (arg: File | string) => void
 }
 
 const DialogComponent: React.FC<IProps> = ({
-  isMain,
+  file,
+  isDisabled,
   isOpen,
-  handleClick,
+  handleCansel,
   handleClose,
+  onSubmit,
+  editor,
   setFile,
 }) => {
   return (
     <Dialog
       open={isOpen}
-      onClose={handleClose}
+      onClose={() => {
+        handleClose(), handleCansel()
+      }}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth={true}
@@ -54,17 +61,32 @@ const DialogComponent: React.FC<IProps> = ({
         Оновити основну світлину
       </DialogTitle>
       <DialogContent sx={{ marginTop: 3 }}>
-        {isMain ? (
-          <Main handleClick={handleClick} setFile={setFile} />
+        {file === '' ? (
+          <Main setFile={setFile} />
         ) : (
-          <UploadAvatar />
+          <UploadAvatar editor={editor} file={file} />
         )}
       </DialogContent>
-      <DialogActions>
-        <Button variant="contained" color="secondary" onClick={handleClose}>
-          Disagree
-        </Button>
-      </DialogActions>
+      {file !== '' && (
+        <DialogActions sx={{ paddingBottom: 3, paddingRight: 3 }}>
+          <Button
+            variant="text"
+            color="secondary"
+            onClick={handleCansel}
+            disabled={isDisabled}
+          >
+            Скасувати
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={onSubmit}
+            disabled={isDisabled}
+          >
+            Зберегти
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
   )
 }

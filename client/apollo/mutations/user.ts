@@ -14,3 +14,13 @@ export const UPDATE_USER = gql`
     }
   }
 `
+
+export const UPDATE_USER_AVATAR = gql`
+  mutation updateUserAvatar($input: UpdateUserAvatarInput!) {
+    updateUserAvatar(input: $input) {
+      user {
+        _id
+      }
+    }
+  }
+`

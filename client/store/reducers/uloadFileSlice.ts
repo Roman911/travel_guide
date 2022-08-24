@@ -30,8 +30,11 @@ export const uploadFileAPI = createApi({
   reducerPath: 'uploadFileAPI',
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_APP_HOST_API }),
   endpoints: build => ({
-    createFile: build.mutation({
-      query: ({ url, file }: { url: string; file: string | Blob }) => {
+    createFile: build.mutation<
+      { url: string; file: string | File },
+      { url: string; file: string | File }
+    >({
+      query: ({ url, file }) => {
         let formData = new FormData()
         formData.append('image', file)
         return {

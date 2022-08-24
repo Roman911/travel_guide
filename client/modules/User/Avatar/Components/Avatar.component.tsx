@@ -5,6 +5,8 @@ import type { IProps } from '../Containers'
 
 const AvatarComponent: React.FC<IProps> = ({ size, userData, sx }) => {
   const params = { width: size, height: size, color: '#fff', ...sx }
+  const avatarI =
+    userData && userData.avatars.length !== 0 ? userData.avatars.length - 1 : 0
 
   console.log('render: Components, Avatar')
 
@@ -20,11 +22,9 @@ const AvatarComponent: React.FC<IProps> = ({ size, userData, sx }) => {
     <Avatar
       sx={params}
       alt={userData?.name}
-      src={
-        userData?.avatar && `http://localhost:3005/images${userData?.avatar}`
-      }
+      src={`${process.env.NEXT_APP_HOST_API}images/${userData?.avatars[avatarI]}`}
     >
-      {!userData?.avatar && <PermIdentity />}
+      {!userData?.avatars && <PermIdentity />}
     </Avatar>
   )
 }

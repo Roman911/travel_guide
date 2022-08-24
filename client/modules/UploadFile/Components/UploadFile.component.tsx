@@ -5,7 +5,7 @@ import { UploadButton } from '../'
 interface IProps {
   name: string
   uploadButton: boolean
-  setFile: (arg: string | Blob) => void
+  setFile: (arg: File | string) => void
   setPreviewImage: (arg: string) => void
 }
 
@@ -39,7 +39,12 @@ const UploadFileComponent: React.FC<IProps> = ({
 
   if (!uploadButton)
     return (
-      <Button>
+      <Button
+        variant="contained"
+        size="small"
+        color="secondary"
+        component="label"
+      >
         {name}
         <Input />
       </Button>

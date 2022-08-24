@@ -1,77 +1,73 @@
 import React from 'react'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
 import { Box } from '@mui/material'
-import { useActions } from '../../../../../hooks'
+import { useActions, useTypedSelector } from '../../../../../hooks'
 import { DialogComponent } from '../Components'
+import { uploadFileAPI } from '../../../../../store/reducers/uloadFileSlice'
+import { UPDATE_USER_AVATAR } from '../../../../../apollo/mutations/user'
 
 interface IProps {
   isOpen: boolean
   handleClose: () => void
 }
 
-interface IFormInput {
-  uploadFile: File | null
-}
-
-const defaultValues = {
-  uploadFile: null,
-}
-
-const baseUrl = process.env.NEXT_APP_HOST_API || ''
-
 const Dialog: React.FC<IProps> = ({ isOpen, handleClose }) => {
-  const { changeLinearProgress } = useActions()
-  const [isMain, setMain] = React.useState<boolean>(true)
-  const [file, setFile] = React.useState<string | Blob>('')
-  const [previewImage, setPreviewImage] = React.useState<string>()
+  const [createFile, {}] = uploadFileAPI.useCreateFileMutation()
+  const { refreshToken } = useTypedSelector(state => state.user)
+  const { changeLinearProgress, updateAvatar } = useActions()
+  const [updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
+  const [file, setFile] = React.useState<File | string>('')
   const [isDisabled, setDisabled] = React.useState<boolean>(false)
 
-  const methods = useForm<IFormInput>({
-    mode: 'all',
-    defaultValues,
-  })
-  const { handleSubmit } = methods
+  const editor = React.useRef(null)
 
-  const onSubmit: SubmitHandler<IFormInput> = async values => {
-    setDisabled(true)
+  const onSubmit = async () => {
     changeLinearProgress(true)
-    let formData = new FormData()
-    formData.append('image', file)
+    setDisabled(true)
+    //const options = editor.current.getImage().toDataURL()
 
-    await fetch(baseUrl + '/settings', {
-      method: 'POST',
-      body: formData,
+    await createFile({ url: '/avatar', file } as {
+      url: string
+      file: string | File
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-      })
-      .catch(error =>
-        methods.setError('uploadFile', {
-          type: 'custom',
-          message: 'Добавте обкладинку',
+      .then((data: any) => {
+        updateAvatar(data.data.image)
+        updateUserAvatar({
+          variables: {
+            input: {
+              avatar: data.data.image,
+              token: refreshToken,
+            },
+          },
+        }).then(data => {
+          setFile('')
+          handleClose()
         })
-      )
+      })
+      .catch(e => console.log(e))
+      .finally(() => {
+        changeLinearProgress(false)
+        setDisabled(false)
+      })
   }
 
-  const handleClick = () => {
-    setMain(prev => !prev)
+  const handleCansel = () => {
+    setFile('')
   }
 
   return (
-    <FormProvider {...methods}>
-      <Box component="form" margin="auto" onSubmit={handleSubmit(onSubmit)}>
-        <DialogComponent
-          isMain={isMain}
-          isOpen={isOpen}
-          handleClick={handleClick}
-          handleClose={handleClose}
-          setFile={setFile}
-          setPreviewImage={setPreviewImage}
-        />
-      </Box>
-    </FormProvider>
+    <Box>
+      <DialogComponent
+        file={file}
+        isDisabled={isDisabled}
+        isOpen={isOpen}
+        handleCansel={handleCansel}
+        handleClose={handleClose}
+        onSubmit={onSubmit}
+        setFile={setFile}
+        editor={editor}
+      />
+    </Box>
   )
 }
 

@@ -9,6 +9,7 @@ import {
   LoginUserInput,
   RegistrationUserInput,
   UpdateUserInput,
+  UpdateUserAvatarInput,
 } from './inputs';
 import { TokenService } from '../token/token.service';
 import { MailService } from '../mail/mail.service';
@@ -132,6 +133,29 @@ export class UsersService {
     const userData = this.tokenService.validateRefreshToken(token);
     await this.userModel
       .findByIdAndUpdate(userData._id, update, { new: true })
+      .exec();
+    const user = await this.userModel.findById(userData._id).exec();
+
+    this.userTokenService = await this.moduleRef.get(UserTokenService, {
+      strict: false,
+    });
+
+    return await this.userTokenService.userTokenData(user);
+  }
+
+  async updateUserAvatar(createUserDto: UpdateUserAvatarInput): Promise<any> {
+    const { token, avatar } = createUserDto;
+
+    this.tokenService = await this.moduleRef.get(TokenService, {
+      strict: false,
+    });
+    const userData = this.tokenService.validateRefreshToken(token);
+    await this.userModel
+      .findByIdAndUpdate(
+        userData._id,
+        { $push: { avatars: avatar } },
+        { new: true },
+      )
       .exec();
     const user = await this.userModel.findById(userData._id).exec();
 

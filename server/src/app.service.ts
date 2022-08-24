@@ -71,3 +71,32 @@ export class SharpPipeForPost
     return randomName;
   }
 }
+
+@Injectable()
+export class SharpPipeAvatar
+  implements PipeTransform<Express.Multer.File, Promise<string>>
+{
+  async transform(image: Express.Multer.File): Promise<string> {
+    const randomName = Date.now() + '_' + GenerateRandomString(16) + '.webp';
+    //const metadata = await sharp(image.buffer).metadata();
+
+    //const left = Math.round(0.11372888533298747 * metadata.width);
+    //const top = Math.round(0.3911769593598094 * metadata.height);
+
+    //const width = Math.round(0.29761904761904767 * metadata.width);
+    //const height = Math.round(0.5291005291005292 * metadata.height);
+
+    await sharp(image.buffer)
+      //.extract({ left, top, width, height })
+      .resize({
+        width: 150,
+        height: 150,
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy,
+      })
+      .webp({ effort: 3 })
+      .toFile(path.join('./uploads/images', randomName));
+
+    return randomName;
+  }
+}

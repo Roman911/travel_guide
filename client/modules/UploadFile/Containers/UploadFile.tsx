@@ -5,7 +5,7 @@ import { UploadFileComponent } from '../Components'
 interface IProps {
   name: string
   uploadButton: boolean
-  setFile: (arg: string | Blob) => void
+  setFile: (arg: File | string) => void
 }
 
 const UploadFile: React.FC<IProps> = ({ name, uploadButton, setFile }) => {

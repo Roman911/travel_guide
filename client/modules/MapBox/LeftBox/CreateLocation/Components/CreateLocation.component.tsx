@@ -4,12 +4,10 @@ import {
   Autocomplete,
   Box,
   Button,
-  ButtonProps,
   IconButton,
   Stack,
   TextField,
   Typography,
-  styled,
 } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { locations } from '../config/locationsType'
@@ -20,20 +18,8 @@ interface IProps {
   previewImage?: string
   handleClick: () => void
   setType: (arg: string) => void
-  setFile: (arg: string | Blob) => void
+  setFile: (arg: string | File) => void
 }
-
-const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  border: '2px dashed',
-  borderColor: theme.palette.text.primary,
-  color: theme.palette.text.primary,
-  borderRadius: 0,
-  opacity: 0.7,
-  '&:hover': {
-    border: '2px dashed',
-    borderColor: theme.palette.text.primary,
-  },
-}))
 
 const CreateLocationComponent: React.FC<IProps> = ({
   isDisabled,

@@ -63,7 +63,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   } = useTypedSelector(state => state)
   const [createFile] = uploadFileAPI.useCreateFileMutation()
   const { changeLinearProgress, setType } = useActions()
-  const [file, setFile] = React.useState<string | Blob>('')
+  const [file, setFile] = React.useState<string | File>('')
   const [isDisabled, setDisabled] = React.useState(false)
   const [CreateLocation] = useMutation(CREATE_LOCATION)
   const methods = useForm<IFormInput>({

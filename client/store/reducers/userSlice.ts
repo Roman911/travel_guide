@@ -35,6 +35,12 @@ export const userSlice = createSlice({
         (state.accessToken = ''),
         (state.refreshToken = '')
     },
+    updateAvatar: (state, action: PayloadAction<string>) => {
+      if (state.userData) {
+        //@ts-ignore
+        state.userData.avatars.push(action.payload)
+      }
+    },
   },
 })
 

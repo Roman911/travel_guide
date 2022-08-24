@@ -1,12 +1,15 @@
 import React from 'react'
+import { useTypedSelector } from '../../../../../../hooks'
 import { MainComponents } from '../Components'
 
 interface IProps {
-  handleClick: () => void
+  setFile: (arg: File | string) => void
 }
 
-const Main: React.FC<IProps> = ({ handleClick, setFile }) => {
-  return <MainComponents handleClick={handleClick} />
+const Main: React.FC<IProps> = ({ setFile }) => {
+  const { userData } = useTypedSelector(state => state.user)
+
+  return <MainComponents setFile={setFile} avatars={userData?.avatars} />
 }
 
 export default Main
