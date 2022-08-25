@@ -19,6 +19,7 @@ interface IProps {
   onSubmit: () => void
   editor: any
   setFile: (arg: File | string) => void
+  setNewAvatar: (arg: boolean) => void
 }
 
 const DialogComponent: React.FC<IProps> = ({
@@ -30,6 +31,7 @@ const DialogComponent: React.FC<IProps> = ({
   onSubmit,
   editor,
   setFile,
+  setNewAvatar,
 }) => {
   return (
     <Dialog
@@ -62,7 +64,7 @@ const DialogComponent: React.FC<IProps> = ({
       </DialogTitle>
       <DialogContent sx={{ marginTop: 3 }}>
         {file === '' ? (
-          <Main setFile={setFile} />
+          <Main setFile={setFile} setNewAvatar={setNewAvatar} />
         ) : (
           <UploadAvatar editor={editor} file={file} />
         )}

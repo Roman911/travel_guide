@@ -1,18 +1,17 @@
 import React from 'react'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { useTypedSelector } from '../../../../../../hooks'
 import { MainComponents } from '../Components'
 import { USER_AVATARS } from '../../../../../../apollo/queries/user'
 
 interface IProps {
   setFile: (arg: File | string) => void
+  setNewAvatar: (arg: boolean) => void
 }
 
-const Main: React.FC<IProps> = ({ setFile }) => {
+const Main: React.FC<IProps> = ({ setFile, setNewAvatar }) => {
   const { userData } = useTypedSelector(state => state.user)
-  const { data } = useQuery(USER_AVATARS, {
-    variables: { userID: userData._id },
-  })
+  const [userAvatars, { data }] = useLazyQuery(USER_AVATARS)
   const [avatars, setAvatars] = React.useState<string[] | undefined>(undefined)
   const [allAvatars, setAllAvatars] = React.useState(false)
   const avatarsLength = data?.user.avatars.length
@@ -35,6 +34,12 @@ const Main: React.FC<IProps> = ({ setFile }) => {
     }
   }, [allAvatars])
 
+  React.useEffect(() => {
+    userAvatars({
+      variables: { userID: userData._id },
+    })
+  }, [])
+
   return (
     <MainComponents
       allAvatars={allAvatars}
@@ -42,6 +47,7 @@ const Main: React.FC<IProps> = ({ setFile }) => {
       avatarsLength={avatarsLength}
       setAllAvatars={setAllAvatars}
       setFile={setFile}
+      setNewAvatar={setNewAvatar}
     />
   )
 }

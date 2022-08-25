@@ -18,39 +18,53 @@ const Dialog: React.FC<IProps> = ({ isOpen, handleClose }) => {
   const [updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
   const [file, setFile] = React.useState<File | string>('')
   const [isDisabled, setDisabled] = React.useState<boolean>(false)
+  const [isNewAvatar, setNewAvatar] = React.useState(true)
+  const [urlAvatar, setUrlAvatar] = React.useState<string | null>(null)
 
   const editor = React.useRef(null)
 
   const onSubmit = async () => {
-    changeLinearProgress(true)
-    setDisabled(true)
-    //const options = editor.current.getImage().toDataURL()
+    if (isNewAvatar) {
+      changeLinearProgress(true)
+      setDisabled(true)
+      //const options = editor.current.getImage().toDataURL()
 
-    await createFile({ url: '/avatar', file } as {
-      url: string
-      file: string | File
-    })
-      .then((data: any) => {
-        console.log(data)
-        updateAvatar(data.data.image)
-        updateUserAvatar({
-          variables: {
-            input: {
-              avatar: data.data.image,
-              token: refreshToken,
-            },
-          },
-        }).then(data => {
-          setFile('')
-          handleClose()
+      await createFile({ url: '/avatar', file } as {
+        url: string
+        file: string | File
+      })
+        .then((data: any) => {
+          setUrlAvatar(data.data.image)
         })
-      })
-      .catch(e => console.log(e))
-      .finally(() => {
-        changeLinearProgress(false)
-        setDisabled(false)
-      })
+        .catch(e => console.log(e))
+        .finally(() => {
+          changeLinearProgress(false)
+          setDisabled(false)
+        })
+    } else {
+      if (typeof file === 'string') {
+        const url = file.split('/')
+        setUrlAvatar(url[url.length - 1])
+      }
+    }
   }
+
+  React.useEffect(() => {
+    if (urlAvatar) {
+      updateAvatar(urlAvatar)
+      updateUserAvatar({
+        variables: {
+          input: {
+            avatar: urlAvatar,
+            token: refreshToken,
+          },
+        },
+      }).then(data => {
+        setFile('')
+        handleClose()
+      })
+    }
+  }, [urlAvatar])
 
   const handleCansel = () => {
     setFile('')
@@ -66,6 +80,7 @@ const Dialog: React.FC<IProps> = ({ isOpen, handleClose }) => {
         handleClose={handleClose}
         onSubmit={onSubmit}
         setFile={setFile}
+        setNewAvatar={setNewAvatar}
         editor={editor}
       />
     </Box>

@@ -10,6 +10,7 @@ interface IProps {
   avatarsLength?: number
   setAllAvatars: (arg: boolean) => void
   setFile: (arg: File | string) => void
+  setNewAvatar: (arg: boolean) => void
 }
 
 const MainComponents: React.FC<IProps> = ({
@@ -18,6 +19,7 @@ const MainComponents: React.FC<IProps> = ({
   avatarsLength,
   setAllAvatars,
   setFile,
+  setNewAvatar,
 }) => {
   return (
     <>
@@ -25,6 +27,7 @@ const MainComponents: React.FC<IProps> = ({
         name="Завантажити світлину"
         uploadButton={false}
         setFile={setFile}
+        setNewAvatar={setNewAvatar}
       />
       <Typography variant="h6" marginTop={2} marginBottom={2}>
         Основні світлини
@@ -38,13 +41,20 @@ const MainComponents: React.FC<IProps> = ({
                   <Grid key={index} xs={2} item>
                     <img
                       width="100%"
-                      style={useStyleBorderRadius(
-                        allAvatars,
-                        avatarsLength,
-                        index
-                      )}
+                      style={{
+                        ...useStyleBorderRadius(
+                          allAvatars,
+                          avatarsLength,
+                          index
+                        ),
+                        cursor: 'pointer',
+                      }}
                       src={`${process.env.NEXT_APP_HOST_API}images/${i}`}
                       alt=""
+                      onClick={() => {
+                        setFile(`${process.env.NEXT_APP_HOST_API}images/${i}`),
+                          setNewAvatar(false)
+                      }}
                     />
                   </Grid>
                 )
