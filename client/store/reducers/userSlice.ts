@@ -14,6 +14,8 @@ const initialState: UserState = {
   accessToken: '',
 }
 
+const storageName = 'userData'
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -36,9 +38,12 @@ export const userSlice = createSlice({
         (state.refreshToken = '')
     },
     updateAvatar: (state, action: PayloadAction<string>) => {
+      const lS = JSON.parse(localStorage.getItem(storageName) as string)
+      lS.user.avatar = action.payload
+      localStorage.setItem(storageName, JSON.stringify(lS))
       if (state.userData) {
         //@ts-ignore
-        state.userData.avatars.push(action.payload)
+        state.userData.avatar = action.payload
       }
     },
   },

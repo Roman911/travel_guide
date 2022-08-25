@@ -17,3 +17,11 @@ export const USER = gql`
     }
   }
 `
+
+export const USER_AVATARS = gql`
+  query user($userID: String!) {
+    user(userID: $userID) {
+      avatars
+    }
+  }
+`

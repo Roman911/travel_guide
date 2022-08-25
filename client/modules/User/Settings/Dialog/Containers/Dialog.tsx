@@ -31,6 +31,7 @@ const Dialog: React.FC<IProps> = ({ isOpen, handleClose }) => {
       file: string | File
     })
       .then((data: any) => {
+        console.log(data)
         updateAvatar(data.data.image)
         updateUserAvatar({
           variables: {

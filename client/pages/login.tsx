@@ -64,8 +64,6 @@ const Login: NextPage = () => {
     })
   }
 
-  console.log(data)
-
   React.useEffect(() => {
     if (loading) {
       changeLinearProgress(true)

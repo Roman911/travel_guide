@@ -5,15 +5,13 @@ import type { IProps } from '../Containers'
 
 const AvatarComponent: React.FC<IProps> = ({ size, userData, sx }) => {
   const params = { width: size, height: size, color: '#fff', ...sx }
-  const avatarI =
-    userData && userData.avatars.length !== 0 ? userData.avatars.length - 1 : 0
 
   console.log('render: Components, Avatar')
 
-  if (!userData) {
+  if (!userData?.avatar) {
     return (
-      <Avatar sx={{ width: size, height: size, color: '#fff' }}>
-        <PermIdentity />
+      <Avatar sx={params}>
+        {userData ? userData.name[0] : <PermIdentity />}
       </Avatar>
     )
   }
@@ -22,10 +20,8 @@ const AvatarComponent: React.FC<IProps> = ({ size, userData, sx }) => {
     <Avatar
       sx={params}
       alt={userData?.name}
-      src={`${process.env.NEXT_APP_HOST_API}images/${userData?.avatars[avatarI]}`}
-    >
-      {!userData?.avatars && <PermIdentity />}
-    </Avatar>
+      src={`${process.env.NEXT_APP_HOST_API}images/${userData?.avatar}`}
+    />
   )
 }
 
