@@ -20,13 +20,13 @@ const Popur: React.FC<IProps> = ({ selected, setSelected }) => {
 
   const editOnClick = () => {
     setSelected(null)
-    router.push(`?id=${selected}`)
+    router.push(`?id=${selected._id}`)
   }
 
   React.useEffect(() => {
     location({
       variables: {
-        locationID: selected,
+        locationID: selected._id,
       },
     })
   }, [selected])
