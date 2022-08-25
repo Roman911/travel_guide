@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { locations } from '../config/locationsType'
-import { UploadFile } from '../../../../'
+import { Regions, UploadFile } from '../../../../'
 
 interface IProps {
   isDisabled: boolean
@@ -103,6 +103,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
             />
           )}
         />
+        <Regions />
         <Controller
           name="address"
           control={control}

@@ -14,11 +14,11 @@ const schema = yup.object().shape({
   small_text: yup
     .string()
     .min(10)
-    .max(260)
+    .max(600)
     .required('Поле не може бути пустим'),
   address: yup.string().min(10).max(100).required('Поле не може бути пустим'),
-  latitude: yup.number().min(3).max(50).required('Поле не може бути пустим'),
-  longitude: yup.number().min(3).max(50).required('Поле не може бути пустим'),
+  latitude: yup.number().required('Поле не може бути пустим'),
+  longitude: yup.number().required('Поле не може бути пустим'),
 })
 
 interface IProps {
@@ -59,6 +59,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const {
     user: { refreshToken },
     mapBox: { address, latLng },
+    region: { option },
     uploadFile: { previewImage },
   } = useTypedSelector(state => state)
   const [createFile] = uploadFileAPI.useCreateFileMutation()
@@ -71,7 +72,9 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
     defaultValues,
     resolver: yupResolver(schema),
   })
-  const { handleSubmit } = methods
+  const { handleSubmit, formState } = methods
+
+  console.log(formState.errors)
 
   const onSubmit: SubmitHandler<IFormInput> = async values => {
     const { address, title, small_text, isType, latitude, longitude } = values
@@ -82,7 +85,8 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
       await createFile({ url: '', file })
         .then(data => {
           //@ts-ignore
-          const cover = data.image
+          const cover = data.data.image
+          console.log(data)
           CreateLocation({
             variables: {
               input: {
@@ -91,7 +95,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
                 small_text,
                 isType: isType.id,
                 address,
-                region: 'Вінницька область',
+                region: option?.label,
                 cover,
                 latitude,
                 longitude,
