@@ -1,5 +1,4 @@
-import React from 'react'
-import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { Stack } from '@mui/material'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useLazyQuery } from '@apollo/client'
@@ -13,34 +12,24 @@ import { useLocalState } from '../../../hooks/useLocalState'
 const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
-  const router = useRouter()
   const mapRef = React.useRef<ReturnType<typeof ReactMapGL> | null>(null)
   const { highlightedId, latLng, selected, type, viewport } = useTypedSelector(
     state => state.mapBox
   )
-  const { setLeftBox, setSelected, setViewport } = useActions()
+  const { setSelected, setViewport } = useActions()
   const [dataBounds, setDataBounds] = useLocalState<string>(
     'bounds',
     '[[0,0],[0,0]]'
   )
   const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
 
-  React.useEffect(() => {
+  useEffect(() => {
     locations({
       variables: {
         input: { types: [], region: '', debounced: JSON.parse(dataBounds) },
       },
     })
   }, [dataBounds])
-
-  React.useEffect(() => {
-    if (router.query.id) {
-      const id = Array.isArray(router.query.id)
-        ? router.query.id[0]
-        : router.query.id
-      setLeftBox(id)
-    }
-  }, [router])
 
   return (
     <Stack direction="row" position="relative">

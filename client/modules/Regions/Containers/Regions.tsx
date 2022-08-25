@@ -15,11 +15,12 @@ export const Regions: React.FC<IProps> = ({ width }) => {
   const { setRegion, setViewport } = useActions()
 
   const setOption = React.useCallback((option: IRegionOption | null) => {
+    console.log(option)
     setRegion(option)
     setViewport({
-      latitude: option ? option.center.lat : 44.6,
-      longitude: option ? option.center.lng : 25.48307,
-      zoom: 12,
+      latitude: option ? option.center.lat : 48.6,
+      longitude: option ? option.center.lng : 31.48307,
+      zoom: option ? 7 : 5.5,
     })
   }, [])
 
