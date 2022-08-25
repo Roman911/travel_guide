@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useActions } from '../../../../../../store/hooks'
+import { useActions } from '../../../../../../hooks'
 import { LocationCardComponent } from '../Components'
 import type { ILocation } from '../../../../types/location'
 
@@ -16,13 +16,11 @@ const LocationCard: React.FC<IProps> = ({ item }) => {
   const handleClick = () => {
     router.push(`?id=${item._id}`)
     setLeftBox(item._id)
-    setSelected({ selected: item })
+    setSelected(item)
     setViewport({
-      viewport: {
-        latitude: item.latitude,
-        longitude: item.longitude,
-        zoom: 12,
-      },
+      latitude: item.latitude,
+      longitude: item.longitude,
+      zoom: 12,
     })
   }
 

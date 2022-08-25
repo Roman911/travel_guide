@@ -1,57 +1,57 @@
-import { ObjectType, Field, ID, Int } from '@nestjs/graphql'
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Socials {
   @Field({ nullable: true })
-  facebook: string
+  facebook: string;
   @Field({ nullable: true })
-  instagram: string
+  instagram: string;
   @Field({ nullable: true })
-  twitter: string
+  twitter: string;
   @Field({ nullable: true })
-  youtube: string
+  youtube: string;
   @Field({ nullable: true })
-  telegram: string
+  telegram: string;
 }
 
 @ObjectType()
 export class CreateUserDto {
   @Field()
-  _id: string
+  _id: string;
   @Field()
-  name: string
+  name: string;
   @Field()
-  email: string
+  email: string;
   @Field()
-  password: string
+  password: string;
   @Field()
-  isActivated: boolean
+  isActivated: boolean;
   @Field()
-  activationLink: string
-  @Field({ nullable: true })
-  avatar: string
+  activationLink: string;
+  @Field((type) => [String], { nullable: true })
+  avatars: string[];
   @Field(() => Int, { nullable: true })
-  rating: number
+  rating: number;
   @Field({ nullable: true })
-  aboutMy: string
+  aboutMy: string;
   @Field({ nullable: true })
-  socials: Socials
+  socials: Socials;
   @Field({ nullable: true })
-  last_seen: Date
+  last_seen: Date;
 }
 
 @ObjectType()
 export class CreateUserDataDto {
   @Field()
-  user: CreateUserDto
+  user: CreateUserDto;
   @Field()
-  accessToken: string
+  accessToken: string;
   @Field()
-  refreshToken: string
+  refreshToken: string;
 }
 
 @ObjectType()
 export class ActivateUserDto {
   @Field(() => ID)
-  _id: string
+  _id: string;
 }

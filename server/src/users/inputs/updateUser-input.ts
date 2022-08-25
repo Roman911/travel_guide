@@ -1,28 +1,36 @@
-import { InputType, Field } from '@nestjs/graphql'
+import { InputType, Field } from '@nestjs/graphql';
 //import { Socials } from '../dto/create-user.dto'
 
 @InputType()
 class Socialss {
   @Field({ nullable: true })
-  facebook: string
+  facebook: string;
   @Field({ nullable: true })
-  instagram: string
+  instagram: string;
   @Field({ nullable: true })
-  twitter: string
+  twitter: string;
   @Field({ nullable: true })
-  youtube: string
+  youtube: string;
   @Field({ nullable: true })
-  telegram: string
+  telegram: string;
 }
 
 @InputType()
 export class UpdateUserInput {
   @Field()
-  token: string
+  token: string;
   @Field()
-  name: string
+  name: string;
   @Field()
-  aboutMy: string
+  aboutMy: string;
   @Field()
-  socials: Socialss
+  socials: Socialss;
+}
+
+@InputType()
+export class UpdateUserAvatarInput {
+  @Field()
+  token: string;
+  @Field()
+  avatar: string;
 }

@@ -1,14 +1,13 @@
 import React from 'react'
 import { useSnackbar } from 'notistack'
-import { useAppDispatch, useAppSelector } from '../hooks'
-import { removeNotification, selectLayout } from '../store/reducers/layoutSlice'
+import { useActions, useTypedSelector } from '../hooks'
 
 let displayed: string[] = []
 
 export const useNotifier = () => {
   const { enqueueSnackbar } = useSnackbar()
-  const { notifications } = useAppSelector(selectLayout)
-  const dispatch = useAppDispatch()
+  const { notifications } = useTypedSelector(state => state.layout)
+  const { removeNotification } = useActions()
 
   const storeDisplayed = (id: string) => (displayed = [...displayed, id])
   const removeDisplayed = (id: string) =>
@@ -19,9 +18,9 @@ export const useNotifier = () => {
       if (displayed.includes(key)) return
 
       enqueueSnackbar(message)
-      dispatch(removeNotification(key))
+      removeNotification(key)
       removeDisplayed(key)
       storeDisplayed(key)
     })
-  }, [notifications, dispatch])
+  }, [notifications, removeNotification])
 }

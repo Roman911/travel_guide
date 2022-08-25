@@ -4,42 +4,27 @@ import {
   Autocomplete,
   Box,
   Button,
-  ButtonProps,
   IconButton,
   Stack,
   TextField,
   Typography,
-  styled,
 } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { locations } from '../config/locationsType'
+import { UploadFile } from '../../../../'
 
 interface IProps {
   isDisabled: boolean
   previewImage?: string
-  setPreviewImage: (props: string) => void
   handleClick: () => void
-  setType: (arg: { type: string }) => void
-  setFile: (arg: any) => void
+  setType: (arg: string) => void
+  setFile: (arg: string | File) => void
 }
-
-const UploadButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  border: '2px dashed',
-  borderColor: theme.palette.text.primary,
-  color: theme.palette.text.primary,
-  borderRadius: 0,
-  opacity: 0.7,
-  '&:hover': {
-    border: '2px dashed',
-    borderColor: theme.palette.text.primary,
-  },
-}))
 
 const CreateLocationComponent: React.FC<IProps> = ({
   isDisabled,
   previewImage,
   handleClick,
-  setPreviewImage,
   setType,
   setFile,
 }) => {
@@ -78,37 +63,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
             />
           )}
         />
-        <Controller
-          name="uploadFile"
-          control={control}
-          render={({ field }) => (
-            <UploadButton
-              {...field}
-              variant="outlined"
-              //@ts-ignore
-              component="label"
-            >
-              Обрати фото
-              <input
-                hidden
-                accept="image/*"
-                multiple
-                type="file"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setFile(event?.target?.files?.[0])
-                  if (event?.target?.files?.[0]) {
-                    const file = event.target.files[0]
-                    const reader = new FileReader()
-                    reader.onloadend = () => {
-                      setPreviewImage(reader.result as string)
-                    }
-                    reader.readAsDataURL(file)
-                  }
-                }}
-              />
-            </UploadButton>
-          )}
-        />
+        <UploadFile name="Обрати фото" uploadButton={true} setFile={setFile} />
         {previewImage && (
           <img
             src={previewImage}
@@ -137,7 +92,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
               isOptionEqualToValue={(option, value) => option.id === value.id}
               options={locations}
               onChange={(event, item) => {
-                setType({ type: item.id })
+                setType(item.id)
                 onChange(item)
               }}
               value={value}

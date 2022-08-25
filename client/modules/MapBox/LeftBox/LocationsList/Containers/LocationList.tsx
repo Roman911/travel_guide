@@ -14,7 +14,7 @@ interface IProps {
 const LocationsList: React.FC<IProps> = ({ data, loading }) => {
   const { ref, inView } = useInView({ threshold: 0 })
   const [page, setPage] = React.useState(1)
-  const [locations, setLocations] = React.useState([])
+  const [locations, setLocations] = React.useState<[] | ILocation[]>([])
 
   React.useEffect(() => {
     if (!data) {
@@ -29,7 +29,7 @@ const LocationsList: React.FC<IProps> = ({ data, loading }) => {
   }, [data, page])
 
   React.useEffect(() => {
-    if (inView && locations.length < data?.locations.length) {
+    if (inView && locations.length < (data ? data.locations.length : 0)) {
       setPage(prev => prev + 1)
     }
   }, [inView])

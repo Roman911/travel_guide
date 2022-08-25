@@ -2,7 +2,7 @@ export interface IUserData {
   _id: string
   name: string
   email: string
-  avatar?: string
+  avatars: string[] | []
   rating: number
 }
 

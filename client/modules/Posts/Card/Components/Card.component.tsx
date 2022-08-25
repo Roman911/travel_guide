@@ -12,8 +12,8 @@ import {
 } from '@mui/material'
 import { MoreVert, Share } from '@mui/icons-material'
 import { LikesComponent } from '../../../Likes/Components'
-//import { PreviewComments } from '../../../Comments/Containers'
-import { UserAvatar, Views } from '../../../../Components'
+import { Avatar, PreviewComments } from '../../../'
+import { Views } from '../../../../Components'
 import { IPost } from '../../../../types/post'
 
 interface IProps {
@@ -57,7 +57,7 @@ const CardComponent: React.FC<IProps> = ({
     <Grid item xs={12} sm={6} md={md || 3} p={1}>
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
-          avatar={<UserAvatar size={40} userData={{ name, avatar }} />}
+          avatar={<Avatar size={40} userData={{ name, avatar }} />}
           action={
             <IconButton aria-label="settings">
               <MoreVert />
@@ -109,7 +109,7 @@ const CardComponent: React.FC<IProps> = ({
             likes={likes}
           />
           <Views views={views} color={icon} />
-          {/*<PreviewComments postId={_id} />*/}
+          <PreviewComments postId={_id} />
           <IconButton
             aria-label="share"
             sx={{ marginLeft: 'auto', color: icon }}

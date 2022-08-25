@@ -1,9 +1,8 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useAppDispatch } from '../../../../hooks'
+import { useActions } from '../../../../hooks'
 import { LayoutForAllPages } from '../../'
 import { AuthLayoutComponents } from '../Components'
-import { changeLinearProgress } from '../../../../store/reducers/layoutSlice'
 
 interface IProps {
   children: React.ReactNode
@@ -23,10 +22,10 @@ const AuthLayout: React.FC<IProps> = ({
   bottomText,
 }) => {
   const router = useRouter()
-  const dispatch = useAppDispatch()
+  const { changeLinearProgress } = useActions()
 
   React.useEffect(() => {
-    dispatch(changeLinearProgress(false))
+    changeLinearProgress(false)
   }, [])
 
   const handleClick = React.useCallback(() => {

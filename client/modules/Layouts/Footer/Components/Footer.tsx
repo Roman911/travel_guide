@@ -1,9 +1,8 @@
 import React from 'react'
 import { Box, Grid, Link, Typography } from '@mui/material'
-import { useAppSelector } from '../../../../hooks'
+import { useTypedSelector } from '../../../../hooks'
 import { Logo } from '../../../'
 import { SocSetBlock } from '../../../../Components'
-import { selectLayout } from '../../../../store/reducers/layoutSlice'
 
 const socials = {
   facebook: 'facebook',
@@ -14,7 +13,7 @@ const socials = {
 }
 
 const Footer: React.FC = () => {
-  const { theme } = useAppSelector(selectLayout)
+  const { theme } = useTypedSelector(state => state.layout)
 
   console.log('render: Components, Footer')
 

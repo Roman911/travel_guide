@@ -1,19 +1,15 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { useLazyQuery } from '@apollo/react-hooks'
+//import { useLazyQuery, useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box } from '@mui/material'
-import { useAppDispatch } from '../hooks'
+import { useActions } from '../hooks'
 import Redirect from '../hooks/useRedirect'
 import { AuthLayout, AuthForm } from '../modules'
 import { LOGIN } from '../apollo/queries/login'
-import {
-  addedNotification,
-  changeLinearProgress,
-} from '../store/reducers/layoutSlice'
-import { addedData } from '../store/reducers/userSlice'
 
 export enum types {
   EMAIL = 'email',
@@ -43,27 +39,36 @@ const Login: NextPage = () => {
     isDisabled: false,
     showPassword: false,
   })
-  const dispatch = useAppDispatch()
-  const [userData, { loading, data, error }] = useLazyQuery(LOGIN)
+  const { addUserData, addedNotification, changeLinearProgress } = useActions()
+
   const methods = useForm<IFormInput>({
     mode: 'onTouched',
     defaultValues,
     resolver: yupResolver(schema),
   })
   const { handleSubmit, setError } = methods
-
+  const [userData, { loading, data, error }] = useLazyQuery(LOGIN)
   const handleClickShowPassword = () =>
     setConfig({ ...config, showPassword: !config.showPassword })
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     setConfig({ ...config, isDisabled: true })
     const { email, password } = data
-    userData({ variables: { input: { email, password } } })
+    userData({
+      variables: {
+        input: {
+          email,
+          password,
+        },
+      },
+    })
   }
+
+  console.log(data)
 
   React.useEffect(() => {
     if (loading) {
-      dispatch(changeLinearProgress(true))
+      changeLinearProgress(true)
     }
     if (error) {
       addedNotification({
@@ -73,16 +78,16 @@ const Login: NextPage = () => {
       setError(types.EMAIL, { type: 'custom', message: 'error' })
       setError(types.PASSWORD, { type: 'custom', message: 'error' })
       setConfig({ ...config, isDisabled: false })
-      dispatch(changeLinearProgress(false))
+      changeLinearProgress(false)
     }
     if (data) {
-      dispatch(addedData(data.login))
+      addUserData(data.login)
       localStorage.setItem('userData', JSON.stringify({ ...data.login }))
       addedNotification({
         message: 'Ви успішно увійшли!',
         key: `${new Date().getTime()}+${Math.random()}`,
       })
-      dispatch(changeLinearProgress(true))
+      changeLinearProgress(true)
     }
   }, [error, loading, data])
 

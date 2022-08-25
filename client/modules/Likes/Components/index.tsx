@@ -1,1 +1,1 @@
-export { LikesComponent } from './Likes.component'
+export { default as LikesComponent } from './Likes.component'

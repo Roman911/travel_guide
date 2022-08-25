@@ -1,6 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useLazyQuery } from '@apollo/client'
 import { MainLayout, Posts } from '../modules'
 import { POSTS_AND_PARAMS } from '../apollo/queries/posts'
 

@@ -1,11 +1,16 @@
-//export { Comments, PreviewComments } from './Comments'
-//export { Likes } from './Likes'
+export { Comments, PreviewComments } from './Comments'
+export { Likes } from './Likes'
 export { Logo } from './Logo'
-//export { MapBox } from './MapBox'
-export { AuthLayout, MainLayout, AuthForm, RegistrationForm } from './Layouts'
-//export { Post } from './Post'
+export { MapBox } from './MapBox'
+export {
+  AuthLayout,
+  MainLayout,
+  AuthForm,
+  RegistrationForm,
+  CircularProgress,
+} from './Layouts'
+export { Post } from './Post'
 export { Posts } from './Posts'
-export { CircularProgress, LinearProgress } from './Progress'
-//export { Regions } from './Regions'
-//export { SettingsContainer } from './Settings'
-//export { UserProfile } from './UserProfile'
+export { Regions } from './Regions'
+export { UploadFile } from './UploadFile'
+export { Avatar, SettingsContainer, UserProfile } from './User'

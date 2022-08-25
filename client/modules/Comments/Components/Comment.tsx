@@ -10,8 +10,9 @@ import {
 } from '@mui/material'
 import { ChevronLeft } from '@mui/icons-material'
 import { useDate } from '../../../hooks/useDate'
-import { UserAvatar, Rating } from '../../../Components'
-import { CreateComment } from '../Containers'
+import { Avatar } from '../../'
+import { Rating } from '../../../Components'
+import { CreateComment } from '../'
 
 type Props = {
   isAnswerToComment: boolean
@@ -57,7 +58,7 @@ export const Comment: React.FC<Props> = ({
       marginTop={2}
       marginBottom={isAnswerToComment ? 1 : 5}
     >
-      <UserAvatar
+      <Avatar
         size={60}
         userData={{ avatar: author.avatar, name: author.name }}
       />

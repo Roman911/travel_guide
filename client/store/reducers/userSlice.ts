@@ -18,7 +18,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    addedData: (
+    addUserData: (
       state,
       action: PayloadAction<{
         user: IUserData
@@ -30,15 +30,21 @@ export const userSlice = createSlice({
         (state.refreshToken = action.payload.refreshToken),
         (state.accessToken = action.payload.accessToken)
     },
-    removeData: state => {
+    removeUserData: state => {
       ;(state.userData = null),
         (state.accessToken = ''),
         (state.refreshToken = '')
     },
+    updateAvatar: (state, action: PayloadAction<string>) => {
+      if (state.userData) {
+        //@ts-ignore
+        state.userData.avatars.push(action.payload)
+      }
+    },
   },
 })
 
-export const { addedData, removeData } = userSlice.actions
+export const userActions = userSlice.actions
 
 export const selectUser = (state: AppState) => state.user
 

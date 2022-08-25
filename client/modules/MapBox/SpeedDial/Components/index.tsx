@@ -1,1 +1,1 @@
-export { default as SpeedDialComponent } from './SpeedDial.components'
+export { default as SpeedDialComponent } from './SpeedDial.component'

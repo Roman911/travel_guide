@@ -17,7 +17,7 @@ type CreateUserDto {
   password: String!
   isActivated: Boolean!
   activationLink: String!
-  avatar: String
+  avatars: [String!]
   rating: Int
   aboutMy: String
   socials: Socials
@@ -157,6 +157,7 @@ type Mutation {
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
   updateUser(input: UpdateUserInput!): CreateUserDataDto!
+  updateUserAvatar(input: UpdateUserAvatarInput!): CreateUserDataDto!
 }
 
 input CommentInput {
@@ -212,4 +213,9 @@ input Socialss {
   twitter: String
   youtube: String
   telegram: String
+}
+
+input UpdateUserAvatarInput {
+  token: String!
+  avatar: String!
 }

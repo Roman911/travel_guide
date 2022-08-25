@@ -4,7 +4,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from 'use-places-autocomplete'
 import { useGoogleMapsScript, Libraries } from 'use-google-maps-script'
-import { useActions } from '../../../../store/hooks'
+import { useActions } from '../../../../hooks'
 import { SearchBoxComponent } from '../Components'
 
 interface IProps {
@@ -32,13 +32,13 @@ const ReadySearchBox: React.FC<IProps> = ({
   const { setAddress, setLatLng } = useActions()
 
   const handleSelect = async (address: string) => {
-    setAddress({ address })
+    setAddress(address)
     setValue(address, false)
     clearSuggestions()
     try {
       const results = await getGeocode({ address })
       const { lat, lng } = getLatLng(results[0])
-      setLatLng({ latLng: { latitude: lat, longitude: lng } })
+      setLatLng({ latitude: lat, longitude: lng })
       onSelectAddress(address, lat, lng)
     } catch (error) {
       console.error(`😱 Error:`, error)

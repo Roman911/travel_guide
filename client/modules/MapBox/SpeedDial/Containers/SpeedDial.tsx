@@ -1,15 +1,15 @@
 import React from 'react'
-import { useActions, useTypedSelector } from '../../../../store/hooks'
+import { useActions, useTypedSelector } from '../../../../hooks'
 import { SpeedDialComponent } from '../Components'
 
 const SpeedDial: React.FC = () => {
   const { userData } = useTypedSelector(state => state.user)
-  const { enqueueSnackbar, setLeftBox } = useActions()
+  const { addedNotification, setLeftBox } = useActions()
 
   const handleClick = (
     set: 'createDirection' | 'createLocation' | 'locationsList'
   ) => {
-    enqueueSnackbar({
+    addedNotification({
       message: 'Введіть локацію в пошука або виберіть на мапі',
       key: `${new Date().getTime()}+${Math.random()}`,
     })

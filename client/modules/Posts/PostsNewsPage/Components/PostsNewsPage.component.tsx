@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Pagination, PaginationItem, Stack } from '@mui/material'
 import { ArrowBack, ArrowForward } from '@mui/icons-material'
 import { PostsSort } from '../'
-//import { Regions } from '../../../'
+import { Regions } from '../../../'
 
 interface IProps {
   children: React.ReactNode
@@ -32,7 +32,7 @@ const PostsNewsPageComponent: React.FC<IProps> = ({ children }) => {
         </Stack>
       </Grid>
       <Grid item xs={2}>
-        {/*<Regions />*/}
+        <Regions />
       </Grid>
     </Grid>
   )

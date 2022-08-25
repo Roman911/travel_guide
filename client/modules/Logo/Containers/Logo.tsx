@@ -1,22 +1,18 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useAppDispatch, useAppSelector } from '../../../hooks'
+import { useActions, useTypedSelector } from '../../../hooks'
 import { LogoComponent } from '../Components'
-import {
-  changeLinearProgress,
-  selectLayout,
-} from '../../../store/reducers/layoutSlice'
 
 const Logo: React.FC = () => {
   const router = useRouter()
-  const { theme } = useAppSelector(selectLayout)
-  const dispatch = useAppDispatch()
+  const { theme } = useTypedSelector(state => state.layout)
+  const { changeLinearProgress } = useActions()
 
   const handleClick = () => {
     if (router.pathname === '/') {
       void 0
     } else {
-      dispatch(changeLinearProgress(true))
+      changeLinearProgress(true)
       router.push('/')
     }
   }

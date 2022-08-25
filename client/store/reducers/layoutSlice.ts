@@ -48,14 +48,7 @@ export const layoutSlice = createSlice({
   },
 })
 
-export const {
-  addedNotification,
-  changeCircleProgress,
-  changeDraver,
-  changeLinearProgress,
-  changeTheme,
-  removeNotification,
-} = layoutSlice.actions
+export const layoutActions = layoutSlice.actions
 
 export const selectLayout = (state: AppState) => state.layout
 
