@@ -17,6 +17,7 @@ type CreateUserDto {
   password: String!
   isActivated: Boolean!
   activationLink: String!
+  avatar: String
   avatars: [String!]
   rating: Int
   aboutMy: String

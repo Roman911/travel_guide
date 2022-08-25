@@ -15,6 +15,8 @@ export class User {
   isActivated: boolean;
   @Prop()
   activationLink: string;
+  @Prop()
+  avatar: string;
   @Prop({ default: [] })
   avatars: string[];
   @Prop({ default: 0 })

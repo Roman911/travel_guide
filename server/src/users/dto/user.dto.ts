@@ -4,6 +4,7 @@ type Props = {
   name: string;
   isActivated: boolean;
   rating: number;
+  avatar: string;
   avatars: string[];
 };
 
@@ -13,6 +14,7 @@ export class UserDto {
   name: string;
   isActivated: boolean;
   rating: number;
+  avatar: string;
   avatars: string[];
 
   constructor(model: Props) {
@@ -21,6 +23,7 @@ export class UserDto {
     this.name = model.name;
     this.isActivated = model.isActivated;
     this.rating = model.rating;
+    this.avatar = model.avatar;
     this.avatars = model.avatars;
   }
 }

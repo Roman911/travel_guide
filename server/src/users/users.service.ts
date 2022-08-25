@@ -28,11 +28,21 @@ export class UsersService {
   ) {}
 
   async user(userID: string): Promise<User> {
-    return this.userModel.findById(userID).exec();
+    const user = await this.userModel.findById(userID).exec();
+    const avatarLength = user.avatars.length;
+    const avatar = avatarLength !== 0 ? user.avatars[avatarLength - 1] : null;
+    user.avatar = avatar;
+
+    return user;
   }
 
   async author(_id: string): Promise<User> {
-    return this.userModel.findById(_id).exec();
+    const author = await this.userModel.findById(_id).exec();
+    const avatarLength = author.avatars.length;
+    const avatar = avatarLength !== 0 ? author.avatars[avatarLength - 1] : null;
+    author.avatar = avatar;
+
+    return author;
   }
 
   async activate(activationLink: string): Promise<any> {
@@ -59,6 +69,10 @@ export class UsersService {
     this.userTokenService = await this.moduleRef.get(UserTokenService, {
       strict: false,
     });
+
+    const avatarLength = user.avatars.length;
+    const avatar = avatarLength !== 0 ? user.avatars[avatarLength - 1] : null;
+    user.avatar = avatar;
 
     return await this.userTokenService.userTokenData(user);
   }

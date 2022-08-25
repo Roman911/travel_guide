@@ -28,6 +28,8 @@ export class CreateUserDto {
   isActivated: boolean;
   @Field()
   activationLink: string;
+  @Field({ nullable: true })
+  avatar: string;
   @Field((type) => [String], { nullable: true })
   avatars: string[];
   @Field(() => Int, { nullable: true })
