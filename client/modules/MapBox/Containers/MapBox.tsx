@@ -5,7 +5,7 @@ import { useLazyQuery } from '@apollo/client'
 import ReactMapGL from 'react-map-gl'
 import { useActions, useTypedSelector } from '../../../hooks'
 import { MapBoxComponent } from '../Components'
-import { LeftBox, SearchBox, SpeedDial, TopBar } from '../'
+import { LeftBox, SearchBox, SeeTheWholeMap, SpeedDial, TopBar } from '../'
 import { LOCATIONS } from '../../../apollo/queries/locations'
 import { useLocalState } from '../../../hooks/useLocalState'
 
@@ -74,6 +74,7 @@ const MapBox: React.FC = () => {
         setSelected={setSelected}
         setViewport={setViewport}
       />
+      <SeeTheWholeMap />
       <SpeedDial />
     </Stack>
   )

@@ -15,6 +15,12 @@ export interface MapBoxState {
   viewport: IViewport
 }
 
+const SeeTheWholeMap = {
+  latitude: 48.6,
+  longitude: 31.48,
+  zoom: 5.5,
+}
+
 const initialState: MapBoxState = {
   address: null,
   highlightedId: null,
@@ -25,11 +31,7 @@ const initialState: MapBoxState = {
   leftBoxView: 'locationsList',
   selected: null,
   type: 'other',
-  viewport: {
-    latitude: 48.6,
-    longitude: 31.48307,
-    zoom: 5.5,
-  },
+  viewport: SeeTheWholeMap,
 }
 
 export const mapBoxSlice = createSlice({
@@ -64,6 +66,9 @@ export const mapBoxSlice = createSlice({
     },
     setViewport: (state, action: PayloadAction<IViewport>) => {
       state.viewport = action.payload
+    },
+    setViewportSeeMap: state => {
+      state.viewport = SeeTheWholeMap
     },
   },
 })
