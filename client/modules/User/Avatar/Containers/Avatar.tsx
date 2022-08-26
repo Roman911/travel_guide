@@ -5,7 +5,7 @@ export interface IProps {
   size: number
   sx?: any
   userData?: null | {
-    avatar: string | null
+    avatar?: string | null
     name: string
   }
 }

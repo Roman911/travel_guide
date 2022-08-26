@@ -57,7 +57,7 @@ const HeaderComponent: React.FC<Props> = ({
     )
   })
 
-  console.log('render: module Header, Components, HeaderComponent', userData)
+  console.log('render: module Header, Components, HeaderComponent')
 
   return (
     <AppBar

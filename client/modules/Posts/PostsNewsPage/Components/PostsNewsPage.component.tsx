@@ -32,7 +32,7 @@ const PostsNewsPageComponent: React.FC<IProps> = ({ children }) => {
         </Stack>
       </Grid>
       <Grid item xs={2}>
-        <Regions />
+        <Regions isMap={false} />
       </Grid>
     </Grid>
   )

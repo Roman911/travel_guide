@@ -30,7 +30,7 @@ const TopBarComponent: React.FC<IProps> = ({
         padding: 1,
       }}
     >
-      <Regions width="33.3333%" />
+      <Regions isMap={true} width="33.3333%" />
       {children}
       <Button
         sx={{ width: '33.3333%', padding: '14px 0' }}

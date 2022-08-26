@@ -103,7 +103,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
             />
           )}
         />
-        <Regions />
+        <Regions isMap={false} />
         <Controller
           name="address"
           control={control}

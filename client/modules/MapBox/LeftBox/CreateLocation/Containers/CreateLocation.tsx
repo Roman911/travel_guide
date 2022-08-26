@@ -63,7 +63,14 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
     uploadFile: { previewImage },
   } = useTypedSelector(state => state)
   const [createFile] = uploadFileAPI.useCreateFileMutation()
-  const { changeLinearProgress, setType } = useActions()
+  const {
+    addedNotification,
+    changeLinearProgress,
+    setLatLng,
+    setPreviewImage,
+    setRegion,
+    setType,
+  } = useActions()
   const [file, setFile] = React.useState<string | File>('')
   const [isDisabled, setDisabled] = React.useState(false)
   const [CreateLocation] = useMutation(CREATE_LOCATION)
@@ -72,9 +79,8 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
     defaultValues,
     resolver: yupResolver(schema),
   })
-  const { handleSubmit, formState } = methods
 
-  console.log(formState.errors)
+  const { handleSubmit, setValue } = methods
 
   const onSubmit: SubmitHandler<IFormInput> = async values => {
     const { address, title, small_text, isType, latitude, longitude } = values
@@ -103,9 +109,25 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
             },
           })
             .then(data => {
+              addedNotification({
+                message: 'Локація ушпішно добавлена',
+                key: `${new Date().getTime()}+${Math.random()}`,
+              })
               methods.reset()
+              setLatLng({ latitude: 0, longitude: 0 })
+              setFile('')
+              setPreviewImage('')
+              setRegion(null)
+              setType('other')
+              setValue('isType', {
+                label: 'Інше',
+                id: 'other',
+              })
             })
-            .finally(() => setDisabled(false))
+            .finally(() => {
+              changeLinearProgress(false)
+              setDisabled(false)
+            })
         })
         .catch(error =>
           methods.setError('uploadFile', {

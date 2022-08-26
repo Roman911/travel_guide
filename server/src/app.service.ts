@@ -106,29 +106,17 @@ export class SharpTransformImage
   implements PipeTransform<Express.Multer.File, Promise<string>>
 {
   async transform(image: Express.Multer.File): Promise<string> {
-    const randomName = 'viaduct';
+    const randomName = 'velosipedyi-banner';
 
     await sharp(image.buffer)
       .resize({
-        width: 38,
-        height: 46,
+        width: 1540,
+        height: 600,
         fit: sharp.fit.cover,
         position: sharp.strategy.entropy,
       })
       .webp({ effort: 3 })
-      .toFile(
-        path.join('./uploads/images/ggg', randomName + '-hover' + '.webp'),
-      );
-
-    await sharp(image.buffer)
-      .resize({
-        width: 24,
-        height: 29,
-        fit: sharp.fit.cover,
-        position: sharp.strategy.entropy,
-      })
-      .webp({ effort: 3 })
-      .toFile(path.join('./uploads/images/ggg', randomName + '.webp'));
+      .toFile(path.join('./uploads/images', randomName + '.webp'));
 
     return randomName + '.webp';
   }
