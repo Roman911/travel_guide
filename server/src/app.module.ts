@@ -3,12 +3,12 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { MulterModule } from '@nestjs/platform-express';
 import { join } from 'path';
 import { MONGO_DB_KEY } from './config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommentsModule } from './comments/comments.module';
+import { DirectionsModule } from './directions/directions.module';
 import { LocationsModule } from './locations/locations.module';
 import { MailModule } from './mail/mail.module';
 import { PostsModule } from './posts/posts.module';
@@ -19,6 +19,7 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     CommentsModule,
+    DirectionsModule,
     LocationsModule,
     MailModule,
     PostsModule,

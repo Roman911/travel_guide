@@ -55,6 +55,22 @@ type CreateCommentDto {
   author: CreateUserDto
 }
 
+type CreateDirectionDto {
+  _id: String!
+  cover: String!
+  title: String!
+  travelMode: [String!]!
+  link: String!
+  tags: [String!]!
+  isType: String!
+  views: Int!
+  likes: [String!]!
+  small_text: String!
+  last_seen: DateTime
+  createdAt: DateTime!
+  author: CreateUserDto
+}
+
 type CreateLocationDto {
   _id: String!
   title: String!
@@ -119,6 +135,9 @@ type CreateUploadDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
+  directionsAndParams(input: ParamsDirectionInput!): CreateDirectionDto!
+  directions(input: ParamsDirectionInput!): [CreateDirectionDto!]!
+  direction(directionID: String!): CreateDirectionDto!
   locations(input: ParamsLocationInput!): CreateLocationsDto!
   location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
@@ -132,6 +151,11 @@ type Query {
   login(input: LoginUserInput!): CreateUserDataDto!
   logout(refreshToken: String!): CreateUserDataDto!
   refresh(refreshToken: String!): CreateUserDataDto!
+}
+
+input ParamsDirectionInput {
+  limit: Int!
+  page: Int!
 }
 
 input ParamsLocationInput {
@@ -153,8 +177,8 @@ input LoginUserInput {
 type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
-  createLocation(input: CreateLocationInput!): CreateLocationDto!
   setLikeForPost(input: LikeInput!): CreatePostDto!
+  createLocation(input: CreateLocationInput!): CreateLocationDto!
   createToken(input: TokenInput!): CreateTokenDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
   updateUser(input: UpdateUserInput!): CreateUserDataDto!
@@ -173,6 +197,11 @@ input AnswerCommentInput {
   token: String!
 }
 
+input LikeInput {
+  postId: String!
+  token: String!
+}
+
 input CreateLocationInput {
   title: String!
   small_text: String!
@@ -182,11 +211,6 @@ input CreateLocationInput {
   cover: String!
   latitude: Float!
   longitude: Float!
-  token: String!
-}
-
-input LikeInput {
-  postId: String!
   token: String!
 }
 
