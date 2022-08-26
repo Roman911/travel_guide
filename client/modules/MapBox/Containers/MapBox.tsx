@@ -74,8 +74,8 @@ const MapBox: React.FC = () => {
         setSelected={setSelected}
         setViewport={setViewport}
       />
-      <SeeTheWholeMap />
       <SpeedDial />
+      <SeeTheWholeMap />
     </Stack>
   )
 }

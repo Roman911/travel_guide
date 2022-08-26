@@ -1,11 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useActions, useTypedSelector } from '../../../../hooks'
+import { useActions } from '../../../../hooks'
 import { SpeedDialComponent } from '../Components'
 
 const SpeedDial: React.FC = () => {
   const router = useRouter()
-  const { userData } = useTypedSelector(state => state.user)
   const { addedNotification, setLeftBox } = useActions()
 
   const handleClick = (
@@ -21,7 +20,7 @@ const SpeedDial: React.FC = () => {
     }
   }
 
-  return userData && <SpeedDialComponent handleClick={handleClick} />
+  return <SpeedDialComponent handleClick={handleClick} />
 }
 
 export default SpeedDial
