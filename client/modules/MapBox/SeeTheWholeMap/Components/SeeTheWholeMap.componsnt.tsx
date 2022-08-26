@@ -22,7 +22,7 @@ const SeeTheWholeMapComponent: React.FC<IProps> = ({ handleClick }) => {
 
   return (
     <ImageButton onClick={handleClick}>
-      <Image src="/ukraina_contur.png" layout="fixed" width={74} height={50} />
+      <Image src="/ukraina_contur.webp" layout="fixed" width={74} height={50} />
     </ImageButton>
   )
 }

@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   console.log('render: pages, Home')
 
   return (
-    <MainLayout img="/velosipedyi-banner-1.jpg">
+    <MainLayout img="/velosipedyi_banner.webp">
       <Box marginTop="50px">
         <Posts
           home={true}

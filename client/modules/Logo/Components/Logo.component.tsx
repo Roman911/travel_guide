@@ -9,7 +9,7 @@ interface IProps {
 const LogoComponent: React.FC<IProps> = ({ theme, handleClick }) => {
   return (
     <Image
-      src="/logo.png"
+      src="/logo.webp"
       layout="fixed"
       width={90}
       height={40}
