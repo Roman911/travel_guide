@@ -119,7 +119,7 @@ const MapBoxComponent: React.FC<IProps> = ({
               <img
                 src={`/static/images/${i.isType}${
                   highlightedId === i._id ? '-hover' : ''
-                }.png`}
+                }.webp`}
               />
             </button>
           </Marker>

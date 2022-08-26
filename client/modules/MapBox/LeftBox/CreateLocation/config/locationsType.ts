@@ -28,6 +28,10 @@ export const locations = [
     id: 'viaduct',
   },
   {
+    label: "Кар'єри",
+    id: 'career',
+  },
+  {
     label: 'Парки',
     id: 'park',
   },
