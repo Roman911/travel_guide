@@ -12,6 +12,7 @@ import {
   SharpPipeAvatar,
   SharpPipeForLocation,
   SharpPipeForPost,
+  SharpTransformImage,
 } from './app.service';
 
 @Controller()
@@ -38,6 +39,12 @@ export class AppController {
   @Post('/avatar')
   @UseInterceptors(FileInterceptor('image'))
   uploadAvatar(@UploadedFile(SharpPipeAvatar) image: string) {
+    return { image };
+  }
+
+  @Post('/transormImage')
+  @UseInterceptors(FileInterceptor('image'))
+  uploadContent(@UploadedFile(SharpTransformImage) image: string) {
     return { image };
   }
 }

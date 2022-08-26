@@ -100,3 +100,24 @@ export class SharpPipeAvatar
     return randomName;
   }
 }
+
+@Injectable()
+export class SharpTransformImage
+  implements PipeTransform<Express.Multer.File, Promise<string>>
+{
+  async transform(image: Express.Multer.File): Promise<string> {
+    const randomName = 'logo';
+
+    await sharp(image.buffer)
+      .resize({
+        width: 90,
+        height: 40,
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy,
+      })
+      .webp({ effort: 3 })
+      .toFile(path.join('./uploads/images', randomName + '.webp'));
+
+    return randomName + '.webp';
+  }
+}
