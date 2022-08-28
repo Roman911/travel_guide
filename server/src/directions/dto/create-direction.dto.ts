@@ -2,17 +2,19 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
 
 @ObjectType()
+class Obj {
+  @Field()
+  text: String;
+  @Field()
+  value: Number;
+}
+
+@ObjectType()
 class Legs {
   @Field()
-  distance: {
-    text: String;
-    value: Number;
-  };
+  distance: Obj;
   @Field()
-  duration: {
-    text: String;
-    value: Number;
-  };
+  duration: Obj;
 }
 
 @ObjectType()

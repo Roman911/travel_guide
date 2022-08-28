@@ -18,7 +18,7 @@ export class DirectionsResolver {
     private directionModel: Model<DirectionDocument>,
   ) {}
 
-  @Query(() => CreateDirectionDto)
+  @Query(() => CreateDirectionsDto)
   async directionsAndParams(@Args('input') input: ParamsDirectionInput) {
     return this.directionsService.directions(input);
   }

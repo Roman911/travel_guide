@@ -6,11 +6,16 @@ export type DirectionDocument = Direction & mongoose.Document;
 
 @Schema()
 class Legs {
-  @Prop()
-  distance: { text: { type: String }; value: { type: Number } };
-  @Prop()
-  duration: { text: { type: String }; value: { type: Number } };
+  @Prop(
+    raw({
+      distance: { text: { type: String }, value: { type: Number } },
+      duration: { text: { type: String }, value: { type: Number } },
+    }),
+  )
+  duration: string;
 }
+
+const LegsSchema = SchemaFactory.createForClass(Legs);
 
 @Schema()
 export class Direction {
@@ -24,8 +29,15 @@ export class Direction {
   title: string;
   @Prop()
   link: string;
-  @Prop({ type: [Legs] })
-  legs: Legs[];
+  @Prop(
+    raw([
+      {
+        distance: { text: { type: String }, value: { type: Number } },
+        duration: { text: { type: String }, value: { type: Number } },
+      },
+    ]),
+  )
+  legs: Record<any, any>;
   @Prop()
   tags: string[];
   @Prop()

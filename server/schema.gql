@@ -55,12 +55,23 @@ type CreateCommentDto {
   author: CreateUserDto
 }
 
+type Obj {
+  text: String!
+  value: Float!
+}
+
+type Legs {
+  distance: Obj!
+  duration: Obj!
+}
+
 type CreateDirectionDto {
   _id: String!
   cover: String!
   title: String!
   travelMode: [String!]!
   link: String!
+  legs: [Legs!]!
   tags: [String!]!
   isType: String!
   views: Int!
@@ -69,6 +80,13 @@ type CreateDirectionDto {
   last_seen: DateTime
   createdAt: DateTime!
   author: CreateUserDto
+}
+
+type CreateDirectionsDto {
+  page: Int!
+  total_pages: Int!
+  total_directions: Int!
+  directions: [CreateDirectionDto!]!
 }
 
 type CreateLocationDto {
@@ -135,7 +153,7 @@ type CreateUploadDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
-  directionsAndParams(input: ParamsDirectionInput!): CreateDirectionDto!
+  directionsAndParams(input: ParamsDirectionInput!): CreateDirectionsDto!
   directions(input: ParamsDirectionInput!): [CreateDirectionDto!]!
   direction(directionID: String!): CreateDirectionDto!
   locations(input: ParamsLocationInput!): CreateLocationsDto!
