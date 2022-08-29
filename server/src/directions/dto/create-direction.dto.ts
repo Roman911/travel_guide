@@ -41,6 +41,8 @@ export class CreateDirectionDto {
   likes: string[];
   @Field()
   small_text: string;
+  @Field(() => Int)
+  distance: number;
   @Field({ nullable: true })
   last_seen: Date;
   @Field()

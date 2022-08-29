@@ -46,6 +46,8 @@ export class Direction {
   likes: string[];
   @Prop()
   small_text: string;
+  @Prop()
+  distance: number;
   @Prop({ default: new Date() })
   last_seen: Date;
   @Prop({ default: new Date() })
