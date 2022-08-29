@@ -3,21 +3,25 @@ import { Box } from '@mui/material'
 import { useQuery } from '@apollo/client'
 import { Posts } from '../modules'
 import { MainLayout } from '../modules'
-import { POSTS, POST } from '../apollo/queries/posts'
+import { POSTS } from '../apollo/queries/posts'
+import { DIRECTIONS } from '../apollo/queries/directions'
 
 const Home: NextPage = () => {
   const {
-    loading: loadingByPost,
-    data: dataByPost,
-    error: errorByPost,
+    loading: loadingByPosts,
+    data: dataByPosts,
+    error: errorByPosts,
   } = useQuery(POSTS, {
     variables: { input: { limit: 8, page: 1 } },
   })
 
-  // Query for Directions
-  //const { loading, data, error } = useQuery(POST, { variables: { postID: '60f5371f35006bb0c2f7755b' }})
+  const {
+    loading: loadingByDirections,
+    data: dataByDirections,
+    error: errorByDirections,
+  } = useQuery(DIRECTIONS, { variables: { input: { limit: 8, page: 1 } } })
 
-  console.log('render: pages, Home')
+  console.log('render: pages, Home', dataByDirections)
 
   return (
     <MainLayout img="/velosipedyi_banner.webp">
@@ -29,21 +33,21 @@ const Home: NextPage = () => {
             link: '/news',
             linkTitle: 'Більше новин',
           }}
-          loading={loadingByPost}
+          loading={loadingByPosts}
           numberPosts={8}
-          posts={dataByPost?.posts}
+          posts={dataByPosts?.posts}
         />
-        <Posts
+        {/*<Posts
           home={true}
           layout={{
             title: 'Маршрути',
             link: '/directions',
             linkTitle: 'Більше маршрутів',
           }}
-          loading={loadingByPost}
+          loading={loadingByDirections}
           numberPosts={8}
-          posts={dataByPost?.posts}
-        />
+          posts={dataByDirections?.directions}
+        />*/}
       </Box>
     </MainLayout>
   )

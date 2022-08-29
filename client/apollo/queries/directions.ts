@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client'
+import { Author } from '../variabels'
 
 export const LOCATION = gql`
   query location($locationID: String!) {
@@ -16,10 +17,24 @@ export const LOCATION = gql`
 `
 
 export const DIRECTIONS = gql`
-  query directions($input: ParamsLocationInput!) {
-    locations(input: $input) {
-      total_locations
-      locations {
+  query directions($input: ParamsDirectionInput!) {
+    directions(input: $input) {
+      _id
+      title
+      cover
+      small_text
+      views
+      likes
+      createdAt
+    }
+  }
+`
+
+export const DIRECTIONS_AND_PARAMS = gql`
+  query directionsAndParams($input: ParamsLocationInput!) {
+    directionsAndParams(input: $input) {
+      total_directions
+      directions {
         _id
         title
         isType
