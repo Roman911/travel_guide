@@ -55,6 +55,12 @@ type CreateCommentDto {
   author: CreateUserDto
 }
 
+type DirectionValue {
+  distance: Float!
+  travel_time: Float!
+  waypoints: Float!
+}
+
 type Obj {
   text: String!
   value: Float!
@@ -77,7 +83,7 @@ type CreateDirectionDto {
   views: Int!
   likes: [String!]!
   small_text: String!
-  distance: Int!
+  direction_value: DirectionValue!
   last_seen: DateTime
   createdAt: DateTime!
   author: CreateUserDto

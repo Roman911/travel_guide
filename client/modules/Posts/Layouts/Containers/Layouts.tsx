@@ -36,9 +36,7 @@ const Layouts: React.FC<IProps> = ({
 }) => {
   return (
     <Container maxWidth="xl">
-      <Typography variant="h2" marginTop={10}>
-        {title}
-      </Typography>
+      <Typography variant="h2">{title}</Typography>
       {home ? (
         <PostsHomePage link={link} linkTitle={linkTitle}>
           {children}

@@ -2,6 +2,16 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
 
 @ObjectType()
+class DirectionValue {
+  @Field()
+  distance: Number;
+  @Field()
+  travel_time: Number;
+  @Field()
+  waypoints: Number;
+}
+
+@ObjectType()
 class Obj {
   @Field()
   text: String;
@@ -41,8 +51,8 @@ export class CreateDirectionDto {
   likes: string[];
   @Field()
   small_text: string;
-  @Field(() => Int)
-  distance: number;
+  @Field((type) => DirectionValue)
+  direction_value: DirectionValue;
   @Field({ nullable: true })
   last_seen: Date;
   @Field()

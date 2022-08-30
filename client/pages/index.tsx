@@ -25,7 +25,7 @@ const Home: NextPage = () => {
 
   return (
     <MainLayout img="/velosipedyi_banner.webp">
-      <Box marginTop="50px">
+      <Box marginTop={4}>
         <Posts
           home={true}
           layout={{
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
           numberPosts={8}
           posts={dataByPosts?.posts}
         />
-        {/*<Posts
+        <Posts
           home={true}
           layout={{
             title: 'Маршрути',
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           loading={loadingByDirections}
           numberPosts={8}
           posts={dataByDirections?.directions}
-        />*/}
+        />
       </Box>
     </MainLayout>
   )

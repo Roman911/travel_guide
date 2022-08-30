@@ -5,19 +5,6 @@ import { User } from '../users/users.schema';
 export type DirectionDocument = Direction & mongoose.Document;
 
 @Schema()
-class Legs {
-  @Prop(
-    raw({
-      distance: { text: { type: String }, value: { type: Number } },
-      duration: { text: { type: String }, value: { type: Number } },
-    }),
-  )
-  duration: string;
-}
-
-const LegsSchema = SchemaFactory.createForClass(Legs);
-
-@Schema()
 export class Direction {
   @Prop()
   type_material: string;
@@ -46,8 +33,14 @@ export class Direction {
   likes: string[];
   @Prop()
   small_text: string;
-  @Prop()
-  distance: number;
+  @Prop(
+    raw({
+      distance: { type: Number },
+      travel_time: { type: Number },
+      waypoints: { type: Number },
+    }),
+  )
+  direction_value: Record<any, any>;
   @Prop({ default: new Date() })
   last_seen: Date;
   @Prop({ default: new Date() })

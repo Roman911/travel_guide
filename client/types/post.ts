@@ -10,6 +10,12 @@ export interface IPost {
   link: string
   likes: string[]
   views: number
+  travelMode?: string[]
+  direction_value?: {
+    distance: number
+    travel_time: number
+    waypoints: number
+  }
   createdAt: string
   author: IUserData
 }

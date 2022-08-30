@@ -14,6 +14,8 @@ import { MoreVert, Share } from '@mui/icons-material'
 import { LikesComponent } from '../../../Likes/Components'
 import { Avatar, PreviewComments } from '../../../'
 import { Views } from '../../../../Components'
+import { TravelModeComponent } from '../TravelMode'
+import { DirectionInfo } from '../'
 import { IPost } from '../../../../types/post'
 
 interface IProps {
@@ -50,6 +52,8 @@ const CardComponent: React.FC<IProps> = ({
     views,
     likes,
     createdAt,
+    travelMode,
+    direction_value,
     author: { name, avatar },
   } = item
 
@@ -66,7 +70,11 @@ const CardComponent: React.FC<IProps> = ({
           title={name}
           subheader={useDate({ serverDate: createdAt, format: 'LL' })}
         />
-        <CardActionArea onClick={handleClick}>
+        <CardActionArea onClick={handleClick} sx={{ position: 'relative' }}>
+          {travelMode && <TravelModeComponent travelMode={travelMode} />}
+          {direction_value && (
+            <DirectionInfo direction_value={direction_value} />
+          )}
           <CardMedia
             component="img"
             height="194"

@@ -12,6 +12,7 @@ export const LOCATION = gql`
       longitude
       isType
       cover
+      ${Author}
     }
   }
 `
@@ -23,9 +24,16 @@ export const DIRECTIONS = gql`
       title
       cover
       small_text
+      travelMode
       views
       likes
+      direction_value {
+        distance
+        travel_time
+        waypoints
+      }
       createdAt
+      ${Author}
     }
   }
 `
@@ -42,6 +50,7 @@ export const DIRECTIONS_AND_PARAMS = gql`
         latitude
         longitude
         cover
+        ${Author}
       }
     }
   }

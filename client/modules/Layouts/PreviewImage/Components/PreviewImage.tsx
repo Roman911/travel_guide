@@ -9,9 +9,10 @@ type Props = {
 
 const PreviewImage: React.FC<Props> = ({ children, img }) => {
   return (
-    <Box sx={{ height: 'calc(100vh - 63px)' }}>
+    <Box sx={{ position: 'relative', width: '100%', height: '100vh' }}>
       <Image
         alt="Mountains"
+        priority={true}
         src={img}
         layout="fill"
         objectFit="cover"

@@ -26,7 +26,7 @@ export class AppController {
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  uploadFile(@UploadedFile(SharpPipeForPost) image: string) {
+  uploadFile(@UploadedFile(SharpPipeForLocation) image: string) {
     return { image };
   }
 
