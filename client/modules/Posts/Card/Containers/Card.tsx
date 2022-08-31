@@ -17,7 +17,7 @@ const Card: React.FC<IProps> = ({ usedId, item, md }) => {
 
   const handleClick = React.useCallback(() => {
     changeLinearProgress(true)
-    router.push(`/post/${item._id}`)
+    router.push(`/${item.trip_value ? 'trips' : 'post'}/${item._id}`)
   }, [])
 
   return (

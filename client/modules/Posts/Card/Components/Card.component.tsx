@@ -72,7 +72,7 @@ const CardComponent: React.FC<IProps> = ({
         />
         <CardActionArea onClick={handleClick} sx={{ position: 'relative' }}>
           {travelMode && <TravelModeComponent travelMode={travelMode} />}
-          {trip_value && <TripInfo trip_value={trip_value} />}
+          {trip_value && <TripInfo isCard={true} trip_value={trip_value} />}
           <CardMedia
             component="img"
             height="194"

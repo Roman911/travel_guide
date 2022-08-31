@@ -2,6 +2,7 @@ import React from 'react'
 import { TripInfoComponent } from '../Components'
 
 interface IProps {
+  isCard: boolean
   trip_value: {
     distance: number
     travel_time: number
@@ -10,6 +11,7 @@ interface IProps {
 }
 
 const TripInfo: React.FC<IProps> = ({
+  isCard,
   trip_value: { distance, travel_time, waypoints },
 }) => {
   const dst = (distance / 1000).toFixed(2)
@@ -37,7 +39,14 @@ const TripInfo: React.FC<IProps> = ({
 
   time = time + ' ' + hv + 'хв'
 
-  return <TripInfoComponent dst={dst} time={time} waypoints={waypoints} />
+  return (
+    <TripInfoComponent
+      dst={dst}
+      isCard={isCard}
+      time={time}
+      waypoints={waypoints}
+    />
+  )
 }
 
 export default TripInfo

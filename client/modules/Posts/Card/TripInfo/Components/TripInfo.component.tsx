@@ -4,23 +4,31 @@ import { AvTimer, LocationOn, Route } from '@mui/icons-material'
 
 interface IProps {
   dst: string
+  isCard: boolean
   time: string
   waypoints: number
 }
 
-const TripInfoComponent: React.FC<IProps> = ({ dst, time, waypoints }) => {
+const TripInfoComponent: React.FC<IProps> = ({
+  dst,
+  isCard,
+  time,
+  waypoints,
+}) => {
   return (
     <Stack
       direction="row"
       alignItems="center"
       justifyContent="space-around"
-      sx={{
-        position: 'absolute',
-        top: '124px',
-        paddingTop: '4px',
-        width: '100%',
-        background: 'rgba(255,255,255,0.7)',
-      }}
+      sx={
+        isCard && {
+          position: 'absolute',
+          top: '124px',
+          paddingTop: '4px',
+          width: '100%',
+          background: 'rgba(255,255,255,0.7)',
+        }
+      }
     >
       <Stack alignItems="center">
         <Typography variant="body2">Локації</Typography>

@@ -2,25 +2,24 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/client'
-import { MainLayout, Post } from '../../modules'
-import { POST } from '../../apollo/queries/posts'
+import { MainLayout, MapBox } from '../../modules'
+import { TRIP } from '../../apollo/queries/trips'
 
 const Trips: NextPage = () => {
   const router = useRouter()
-  //const [post, { loading, error, data }] = useLazyQuery(POST)
-  console.log(router)
+  const [trip, { loading, error, data }] = useLazyQuery(TRIP)
 
   React.useEffect(() => {
-    //if (router.query.id) {
-    //post({
-    //variables: { postID: router.query.id },
-    //})
-    //}
+    if (router.query.id) {
+      trip({
+        variables: { tripID: router.query.id },
+      })
+    }
   }, [router])
 
   return (
     <MainLayout>
-      <div>Trips</div>
+      <MapBox />
     </MainLayout>
   )
 }

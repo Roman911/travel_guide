@@ -25,6 +25,12 @@ interface IProps extends ILocationsProps {
   widthLeftBox: string
 }
 
+interface ITripProps {
+  rout: string | string[]
+  widthLeftBox: string
+}
+
+const Trip = dynamic<ITripProps>(() => import('../Trip/Containers/Trip') as any)
 const LocationsList = dynamic<ILocationsProps>(
   () => import('../LocationsList/Containers/LocationList') as any
 )
@@ -46,6 +52,14 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
     setSelected(null)
   }
 
+  if (router.route === '/trips/[id]') {
+    return (
+      <LeftBoxLayout widthLeftBox={widthLeftBox}>
+        <Trip rout={router.query.id} widthLeftBox={widthLeftBox} />
+      </LeftBoxLayout>
+    )
+  }
+
   if (leftBoxView === 'createLocation') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
@@ -54,7 +68,7 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
     )
   }
 
-  if (leftBoxView === 'createDirection') {
+  if (leftBoxView === 'createTrip') {
     return (
       <LeftBoxLayout widthLeftBox={widthLeftBox}>
         <LocationsList data={data} loading={loading} />

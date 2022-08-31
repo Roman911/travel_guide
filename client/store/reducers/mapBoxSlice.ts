@@ -9,7 +9,7 @@ export interface MapBoxState {
     latitude: number
     longitude: number
   }
-  leftBoxView: 'createDirection' | 'createLocation' | 'locationsList' | string
+  leftBoxView: 'createTrip' | 'createLocation' | 'locationsList' | string
   selected: ILocation | null
   type: string
   viewport: IViewport
@@ -53,7 +53,7 @@ export const mapBoxSlice = createSlice({
     setLeftBox: (
       state,
       action: PayloadAction<
-        'createDirection' | 'createLocation' | 'locationsList' | string
+        'createTrip' | 'createLocation' | 'locationsList' | string
       >
     ) => {
       state.leftBoxView = action.payload

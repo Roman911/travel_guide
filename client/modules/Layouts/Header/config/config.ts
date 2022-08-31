@@ -1,18 +1,18 @@
 export const linksConfig = [
   {
     path: '/news',
-    title: 'Новини'
+    title: 'Новини',
   },
   {
     path: '/maps',
-    title: 'Цікаві місця'
+    title: 'Цікаві місця',
   },
   {
-    path: '/directions',
-    title: 'Маршрути'
+    path: '/trips',
+    title: 'Маршрути',
   },
   {
     path: '/about',
-    title: 'Про нас'
-  }
+    title: 'Про нас',
+  },
 ]

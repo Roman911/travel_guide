@@ -5,13 +5,21 @@ export const TRIP = gql`
   query trip($tripID: String!) {
     trip(tripID: $tripID) {
       _id
+      travelMode
       title
-      small_text
-      address
-      latitude
-      longitude
-      isType
       cover
+      small_text
+      createdAt
+      trip_value {
+        distance
+        travel_time
+        waypoints
+      }
+      legs {
+        distance {
+          value
+        }
+      }
       ${Author}
     }
   }
@@ -45,12 +53,18 @@ export const TRIPS_AND_PARAMS = gql`
       trips {
         _id
         title
-        isType
-        address
-        latitude
-        longitude
         cover
-        ${Author}
+        small_text
+        travelMode
+        views
+        likes
+        trip_value {
+          distance
+          travel_time
+          waypoints
+        }
+      createdAt
+      ${Author}
       }
     }
   }

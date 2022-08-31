@@ -30,7 +30,7 @@ const LocationComponent: React.FC<IProps> = ({
         <Close />
       </IconButton>
       <Typography
-        variant="h6"
+        variant="h5"
         textAlign="center"
         marginTop={2}
         marginBottom={2}
