@@ -8,7 +8,7 @@ interface IProps {
   waypoints: number
 }
 
-const DirectionInfoComponent: React.FC<IProps> = ({ dst, time, waypoints }) => {
+const TripInfoComponent: React.FC<IProps> = ({ dst, time, waypoints }) => {
   return (
     <Stack
       direction="row"
@@ -43,4 +43,4 @@ const DirectionInfoComponent: React.FC<IProps> = ({ dst, time, waypoints }) => {
   )
 }
 
-export default DirectionInfoComponent
+export default TripInfoComponent

@@ -1,16 +1,16 @@
 import React from 'react'
-import { DirectionInfoComponent } from '../Components'
+import { TripInfoComponent } from '../Components'
 
 interface IProps {
-  direction_value: {
+  trip_value: {
     distance: number
     travel_time: number
     waypoints: number
   }
 }
 
-const DirectionInfo: React.FC<IProps> = ({
-  direction_value: { distance, travel_time, waypoints },
+const TripInfo: React.FC<IProps> = ({
+  trip_value: { distance, travel_time, waypoints },
 }) => {
   const dst = (distance / 1000).toFixed(2)
 
@@ -37,7 +37,7 @@ const DirectionInfo: React.FC<IProps> = ({
 
   time = time + ' ' + hv + 'хв'
 
-  return <DirectionInfoComponent dst={dst} time={time} waypoints={waypoints} />
+  return <TripInfoComponent dst={dst} time={time} waypoints={waypoints} />
 }
 
-export default DirectionInfo
+export default TripInfo

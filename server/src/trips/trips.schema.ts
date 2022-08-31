@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { User } from '../users/users.schema';
 
-export type DirectionDocument = Direction & mongoose.Document;
+export type TripDocument = Trip & mongoose.Document;
 
 @Schema()
-export class Direction {
+export class Trip {
   @Prop()
   type_material: string;
   @Prop()
@@ -40,7 +40,7 @@ export class Direction {
       waypoints: { type: Number },
     }),
   )
-  direction_value: Record<any, any>;
+  trip_value: Record<any, any>;
   @Prop({ default: new Date() })
   last_seen: Date;
   @Prop({ default: new Date() })
@@ -49,18 +49,18 @@ export class Direction {
   author: User;
 }
 
-export const DirectionSchema = SchemaFactory.createForClass(Direction);
+export const TripSchema = SchemaFactory.createForClass(Trip);
 
 @Schema()
-export class Directions {
+export class Trips {
   @Prop()
   page: number;
   @Prop()
   total_pages: number;
   @Prop()
-  total_directions: number;
-  @Prop({ type: [DirectionSchema] })
-  directions: Direction[];
+  total_trips: number;
+  @Prop({ type: [TripSchema] })
+  trips: Trip[];
 }
 
-export const DirectionsSchema = SchemaFactory.createForClass(Directions);
+export const TripsSchema = SchemaFactory.createForClass(Trips);

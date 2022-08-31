@@ -2,40 +2,35 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModuleRef } from '@nestjs/core';
-import { Direction, DirectionDocument, Directions } from './directions.schema';
-import { ParamsDirectionInput } from './inputs/params-direction.input';
+import { Trip, TripDocument, Trips } from './trips.schema';
+import { ParamsTripInput } from './inputs/params-trip.input';
 import { TokenService } from '../token/token.service';
 import { LikeInput } from '../likes/inputs/create-like.input';
 
 @Injectable()
-export class DirectionService {
+export class TripService {
   private tokenService: TokenService;
   constructor(
     private moduleRef: ModuleRef,
-    @InjectModel(Direction.name)
-    private directionModel: Model<DirectionDocument>,
+    @InjectModel(Trip.name)
+    private tripModel: Model<TripDocument>,
   ) {}
 
-  async direction(directionID: string): Promise<Direction> {
-    const post = this.directionModel
-      .findById(directionID)
-      .populate('author')
-      .exec();
+  async trip(tripID: string): Promise<Trip> {
+    const post = this.tripModel.findById(tripID).populate('author').exec();
 
     let { views } = await post;
     views++;
 
-    this.directionModel
-      .findByIdAndUpdate(directionID, { views }, { new: true })
+    return this.tripModel
+      .findByIdAndUpdate(tripID, { views }, { new: true })
       .exec();
-
-    return post;
   }
 
-  async findAll(params: ParamsDirectionInput): Promise<Direction[]> {
+  async findAll(params: ParamsTripInput): Promise<Trip[]> {
     const { page, limit } = params;
     const skip = page === 1 ? 0 : page * limit;
-    return this.directionModel
+    return this.tripModel
       .find()
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -65,26 +60,26 @@ export class DirectionService {
   //return post;
   //}
 
-  async directions(params: ParamsDirectionInput): Promise<Directions> {
+  async trips(params: ParamsTripInput): Promise<Trips> {
     const { page, limit } = params;
     const skip = page === 1 ? 0 : page * limit;
 
-    const allDirections = await this.directionModel.find().exec();
-    const directions = await this.directionModel
+    const allTrips = await this.tripModel.find().exec();
+    const trips = await this.tripModel
       .find()
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .populate('author')
       .exec();
-    const total_directions = allDirections.length;
-    const total_pages = Math.ceil(total_directions / limit);
+    const total_trips = allTrips.length;
+    const total_pages = Math.ceil(total_trips / limit);
 
     return {
       page,
       total_pages,
-      total_directions,
-      directions,
+      total_trips,
+      trips,
     };
   }
 }

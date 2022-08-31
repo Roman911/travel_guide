@@ -55,47 +55,6 @@ type CreateCommentDto {
   author: CreateUserDto
 }
 
-type DirectionValue {
-  distance: Float!
-  travel_time: Float!
-  waypoints: Float!
-}
-
-type Obj {
-  text: String!
-  value: Float!
-}
-
-type Legs {
-  distance: Obj!
-  duration: Obj!
-}
-
-type CreateDirectionDto {
-  _id: String!
-  cover: String!
-  title: String!
-  travelMode: [String!]!
-  link: String!
-  legs: [Legs!]!
-  tags: [String!]!
-  isType: String!
-  views: Int!
-  likes: [String!]!
-  small_text: String!
-  direction_value: DirectionValue!
-  last_seen: DateTime
-  createdAt: DateTime!
-  author: CreateUserDto
-}
-
-type CreateDirectionsDto {
-  page: Int!
-  total_pages: Int!
-  total_directions: Int!
-  directions: [CreateDirectionDto!]!
-}
-
 type CreateLocationDto {
   _id: String!
   title: String!
@@ -150,6 +109,47 @@ type CreateTokenDto {
   refreshToken: String!
 }
 
+type TripValue {
+  distance: Float!
+  travel_time: Float!
+  waypoints: Float!
+}
+
+type Obj {
+  text: String!
+  value: Float!
+}
+
+type Legs {
+  distance: Obj!
+  duration: Obj!
+}
+
+type CreateTripDto {
+  _id: String!
+  cover: String!
+  title: String!
+  travelMode: [String!]!
+  link: String!
+  legs: [Legs!]!
+  tags: [String!]!
+  isType: String!
+  views: Int!
+  likes: [String!]!
+  small_text: String!
+  trip_value: TripValue!
+  last_seen: DateTime
+  createdAt: DateTime!
+  author: CreateUserDto
+}
+
+type CreateTripsDto {
+  page: Int!
+  total_pages: Int!
+  total_trips: Int!
+  trips: [CreateTripDto!]!
+}
+
 type CreateUploadDto {
   _id: String!
   name: String!
@@ -160,14 +160,14 @@ type CreateUploadDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
-  directionsAndParams(input: ParamsDirectionInput!): CreateDirectionsDto!
-  directions(input: ParamsDirectionInput!): [CreateDirectionDto!]!
-  direction(directionID: String!): CreateDirectionDto!
   locations(input: ParamsLocationInput!): CreateLocationsDto!
   location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
   post(postID: String!): CreatePostDto!
+  tripsAndParams(input: ParamsTripInput!): CreateTripsDto!
+  trips(input: ParamsTripInput!): [CreateTripDto!]!
+  trip(tripID: String!): CreateTripDto!
   cover(fileID: String!): CreateUploadDto!
   users: [CreateUserDto!]!
   user(userID: String!): CreateUserDto!
@@ -176,11 +176,6 @@ type Query {
   login(input: LoginUserInput!): CreateUserDataDto!
   logout(refreshToken: String!): CreateUserDataDto!
   refresh(refreshToken: String!): CreateUserDataDto!
-}
-
-input ParamsDirectionInput {
-  limit: Int!
-  page: Int!
 }
 
 input ParamsLocationInput {
@@ -194,6 +189,11 @@ input ParamsPostInput {
   page: Int!
 }
 
+input ParamsTripInput {
+  limit: Int!
+  page: Int!
+}
+
 input LoginUserInput {
   email: String!
   password: String!
@@ -202,9 +202,10 @@ input LoginUserInput {
 type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
-  setLikeForPost(input: LikeInput!): CreatePostDto!
   createLocation(input: CreateLocationInput!): CreateLocationDto!
+  setLikeForPost(input: LikeInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
+  setLikeForTrip(input: String!): CreateTripDto!
   registration(input: RegistrationUserInput!): CreateUserDataDto!
   updateUser(input: UpdateUserInput!): CreateUserDataDto!
   updateUserAvatar(input: UpdateUserAvatarInput!): CreateUserDataDto!
@@ -222,11 +223,6 @@ input AnswerCommentInput {
   token: String!
 }
 
-input LikeInput {
-  postId: String!
-  token: String!
-}
-
 input CreateLocationInput {
   title: String!
   small_text: String!
@@ -236,6 +232,11 @@ input CreateLocationInput {
   cover: String!
   latitude: Float!
   longitude: Float!
+  token: String!
+}
+
+input LikeInput {
+  postId: String!
   token: String!
 }
 

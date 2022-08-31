@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client'
 import { Posts } from '../modules'
 import { MainLayout } from '../modules'
 import { POSTS } from '../apollo/queries/posts'
-import { DIRECTIONS } from '../apollo/queries/directions'
+import { TRIPS } from '../apollo/queries/trips'
 
 const Home: NextPage = () => {
   const {
@@ -16,12 +16,12 @@ const Home: NextPage = () => {
   })
 
   const {
-    loading: loadingByDirections,
-    data: dataByDirections,
-    error: errorByDirections,
-  } = useQuery(DIRECTIONS, { variables: { input: { limit: 8, page: 1 } } })
+    loading: loadingByTrips,
+    data: dataByTrips,
+    error: errorByTrips,
+  } = useQuery(TRIPS, { variables: { input: { limit: 8, page: 1 } } })
 
-  console.log('render: pages, Home', dataByDirections)
+  console.log('render: pages, Home')
 
   return (
     <MainLayout img="/velosipedyi_banner.webp">
@@ -41,12 +41,12 @@ const Home: NextPage = () => {
           home={true}
           layout={{
             title: 'Маршрути',
-            link: '/directions',
+            link: '/trips',
             linkTitle: 'Більше маршрутів',
           }}
-          loading={loadingByDirections}
+          loading={loadingByTrips}
           numberPosts={8}
-          posts={dataByDirections?.directions}
+          posts={dataByTrips?.trips}
         />
       </Box>
     </MainLayout>

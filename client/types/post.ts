@@ -11,7 +11,7 @@ export interface IPost {
   likes: string[]
   views: number
   travelMode?: string[]
-  direction_value?: {
+  trip_value?: {
     distance: number
     travel_time: number
     waypoints: number

@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client'
 import { Author } from '../variabels'
 
-export const LOCATION = gql`
-  query location($locationID: String!) {
-    location(locationID: $locationID) {
+export const TRIP = gql`
+  query trip($tripID: String!) {
+    trip(tripID: $tripID) {
       _id
       title
       small_text
@@ -17,9 +17,9 @@ export const LOCATION = gql`
   }
 `
 
-export const DIRECTIONS = gql`
-  query directions($input: ParamsDirectionInput!) {
-    directions(input: $input) {
+export const TRIPS = gql`
+  query trips($input: ParamsTripInput!) {
+    trips(input: $input) {
       _id
       title
       cover
@@ -27,7 +27,7 @@ export const DIRECTIONS = gql`
       travelMode
       views
       likes
-      direction_value {
+      trip_value {
         distance
         travel_time
         waypoints
@@ -38,11 +38,11 @@ export const DIRECTIONS = gql`
   }
 `
 
-export const DIRECTIONS_AND_PARAMS = gql`
-  query directionsAndParams($input: ParamsLocationInput!) {
-    directionsAndParams(input: $input) {
-      total_directions
-      directions {
+export const TRIPS_AND_PARAMS = gql`
+  query tripsAndParams($input: ParamsTripInput!) {
+    tripsAndParams(input: $input) {
+      total_trips
+      trips {
         _id
         title
         isType

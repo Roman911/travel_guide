@@ -15,7 +15,7 @@ import { LikesComponent } from '../../../Likes/Components'
 import { Avatar, PreviewComments } from '../../../'
 import { Views } from '../../../../Components'
 import { TravelModeComponent } from '../TravelMode'
-import { DirectionInfo } from '../'
+import { TripInfo } from '../'
 import { IPost } from '../../../../types/post'
 
 interface IProps {
@@ -53,7 +53,7 @@ const CardComponent: React.FC<IProps> = ({
     likes,
     createdAt,
     travelMode,
-    direction_value,
+    trip_value,
     author: { name, avatar },
   } = item
 
@@ -72,9 +72,7 @@ const CardComponent: React.FC<IProps> = ({
         />
         <CardActionArea onClick={handleClick} sx={{ position: 'relative' }}>
           {travelMode && <TravelModeComponent travelMode={travelMode} />}
-          {direction_value && (
-            <DirectionInfo direction_value={direction_value} />
-          )}
+          {trip_value && <TripInfo trip_value={trip_value} />}
           <CardMedia
             component="img"
             height="194"

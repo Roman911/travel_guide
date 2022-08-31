@@ -2,7 +2,7 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
 
 @ObjectType()
-class DirectionValue {
+class TripValue {
   @Field()
   distance: Number;
   @Field()
@@ -28,7 +28,7 @@ class Legs {
 }
 
 @ObjectType()
-export class CreateDirectionDto {
+export class CreateTripDto {
   @Field()
   _id: string;
   @Field()
@@ -51,8 +51,8 @@ export class CreateDirectionDto {
   likes: string[];
   @Field()
   small_text: string;
-  @Field((type) => DirectionValue)
-  direction_value: DirectionValue;
+  @Field((type) => TripValue)
+  trip_value: TripValue;
   @Field({ nullable: true })
   last_seen: Date;
   @Field()
@@ -62,13 +62,13 @@ export class CreateDirectionDto {
 }
 
 @ObjectType()
-export class CreateDirectionsDto {
+export class CreateTripsDto {
   @Field(() => Int)
   page: number;
   @Field(() => Int)
   total_pages: number;
   @Field(() => Int)
-  total_directions: number;
-  @Field((type) => [CreateDirectionDto])
-  directions: CreateDirectionDto[];
+  total_trips: number;
+  @Field((type) => [CreateTripDto])
+  trips: CreateTripDto[];
 }
