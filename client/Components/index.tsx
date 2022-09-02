@@ -1,4 +1,5 @@
 export { MyStepper } from './MaterialUI'
+export { QuillComponent } from './Quill'
 export { Rating } from './Rating'
 export { SocSetBlock } from './SocSetBlock'
 export { Tags } from './Tags'

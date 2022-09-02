@@ -9,7 +9,7 @@ export {
   RegistrationForm,
   CircularProgress,
 } from './Layouts'
-export { Post } from './Post'
+export { CreatePost, Post } from './Post'
 export { Posts } from './Posts'
 export { Regions } from './Regions'
 export { UploadFile } from './UploadFile'

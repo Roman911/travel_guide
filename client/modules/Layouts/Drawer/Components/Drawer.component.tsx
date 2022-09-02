@@ -72,7 +72,7 @@ const DrawerComponent: React.FC<Props> = ({
               Додати локацію
             </Button>
             <Button
-              onClick={() => handleClick('/')}
+              onClick={() => handleClick('/create-post')}
               variant="contained"
               color="secondary"
             >

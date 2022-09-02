@@ -1,8 +1,8 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { useLazyQuery } from '@apollo/client'
-import { MainLayout, Posts } from '../modules'
-import { POSTS_AND_PARAMS } from '../apollo/queries/posts'
+import { MainLayout, Posts } from '../../modules'
+import { POSTS_AND_PARAMS } from '../../apollo/queries/posts'
 
 const News: NextPage = () => {
   const [params, setParams] = React.useState({ page: 1, limit: 12 })

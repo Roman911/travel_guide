@@ -5,11 +5,13 @@ export const TRIP = gql`
   query trip($tripID: String!) {
     trip(tripID: $tripID) {
       _id
-      travelMode
-      title
       cover
-      small_text
       createdAt
+      likes
+      small_text
+      tags
+      title
+      travelMode
       trip_value {
         distance
         travel_time

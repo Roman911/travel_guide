@@ -2,7 +2,7 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/client'
-import { MainLayout, MapBox } from '../../modules'
+import { MainLayout, Post } from '../../modules'
 import { TRIP } from '../../apollo/queries/trips'
 
 const Trips: NextPage = () => {
@@ -19,7 +19,7 @@ const Trips: NextPage = () => {
 
   return (
     <MainLayout>
-      <MapBox />
+      <Post post={data?.trip} />
     </MainLayout>
   )
 }

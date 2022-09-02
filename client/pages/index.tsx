@@ -30,7 +30,7 @@ const Home: NextPage = () => {
           home={true}
           layout={{
             title: 'Новини',
-            link: '/news',
+            link: '/posts',
             linkTitle: 'Більше новин',
           }}
           loading={loadingByPosts}

@@ -67,7 +67,11 @@ const CreateLocationComponent: React.FC<IProps> = ({
         {previewImage && (
           <img
             src={previewImage}
-            style={{ maxWidth: '518px', height: `${(9 / 16) * 518}px` }}
+            style={{
+              width: '518px',
+              maxWidth: '518px',
+              height: `${(9 / 16) * 518}px`,
+            }}
           />
         )}
         <Controller

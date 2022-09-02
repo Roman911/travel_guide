@@ -14,4 +14,4 @@ const Avatar: React.FC<IProps> = ({ size, sx, userData }) => {
   return <AvatarComponent size={size} sx={sx} userData={userData} />
 }
 
-export default Avatar
+export default React.memo(Avatar)

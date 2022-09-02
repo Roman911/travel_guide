@@ -1,6 +1,6 @@
 export const linksConfig = [
   {
-    path: '/news',
+    path: '/posts',
     title: 'Новини',
   },
   {
