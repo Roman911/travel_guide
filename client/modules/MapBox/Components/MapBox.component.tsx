@@ -62,7 +62,7 @@ const MapBoxComponent: React.FC<IProps> = ({
         marginTop: '135px',
       }}
       mapboxAccessToken={process.env.NEXT_APP_MAPBOX_TOKEN}
-      mapStyle="mapbox://styles/mapbox/streets-v11"
+      mapStyle="mapbox://styles/roman911/cl7n9ol01005y15l98ns9j8xh"
       onMove={e => {
         setViewport(e.viewState)
         const bounds = mapRef.current.getMap().getBounds()

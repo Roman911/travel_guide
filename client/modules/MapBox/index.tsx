@@ -1,3 +1,4 @@
+export { Dialog } from './Dialog'
 export { LeftBox } from './LeftBox'
 export { MapBox } from './Containers'
 export { Popur } from './Popup'

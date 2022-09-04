@@ -4,6 +4,7 @@ import type { ILocation, IViewport } from '../../types/mapBox'
 
 export interface MapBoxState {
   address: string | null
+  dialog: boolean
   highlightedId: string | null
   latLng: {
     latitude: number
@@ -23,6 +24,7 @@ const SeeTheWholeMap = {
 
 const initialState: MapBoxState = {
   address: null,
+  dialog: false,
   highlightedId: null,
   latLng: {
     latitude: 0,
@@ -40,6 +42,9 @@ export const mapBoxSlice = createSlice({
   reducers: {
     setAddress: (state, action: PayloadAction<string | null>) => {
       state.address = action.payload
+    },
+    setDialog: (state, action: PayloadAction<boolean>) => {
+      state.dialog = action.payload
     },
     setHighlightedId: (state, action: PayloadAction<string | null>) => {
       state.highlightedId = action.payload

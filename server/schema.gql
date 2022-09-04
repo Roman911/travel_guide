@@ -63,6 +63,7 @@ type CreateLocationDto {
   isType: String!
   address: String!
   region: String!
+  tickets: [String!]
   createdAt: DateTime!
   author: CreateUserDto
   latitude: Float!
@@ -230,6 +231,7 @@ input CreateLocationInput {
   address: String!
   region: String!
   cover: String!
+  tickets: [String!]!
   latitude: Float!
   longitude: Float!
   token: String!

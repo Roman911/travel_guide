@@ -5,7 +5,14 @@ import { useLazyQuery } from '@apollo/client'
 import ReactMapGL from 'react-map-gl'
 import { useActions, useTypedSelector } from '../../../hooks'
 import { MapBoxComponent } from '../Components'
-import { LeftBox, SearchBox, SeeTheWholeMap, SpeedDial, TopBar } from '../'
+import {
+  Dialog,
+  LeftBox,
+  SearchBox,
+  SeeTheWholeMap,
+  SpeedDial,
+  TopBar,
+} from '../'
 import { LOCATIONS } from '../../../apollo/queries/locations'
 import { useLocalState } from '../../../hooks/useLocalState'
 
@@ -13,9 +20,8 @@ const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
   const mapRef = React.useRef<ReturnType<typeof ReactMapGL> | null>(null)
-  const { highlightedId, latLng, selected, type, viewport } = useTypedSelector(
-    state => state.mapBox
-  )
+  const { dialog, highlightedId, latLng, selected, type, viewport } =
+    useTypedSelector(state => state.mapBox)
   const { setSelected, setViewport } = useActions()
   const [dataBounds, setDataBounds] = useLocalState<string>(
     'bounds',
@@ -76,6 +82,7 @@ const MapBox: React.FC = () => {
       />
       <SpeedDial />
       <SeeTheWholeMap />
+      <Dialog dialog={dialog} />
     </Stack>
   )
 }

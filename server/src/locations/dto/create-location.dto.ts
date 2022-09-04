@@ -17,6 +17,8 @@ export class CreateLocationDto {
   address: string;
   @Field()
   region: string;
+  @Field((type) => [String], { nullable: true })
+  tickets: string[];
   @Field()
   createdAt: Date;
   @Field((type) => CreateUserDto, { nullable: true })
