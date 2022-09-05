@@ -4,14 +4,19 @@ import {
   Autocomplete,
   Box,
   Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   IconButton,
+  Switch,
   Stack,
   TextField,
   Typography,
 } from '@mui/material'
 import { Close } from '@mui/icons-material'
-import { locations } from '../config/locationsType'
-import { Regions, UploadFile } from '../../../../'
+import { locations, tickets } from '../config'
+import { UploadFile } from '../../../../'
+import { MyController } from '../../../../../Components'
 
 interface IProps {
   isDisabled: boolean
@@ -31,7 +36,10 @@ const CreateLocationComponent: React.FC<IProps> = ({
   const {
     control,
     formState: { errors },
+    watch,
   } = useFormContext()
+
+  const checkedSwitch = watch('isPrice')
 
   return (
     <Box padding={2} position="relative">
@@ -51,17 +59,12 @@ const CreateLocationComponent: React.FC<IProps> = ({
         <Typography variant="h5" textAlign="center">
           Додати нове цікаве місце
         </Typography>
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              error={!!errors['title']}
-              label="Назва локації"
-              variant="outlined"
-            />
-          )}
+        <MyController
+          type="title"
+          label="Назва локації"
+          multiline={false}
+          rows={1}
+          size="small"
         />
         <UploadFile name="Обрати фото" uploadButton={true} setFile={setFile} />
         {previewImage && (
@@ -74,18 +77,12 @@ const CreateLocationComponent: React.FC<IProps> = ({
             }}
           />
         )}
-        <Controller
-          name="small_text"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Короткий опис локації"
-              multiline
-              rows={4}
-              variant="outlined"
-            />
-          )}
+        <MyController
+          type="small_text"
+          label="Короткий опис локації"
+          multiline={true}
+          rows={4}
+          size="small"
         />
         <Controller
           name="isType"
@@ -100,48 +97,46 @@ const CreateLocationComponent: React.FC<IProps> = ({
                 onChange(item)
               }}
               value={value}
-              //sx={{ width: w }}
+              size="small"
               renderInput={params => (
                 <TextField {...params} label="Тип локації" />
               )}
             />
           )}
         />
-        <Regions isMap={false} />
         <Controller
-          name="address"
+          name="isPrice"
           control={control}
-          render={({ field }) => (
-            <TextField {...field} label="Адрес" variant="outlined" />
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset" variant="standard">
+              <FormLabel component="legend">Вхідний Квиток</FormLabel>
+              <FormControlLabel
+                control={
+                  <Switch
+                    //checked={state.gilad}
+                    onChange={onChange}
+                    name="gilad"
+                  />
+                }
+                label="Вхід вільний"
+              />
+            </FormControl>
           )}
         />
-        <Typography variant="body1">Координати</Typography>
-        <Stack direction="row" spacing={1}>
-          <Controller
-            name="latitude"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                sx={{ width: '50%' }}
-                label="Широта"
-                variant="outlined"
-              />
-            )}
-          />
-          <Controller
-            name="longitude"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                sx={{ width: '50%' }}
-                label="Довгота"
-                variant="outlined"
-              />
-            )}
-          />
-        </Stack>
+        {tickets.map(i => {
+          return (
+            <MyController
+              key={i.id}
+              type={`tickets.${i.id}`}
+              label={i.label}
+              multiline={false}
+              rows={1}
+              size="small"
+              inputProps="грн"
+              disabled={checkedSwitch}
+            />
+          )
+        })}
         <Stack direction="row" justifyContent="flex-end">
           <Button
             type="submit"

@@ -6,21 +6,15 @@ import {
   Button,
   Container,
   Grid,
-  InputAdornment,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
   Paper,
   Stack,
-  Switch,
   TextField,
   Typography,
 } from '@mui/material'
 import { Regions, UploadFile } from '../../../'
-import { QuillComponent } from '../../../../Components'
+import { QuillComponent, MyController } from '../../../../Components'
 import { types } from '../../../../pages/create-post'
-import { tickets, typesMaterial } from '../config'
-import { MyController } from '../MyControllers'
+import { typesMaterial } from '../config'
 
 interface IProps {
   previewImage?: string
@@ -136,120 +130,7 @@ const CreatePostComponent: React.FC<IProps> = ({
           <Grid item xs={12} sm={12} md={4}>
             <Paper elevation={2} sx={{ marginLeft: 3 }}>
               <Stack spacing={1.3} padding={2}>
-                <Controller
-                  name="isType"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <FormControl component="fieldset" variant="standard">
-                      <FormLabel component="legend">Вхідний Квиток</FormLabel>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            //checked={state.gilad}
-                            //onChange={handleChange}
-                            name="gilad"
-                          />
-                        }
-                        label="Вхід вільний"
-                      />
-                    </FormControl>
-                  )}
-                />
-                <Controller
-                  name={types.TITLE}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      size="small"
-                      label="Дорослий"
-                      variant="outlined"
-                      error={!!errors[types.TITLE]}
-                      sx={{ width: '100%', margin: '5px 0' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="start">грн</InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                />
-                <Controller
-                  name={types.TITLE}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      size="small"
-                      label="Дитячий"
-                      variant="outlined"
-                      error={!!errors[types.TITLE]}
-                      sx={{ width: '100%', margin: '5px 0' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="start">грн</InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                />
-                <Controller
-                  name={types.TITLE}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      size="small"
-                      label="Студенський"
-                      variant="outlined"
-                      error={!!errors[types.TITLE]}
-                      sx={{ width: '100%', margin: '5px 0' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="start">грн</InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                />
-                <Controller
-                  name={types.TITLE}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      size="small"
-                      label="Пенсійний"
-                      variant="outlined"
-                      error={!!errors[types.TITLE]}
-                      sx={{ width: '100%', margin: '5px 0' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="start">грн</InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                />
-                <Controller
-                  name={types.TITLE}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      size="small"
-                      label="Груповий"
-                      variant="outlined"
-                      error={!!errors[types.TITLE]}
-                      sx={{ width: '100%', margin: '5px 0' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="start">грн</InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                />
+                123
               </Stack>
             </Paper>
           </Grid>

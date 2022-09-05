@@ -5,12 +5,14 @@ import { useMutation } from '@apollo/client'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useActions, useTypedSelector } from '../../../../../hooks'
+import { Dialog } from '../'
 import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
 import { uploadFileAPI } from '../../../../../store/reducers/uloadFileSlice'
+import { tickets } from '../config'
 
 const schema = yup.object().shape({
-  title: yup.string().min(5).max(50).required('Поле не може бути пустим'),
+  title: yup.string().min(5).max(100).required('Поле не може бути пустим'),
   small_text: yup
     .string()
     .min(10)
@@ -38,6 +40,14 @@ interface IFormInput {
   longitude: number
   token: string
   uploadFile: null
+  isPrice: boolean
+  tickets: {
+    adult: string
+    baby: string
+    student: string
+    pensioner: string
+    group: string
+  }
 }
 
 const defaultValues = {
@@ -53,12 +63,20 @@ const defaultValues = {
   longitude: 0,
   token: '',
   uploadFile: null,
+  isPrice: false,
+  tickets: {
+    adult: '',
+    baby: '',
+    student: '',
+    pensioner: '',
+    group: '',
+  },
 }
 
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const {
     user: { refreshToken },
-    mapBox: { address, latLng },
+    mapBox: { address, dialog, latLng },
     region: { option },
     uploadFile: { previewImage },
   } = useTypedSelector(state => state)
@@ -83,28 +101,47 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const { handleSubmit, setValue } = methods
 
   const onSubmit: SubmitHandler<IFormInput> = async values => {
-    const { address, title, small_text, isType, latitude, longitude } = values
+    const {
+      address,
+      title,
+      small_text,
+      isPrice,
+      isType,
+
+      latitude,
+      longitude,
+    } = values
     setDisabled(true)
     changeLinearProgress(true)
+
+    const arr = []
+    if (!isPrice) {
+      tickets.forEach(i => {
+        if (values.tickets[i.id].length !== 0) {
+          arr.push(`${i.label}: ${values.tickets[i.id]}грн`)
+        }
+      })
+    }
 
     if (file) {
       await createFile({ url: '', file })
         .then(data => {
           //@ts-ignore
           const cover = data.data.image
-          console.log(data)
           CreateLocation({
             variables: {
               input: {
                 token: refreshToken,
                 title,
                 small_text,
+                isPrice,
                 isType: isType.id,
                 address,
                 region: option?.label,
                 cover,
                 latitude,
                 longitude,
+                tickets: arr,
               },
             },
           })
@@ -139,14 +176,31 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   }
 
   React.useEffect(() => {
-    if (address) {
-      methods.setValue('address', address)
-    }
     if (latLng) {
       methods.setValue('latitude', latLng.latitude)
       methods.setValue('longitude', latLng.longitude)
     }
-  }, [address, latLng])
+  }, [latLng])
+
+  React.useEffect(() => {
+    if (address) {
+      const strToArr = address.split(', ')
+      methods.setValue('title', strToArr[0])
+      if (strToArr.length > 1) {
+        strToArr.forEach(i => {
+          if (i.includes('область')) {
+            methods.setValue('region', i)
+          }
+        })
+        methods.setValue(
+          'address',
+          strToArr.slice(1, strToArr.length).join(', ')
+        )
+      } else {
+        methods.setValue('address', address)
+      }
+    }
+  }, [address])
 
   return (
     <FormProvider {...methods}>
@@ -164,6 +218,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
           setFile={setFile}
         />
       </Box>
+      <Dialog dialog={dialog} />
     </FormProvider>
   )
 }

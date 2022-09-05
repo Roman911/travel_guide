@@ -7,20 +7,27 @@ import { useGoogleMapsScript, Libraries } from 'use-google-maps-script'
 import { useActions } from '../../../../hooks'
 import { SearchBoxComponent } from '../Components'
 
-interface IProps {
+interface ISearchProps {
+  helperText?: string
+  width: string
+}
+
+interface IProps extends ISearchProps {
+  defaultValue: string
   onSelectAddress: (
     address: string,
     latitude: number | null,
     longitude: number | null
   ) => void
-  defaultValue: string
 }
 
 const libraries: Libraries = ['places']
 
 const ReadySearchBox: React.FC<IProps> = ({
+  helperText,
   defaultValue,
   onSelectAddress,
+  width,
 }) => {
   const {
     ready,
@@ -36,7 +43,10 @@ const ReadySearchBox: React.FC<IProps> = ({
     setValue(address, false)
     clearSuggestions()
     try {
-      const results = await getGeocode({ address })
+      console.log(address)
+      const results = await getGeocode({
+        address,
+      })
       const { lat, lng } = getLatLng(results[0])
       setLatLng({ latitude: lat, longitude: lng })
       onSelectAddress(address, lat, lng)
@@ -47,16 +57,20 @@ const ReadySearchBox: React.FC<IProps> = ({
 
   return (
     <SearchBoxComponent
+      helperText={helperText}
       value={value}
       setValue={setValue}
       status={status}
       data={data}
       handleSelect={handleSelect}
+      width={width}
     />
   )
 }
 
-const SearchBox: React.FC<IProps> = ({ onSelectAddress, defaultValue }) => {
+const SearchBox: React.FC<ISearchProps> = ({ helperText, width }) => {
+  const defaultValue = ''
+  const { setViewport } = useActions()
   const { isLoaded, loadError } = useGoogleMapsScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_KAY ?? '',
     libraries,
@@ -67,8 +81,22 @@ const SearchBox: React.FC<IProps> = ({ onSelectAddress, defaultValue }) => {
 
   return (
     <ReadySearchBox
-      onSelectAddress={onSelectAddress}
+      helperText={helperText}
+      onSelectAddress={(
+        _address: string,
+        latitude: null | number,
+        longitude: null | number
+      ) => {
+        if (latitude && longitude) {
+          setViewport({
+            latitude,
+            longitude,
+            zoom: 12,
+          })
+        }
+      }}
       defaultValue={defaultValue}
+      width={width}
     />
   )
 }

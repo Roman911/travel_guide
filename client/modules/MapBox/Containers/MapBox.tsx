@@ -5,14 +5,7 @@ import { useLazyQuery } from '@apollo/client'
 import ReactMapGL from 'react-map-gl'
 import { useActions, useTypedSelector } from '../../../hooks'
 import { MapBoxComponent } from '../Components'
-import {
-  Dialog,
-  LeftBox,
-  SearchBox,
-  SeeTheWholeMap,
-  SpeedDial,
-  TopBar,
-} from '../'
+import { LeftBox, SearchBox, SeeTheWholeMap, SpeedDial, TopBar } from '../'
 import { LOCATIONS } from '../../../apollo/queries/locations'
 import { useLocalState } from '../../../hooks/useLocalState'
 
@@ -20,14 +13,23 @@ const widthLeftBox = '550'
 
 const MapBox: React.FC = () => {
   const mapRef = React.useRef<ReturnType<typeof ReactMapGL> | null>(null)
-  const { dialog, highlightedId, latLng, selected, type, viewport } =
-    useTypedSelector(state => state.mapBox)
+  const { highlightedId, latLng, selected, type, viewport } = useTypedSelector(
+    state => state.mapBox
+  )
   const { setSelected, setViewport } = useActions()
   const [dataBounds, setDataBounds] = useLocalState<string>(
     'bounds',
     '[[0,0],[0,0]]'
   )
   const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
+
+  useEffect(() => {
+    if (mapRef.current) {
+      //@ts-ignore
+      const bounds = mapRef.current.getMap().getBounds()
+      setDataBounds(JSON.stringify(bounds.toArray()))
+    }
+  }, [mapRef.current])
 
   useEffect(() => {
     locations({
@@ -45,27 +47,7 @@ const MapBox: React.FC = () => {
         loading={loading}
       />
       <TopBar widthLeftBox={widthLeftBox}>
-        <SearchBox
-          defaultValue=""
-          onSelectAddress={(
-            _address: string,
-            latitude: null | number,
-            longitude: null | number
-          ) => {
-            if (latitude && longitude) {
-              setViewport({
-                latitude,
-                longitude,
-                zoom: 12,
-              })
-              if (mapRef.current) {
-                //@ts-ignore
-                const bounds = mapRef.current.getMap().getBounds()
-                setDataBounds(JSON.stringify(bounds.toArray()))
-              }
-            }
-          }}
-        />
+        <SearchBox width="33.3333%" />
       </TopBar>
       <MapBoxComponent
         widthLeftBox={widthLeftBox}
@@ -82,7 +64,6 @@ const MapBox: React.FC = () => {
       />
       <SpeedDial />
       <SeeTheWholeMap />
-      <Dialog dialog={dialog} />
     </Stack>
   )
 }

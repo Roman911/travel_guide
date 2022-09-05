@@ -3,6 +3,8 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { InputAdornment, TextField } from '@mui/material'
 
 interface IProps {
+  disabled?: boolean
+  helperText?: string
   type: string
   label: string
   multiline: boolean
@@ -12,6 +14,8 @@ interface IProps {
 }
 
 const MyController: React.FC<IProps> = ({
+  disabled,
+  helperText,
   type,
   label,
   multiline,
@@ -37,6 +41,8 @@ const MyController: React.FC<IProps> = ({
           label={label}
           variant="outlined"
           error={!!errors[type]}
+          disabled={disabled}
+          helperText={helperText && helperText}
           InputProps={
             inputProps && {
               endAdornment: (

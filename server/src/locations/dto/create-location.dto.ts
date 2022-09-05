@@ -17,6 +17,8 @@ export class CreateLocationDto {
   address: string;
   @Field()
   region: string;
+  @Field({ nullable: true })
+  isPrice: boolean;
   @Field((type) => [String], { nullable: true })
   tickets: string[];
   @Field()

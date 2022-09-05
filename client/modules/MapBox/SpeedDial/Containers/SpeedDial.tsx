@@ -15,10 +15,10 @@ const SpeedDial: React.FC = () => {
     //message: 'Введіть локацію в пошука або виберіть на мапі',
     //key: `${new Date().getTime()}+${Math.random()}`,
     //})
-    //setLeftBox(set)
-    //if (set === 'createLocation') {
-    //router.push('?location=createLocation')
-    //}
+    setLeftBox(set)
+    if (set === 'createLocation') {
+      router.push('?location=createLocation')
+    }
   }
 
   return <SpeedDialComponent handleClick={handleClick} />

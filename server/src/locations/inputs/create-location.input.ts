@@ -14,6 +14,8 @@ export class CreateLocationInput {
   region: string;
   @Field()
   cover: string;
+  @Field()
+  isPrice: boolean;
   @Field((type) => [String])
   tickets: string[];
   @Field((type) => Float)

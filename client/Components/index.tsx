@@ -1,4 +1,4 @@
-export { MyStepper } from './MaterialUI'
+export { MyController, MyStepper } from './MaterialUI'
 export { QuillComponent } from './Quill'
 export { Rating } from './Rating'
 export { SocSetBlock } from './SocSetBlock'

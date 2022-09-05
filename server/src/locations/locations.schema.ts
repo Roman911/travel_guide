@@ -18,6 +18,8 @@ export class Location {
   address: string;
   @Prop()
   region: string;
+  @Prop()
+  isPrice: boolean;
   @Prop({ default: [] })
   tickets: string[];
   @Prop()
