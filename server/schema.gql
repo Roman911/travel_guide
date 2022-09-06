@@ -82,21 +82,19 @@ type CreatePostDto {
   type_material: String!
   cover: String!
   title: String!
-  tickets: [String!]!
   link: String!
   tags: [String!]!
   work_time: String!
-  isType: String!
   how_to_get_there: String!
   views: Int!
   likes: [String!]!
-  isPrice: Boolean!
   confirmed: Boolean!
   confirm_hash: String!
   small_text: String!
   last_seen: DateTime
   createdAt: DateTime!
   author: CreateUserDto
+  location: CreateLocationDto!
 }
 
 type CreatePostsDto {
@@ -205,6 +203,7 @@ type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
   createLocation(input: CreateLocationInput!): CreateLocationDto!
+  createPost(input: CreatePostInput!): CreatePostDto!
   setLikeForPost(input: LikeInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
   setLikeForTrip(input: String!): CreateTripDto!
@@ -237,6 +236,21 @@ input CreateLocationInput {
   latitude: Float!
   longitude: Float!
   token: String!
+}
+
+input CreatePostInput {
+  title: String!
+  small_text: String!
+  region: String!
+  cover: String!
+  token: String!
+  tags: [String!]!
+  type_material: String!
+  location: String!
+  editor: String!
+  link: String!
+  work_time: String!
+  how_to_get_there: String!
 }
 
 input LikeInput {

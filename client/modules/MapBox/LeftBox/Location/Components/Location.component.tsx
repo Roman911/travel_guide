@@ -1,19 +1,45 @@
 import React from 'react'
 import Image from 'next/image'
-import { Box, IconButton, Stack, Typography } from '@mui/material'
-import { Close, LocationOn, MyLocation } from '@mui/icons-material'
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from '@mui/material'
+import {
+  Close,
+  LocationOn,
+  MoreVert,
+  MyLocation,
+  Share,
+} from '@mui/icons-material'
 import type { ILocation } from '../../../types/location'
+import { LikesComponent } from '../../../../Likes/Components'
+import { PreviewComments } from '../../../../'
+import { Views } from '../../../../../Components'
 
 interface IProps {
+  anchorEl: null | HTMLElement
   location: ILocation
+  open: boolean
   widthLeftBox: string
   handleClick: () => void
+  handleClose: () => void
+  handleOpenMenu: (event: React.MouseEvent<HTMLButtonElement>) => void
+  handleCreatePost: () => void
 }
 
 const LocationComponent: React.FC<IProps> = ({
+  anchorEl,
   location,
+  open,
   widthLeftBox,
   handleClick,
+  handleClose,
+  handleOpenMenu,
+  handleCreatePost,
 }) => {
   return (
     <Box position="relative" sx={{ overflowY: 'auto', height: '100%' }}>
@@ -38,13 +64,59 @@ const LocationComponent: React.FC<IProps> = ({
       >
         {location.title}
       </Typography>
-      <Image
-        src={`/${location.cover}l.webp`}
-        layout="intrinsic"
-        alt={location.title}
-        width={`${widthLeftBox}px`}
-        height={300}
-      />
+      <Box position="relative">
+        <Image
+          src={`/${location.cover}l.webp`}
+          layout="intrinsic"
+          alt={location.title}
+          width={`${widthLeftBox}px`}
+          height={300}
+        />
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-around"
+          sx={{
+            position: 'absolute',
+            bottom: '6px',
+            padding: '8px',
+            width: '100%',
+            background: 'rgba(255,255,255,0.7)',
+          }}
+        >
+          <LikesComponent
+            component={true}
+            userId={'ddd'}
+            colorRed={'red'}
+            colorIcon={'gray'}
+            likes={['vfdsvfd', 'vfdvfd']}
+          />
+          <Views views={5} color={'gray'} />
+          <PreviewComments postId={'vfdvf'} />
+          <IconButton aria-label="share" sx={{ color: 'gray' }}>
+            <Share />
+          </IconButton>
+          <IconButton
+            aria-label="share"
+            sx={{ marginLeft: 'auto', color: 'gray' }}
+            onClick={handleOpenMenu}
+          >
+            <MoreVert />
+          </IconButton>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem onClick={handleClose}>Редагувати локацію</MenuItem>
+            <MenuItem onClick={handleCreatePost}>Додати матеріал</MenuItem>
+          </Menu>
+        </Stack>
+      </Box>
       <Stack
         spacing={2}
         padding="0 20px 20px"

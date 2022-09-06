@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-//import { drawerGMReducer } from './drawerGoogleMap'
+import createPostReducer from './createPostSlice'
 import layoutReducer from './layoutSlice'
 import mapBoxReducer from './mapBoxSlice'
 import regionReducer from './regionSlice'
@@ -7,6 +7,7 @@ import uploadFileReducer, { uploadFileAPI } from './uloadFileSlice'
 import userReducer from './userSlice'
 
 export const rootReducer = combineReducers({
+  createPost: createPostReducer,
   layout: layoutReducer,
   mapBox: mapBoxReducer,
   region: regionReducer,

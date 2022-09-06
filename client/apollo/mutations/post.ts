@@ -7,3 +7,11 @@ export const LIKE_POST = gql`
     }
   }
 `
+
+export const CREATE_POST = gql`
+  mutation setLikeForPost($input: LikeInput!) {
+    setLikeForPost(input: $input) {
+      _id
+    }
+  }
+`

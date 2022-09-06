@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModuleRef } from '@nestjs/core';
 import { Post, PostDocument, Posts } from './posts.schema';
+import { CreatePostInput } from './inputs/create-post.input';
 import { ParamsPostInput } from './inputs/params-post.input';
 import { TokenService } from '../token/token.service';
 import { LikeInput } from '../likes/inputs/create-like.input';
@@ -19,7 +20,11 @@ export class PostService {
   ) {}
 
   async post(postID: string): Promise<Post> {
-    const post = this.postModel.findById(postID).populate('author').exec();
+    const post = this.postModel
+      .findById(postID)
+      .populate('author')
+      .populate('location')
+      .exec();
 
     let { views } = await post;
     views++;
@@ -38,6 +43,7 @@ export class PostService {
       .skip(skip)
       .limit(limit)
       .populate('author')
+      .populate('location')
       .exec();
   }
 
@@ -83,6 +89,20 @@ export class PostService {
       total_posts,
       posts: posts,
     };
+  }
+
+  async savePost(createPostInput: CreatePostInput): Promise<Post> {
+    const { token } = createPostInput;
+
+    this.tokenService = await this.moduleRef.get(TokenService, {
+      strict: false,
+    });
+    const userData = this.tokenService.validateRefreshToken(token);
+
+    return await this.postModel.create({
+      ...createPostInput,
+      author: userData._id,
+    });
   }
 
   //async addComment(CreatePostDto: CommentInput): Promise<Post> {

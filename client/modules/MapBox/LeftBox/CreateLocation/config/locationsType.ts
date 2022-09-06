@@ -20,6 +20,10 @@ export const locations = [
     id: 'lake',
   },
   {
+    label: "Природні об'єкти",
+    id: 'natural-objects',
+  },
+  {
     label: 'Музеї',
     id: 'museum',
   },

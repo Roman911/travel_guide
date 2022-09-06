@@ -1,26 +1,33 @@
 import React from 'react'
-import { useTypedSelector } from '../../../../hooks'
+import { useFormContext } from 'react-hook-form'
+import { useActions, useTypedSelector } from '../../../../hooks'
 import { CreatePostComponent } from '../Components'
 
 const CreatePost: React.FC = () => {
-  const { previewImage } = useTypedSelector(state => state.uploadFile)
   const [file, setFile] = React.useState<string | File>('')
-  const [typeMaterial, setTypeMaterial] = React.useState<{
-    label: string
-    id: string
-  } | null>({
-    label: 'Новини',
-    id: 'new',
-  })
+  const { setValue } = useFormContext()
+  const {
+    createPost,
+    uploadFile: { previewImage },
+    user: { userData },
+  } = useTypedSelector(state => state)
+  const { setTypeMaterial } = useActions()
 
-  console.log(typeMaterial)
+  React.useEffect(() => {
+    setValue('type_material', createPost.type_material)
+    if (createPost.title) {
+      setValue('title', createPost.title)
+      setValue('small_text', createPost.small_text)
+    }
+  }, [createPost])
 
   return (
     <CreatePostComponent
       previewImage={previewImage}
-      typeMaterial={typeMaterial}
+      typeMaterial={createPost.type_material}
       setFile={setFile}
       setTypeMaterial={setTypeMaterial}
+      userData={userData}
     />
   )
 }
