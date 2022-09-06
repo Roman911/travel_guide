@@ -11,6 +11,7 @@ export const LOCATION = gql`
       longitude
       isType
       cover
+      region
     }
   }
 `

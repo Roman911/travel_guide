@@ -21,21 +21,21 @@ import {
 import { Share } from '@mui/icons-material'
 import { Avatar, Regions, UploadFile } from '../../../'
 import { QuillComponent, MyController } from '../../../../Components'
-import { types } from '../../../../pages/create-post'
+import { types } from '../../../../types/post'
 import { typesMaterial } from '../config'
+import { IUserData } from '../../../../types/user'
 
 interface IProps {
+  disabled: boolean
   previewImage?: string
   typeMaterial: { label: string; id: string } | null
   setTypeMaterial: (arg: { label: string; id: string } | null) => void
   setFile: (arg: string | File) => void
-  userData: {
-    avatar?: string
-    name: string
-  }
+  userData?: IUserData | null
 }
 
 const CreatePostComponent: React.FC<IProps> = ({
+  disabled,
   previewImage,
   typeMaterial,
   setTypeMaterial,
@@ -47,8 +47,6 @@ const CreatePostComponent: React.FC<IProps> = ({
     formState: { errors },
     watch,
   } = useFormContext()
-
-  console.log(watch())
 
   return (
     <Container maxWidth="xl" sx={{ marginTop: '73px' }}>
@@ -254,8 +252,8 @@ const CreatePostComponent: React.FC<IProps> = ({
           <MyController
             type={types.HOW_TO_GET_THERE}
             label="Як дістатися"
-            multiline={false}
-            rows={1}
+            multiline={true}
+            rows={4}
             size="small"
           />
           {typeMaterial?.id === 'post' && (
@@ -276,7 +274,7 @@ const CreatePostComponent: React.FC<IProps> = ({
               variant="contained"
               sx={{ marginLeft: '10px', width: '180px' }}
               color="secondary"
-              //disabled={!userData}
+              disabled={disabled}
             >
               Зберегти
             </Button>

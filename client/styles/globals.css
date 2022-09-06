@@ -34,6 +34,10 @@ p {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
+.ql-editor {
+  min-height: 200px;
+}
+
 .editorWrapper h1 {
   font-size: 3rem;
   line-height: 1.167;

@@ -69,10 +69,12 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
     setDisabled(true)
     changeLinearProgress(true)
 
-    const arr = []
+    const arr: string[] = []
     if (!isTicket) {
       tickets.forEach(i => {
+        //@ts-ignore
         if (values.tickets[i.id].length !== 0) {
+          //@ts-ignore
           arr.push(`${i.label}: ${values.tickets[i.id]}грн`)
         }
       })
@@ -96,7 +98,6 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
             longitude,
             tickets: arr,
           }
-          console.log(input)
           CreateLocation({
             variables: {
               input,

@@ -24,7 +24,7 @@ export class Post {
   work_time: string;
   @Prop()
   how_to_get_there: string;
-  @Prop()
+  @Prop({ default: 0 })
   views: number;
   @Prop()
   likes: string[];

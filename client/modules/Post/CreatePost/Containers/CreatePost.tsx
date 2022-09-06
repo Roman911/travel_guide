@@ -2,9 +2,14 @@ import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useActions, useTypedSelector } from '../../../../hooks'
 import { CreatePostComponent } from '../Components'
+import { types } from '../../../../types/post'
 
-const CreatePost: React.FC = () => {
-  const [file, setFile] = React.useState<string | File>('')
+interface IProps {
+  disabled: boolean
+  setFile: (arg: string | File) => void
+}
+
+const CreatePost: React.FC<IProps> = ({ disabled, setFile }) => {
   const { setValue } = useFormContext()
   const {
     createPost,
@@ -14,15 +19,16 @@ const CreatePost: React.FC = () => {
   const { setTypeMaterial } = useActions()
 
   React.useEffect(() => {
-    setValue('type_material', createPost.type_material)
+    setValue(types.TYPE_MATERIAL, createPost.type_material)
     if (createPost.title) {
-      setValue('title', createPost.title)
-      setValue('small_text', createPost.small_text)
+      setValue(types.TITLE, createPost.title)
+      setValue(types.SMALL_TEXT, createPost.small_text)
     }
   }, [createPost])
 
   return (
     <CreatePostComponent
+      disabled={disabled}
       previewImage={previewImage}
       typeMaterial={createPost.type_material}
       setFile={setFile}

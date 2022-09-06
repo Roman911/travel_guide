@@ -9,8 +9,8 @@ export const LIKE_POST = gql`
 `
 
 export const CREATE_POST = gql`
-  mutation setLikeForPost($input: LikeInput!) {
-    setLikeForPost(input: $input) {
+  mutation createPost($input: CreatePostInput!) {
+    createPost(input: $input) {
       _id
     }
   }
