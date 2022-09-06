@@ -112,6 +112,7 @@ const DialogComponent: React.FC<IProps> = ({
               render={({ field }) => (
                 <TextField
                   {...field}
+                  size="small"
                   sx={{ width: '50%' }}
                   label="Широта"
                   variant="outlined"
@@ -124,6 +125,7 @@ const DialogComponent: React.FC<IProps> = ({
               render={({ field }) => (
                 <TextField
                   {...field}
+                  size="small"
                   sx={{ width: '50%' }}
                   label="Довгота"
                   variant="outlined"

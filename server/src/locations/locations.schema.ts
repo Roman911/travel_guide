@@ -19,7 +19,7 @@ export class Location {
   @Prop()
   region: string;
   @Prop()
-  isPrice: boolean;
+  isTicket: boolean;
   @Prop({ default: [] })
   tickets: string[];
   @Prop()

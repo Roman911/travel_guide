@@ -10,6 +10,8 @@ import { CreateLocationComponent } from '../Components'
 import { CREATE_LOCATION } from '../../../../../apollo/mutations/locations'
 import { uploadFileAPI } from '../../../../../store/reducers/uloadFileSlice'
 import { tickets } from '../config'
+import type { IFormInput } from '../types/formInput'
+import { defaultValues } from './defaultValues'
 
 const schema = yup.object().shape({
   title: yup.string().min(5).max(100).required('Поле не може бути пустим'),
@@ -18,7 +20,7 @@ const schema = yup.object().shape({
     .min(10)
     .max(600)
     .required('Поле не може бути пустим'),
-  address: yup.string().min(10).max(100).required('Поле не може бути пустим'),
+  address: yup.string().min(10).max(160).required('Поле не може бути пустим'),
   latitude: yup.number().required('Поле не може бути пустим'),
   longitude: yup.number().required('Поле не може бути пустим'),
 })
@@ -27,57 +29,10 @@ interface IProps {
   handleClick: () => void
 }
 
-interface IFormInput {
-  title: string
-  small_text: string
-  isType: {
-    label: string
-    id: string
-  }
-  address: string
-  region: string
-  latitude: number
-  longitude: number
-  token: string
-  uploadFile: null
-  isPrice: boolean
-  tickets: {
-    adult: string
-    baby: string
-    student: string
-    pensioner: string
-    group: string
-  }
-}
-
-const defaultValues = {
-  title: '',
-  small_text: '',
-  isType: {
-    label: 'Інше',
-    id: 'other',
-  },
-  address: '',
-  region: '',
-  latitude: 0,
-  longitude: 0,
-  token: '',
-  uploadFile: null,
-  isPrice: false,
-  tickets: {
-    adult: '',
-    baby: '',
-    student: '',
-    pensioner: '',
-    group: '',
-  },
-}
-
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const {
     user: { refreshToken },
     mapBox: { address, dialog, latLng },
-    region: { option },
     uploadFile: { previewImage },
   } = useTypedSelector(state => state)
   const [createFile] = uploadFileAPI.useCreateFileMutation()
@@ -105,17 +60,17 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
       address,
       title,
       small_text,
-      isPrice,
+      isTicket,
       isType,
-
       latitude,
       longitude,
+      region,
     } = values
     setDisabled(true)
     changeLinearProgress(true)
 
     const arr = []
-    if (!isPrice) {
+    if (!isTicket) {
       tickets.forEach(i => {
         if (values.tickets[i.id].length !== 0) {
           arr.push(`${i.label}: ${values.tickets[i.id]}грн`)
@@ -128,21 +83,23 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
         .then(data => {
           //@ts-ignore
           const cover = data.data.image
+          const input = {
+            token: refreshToken,
+            title,
+            small_text,
+            isTicket,
+            isType: isType.id,
+            address,
+            region,
+            cover,
+            latitude,
+            longitude,
+            tickets: arr,
+          }
+          console.log(input)
           CreateLocation({
             variables: {
-              input: {
-                token: refreshToken,
-                title,
-                small_text,
-                isPrice,
-                isType: isType.id,
-                address,
-                region: option?.label,
-                cover,
-                latitude,
-                longitude,
-                tickets: arr,
-              },
+              input,
             },
           })
             .then(data => {

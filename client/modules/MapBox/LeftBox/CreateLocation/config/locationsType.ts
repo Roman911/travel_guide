@@ -12,6 +12,14 @@ export const locations = [
     id: 'palace',
   },
   {
+    label: 'Руїни',
+    id: 'ruins',
+  },
+  {
+    label: 'Озеро',
+    id: 'lake',
+  },
+  {
     label: 'Музеї',
     id: 'museum',
   },

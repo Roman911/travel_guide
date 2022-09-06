@@ -121,3 +121,34 @@ export class SharpTransformImage
     return randomName + '.webp';
   }
 }
+
+@Injectable()
+export class SharpMarker
+  implements PipeTransform<Express.Multer.File, Promise<string>>
+{
+  async transform(image: Express.Multer.File): Promise<string> {
+    const name = 'marker';
+
+    await sharp(image.buffer)
+      .resize({
+        width: 38,
+        height: 46,
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy,
+      })
+      .webp({ effort: 3 })
+      .toFile(path.join('./uploads/images', name + '-hover' + '.webp'));
+
+    await sharp(image.buffer)
+      .resize({
+        width: 24,
+        height: 29,
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy,
+      })
+      .webp({ effort: 3 })
+      .toFile(path.join('./uploads/images', name + '.webp'));
+
+    return name + '.webp';
+  }
+}

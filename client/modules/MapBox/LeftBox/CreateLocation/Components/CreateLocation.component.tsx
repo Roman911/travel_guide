@@ -71,8 +71,8 @@ const CreateLocationComponent: React.FC<IProps> = ({
           <img
             src={previewImage}
             style={{
-              width: '518px',
-              maxWidth: '518px',
+              width: '100%',
+              maxWidth: '501px',
               height: `${(9 / 16) * 518}px`,
             }}
           />
@@ -83,6 +83,14 @@ const CreateLocationComponent: React.FC<IProps> = ({
           multiline={true}
           rows={4}
           size="small"
+        />
+        <MyController
+          type="address"
+          label="Адрес"
+          multiline={false}
+          rows={1}
+          size="small"
+          helperText="Ведіть адресу локації"
         />
         <Controller
           name="isType"
@@ -105,7 +113,7 @@ const CreateLocationComponent: React.FC<IProps> = ({
           )}
         />
         <Controller
-          name="isPrice"
+          name="isTicket"
           control={control}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset" variant="standard">
@@ -137,6 +145,35 @@ const CreateLocationComponent: React.FC<IProps> = ({
             />
           )
         })}
+        <Typography variant="body1">Координати</Typography>
+        <Stack direction="row" spacing={1}>
+          <Controller
+            name="latitude"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                size="small"
+                sx={{ width: '50%' }}
+                label="Широта"
+                variant="outlined"
+              />
+            )}
+          />
+          <Controller
+            name="longitude"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                size="small"
+                sx={{ width: '50%' }}
+                label="Довгота"
+                variant="outlined"
+              />
+            )}
+          />
+        </Stack>
         <Stack direction="row" justifyContent="flex-end">
           <Button
             type="submit"

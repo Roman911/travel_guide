@@ -63,7 +63,7 @@ type CreateLocationDto {
   isType: String!
   address: String!
   region: String!
-  isPrice: Boolean
+  isTicket: Boolean
   tickets: [String!]
   createdAt: DateTime!
   author: CreateUserDto
@@ -232,7 +232,7 @@ input CreateLocationInput {
   address: String!
   region: String!
   cover: String!
-  isPrice: Boolean!
+  isTicket: Boolean!
   tickets: [String!]!
   latitude: Float!
   longitude: Float!

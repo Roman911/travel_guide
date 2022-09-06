@@ -131,7 +131,7 @@ const MapBoxComponent: React.FC<IProps> = ({
           longitude={latLng.longitude}
           offset={[0, -10]}
         >
-          <img src={`/static/images/${type}-hover.png`} />
+          <img src={`/static/images/${type}-hover.webp`} />
         </Marker>
       )}
       {selected && <Popur selected={selected} setSelected={setSelected} />}
