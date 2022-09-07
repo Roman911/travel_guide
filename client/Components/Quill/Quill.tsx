@@ -8,6 +8,13 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const QuillComponent: React.FC = () => {
   const { control } = useFormContext()
 
+  const [value, setValue] = React.useState('')
+  const [file, setFile] = React.useState<File | null>(null)
+
+  const quillRef = React.useRef()
+
+  console.log(quillRef.current)
+
   const imageHandler = () => {
     const input = document.createElement('input')
     input.setAttribute('type', 'file')
@@ -15,9 +22,12 @@ const QuillComponent: React.FC = () => {
     input.click()
 
     input.onchange = () => {
+      //@ts-ignore
       const file = input.files[0]
 
-      console.log(file)
+      if (file) {
+        setFile(file)
+      }
     }
   }
 
@@ -35,9 +45,9 @@ const QuillComponent: React.FC = () => {
         ['link', 'image', 'video'],
         ['clean'],
       ],
-      //handlers: {
-      //image: imageHandler,
-      //},
+      handlers: {
+        image: imageHandler,
+      },
     },
 
     clipboard: {
@@ -60,20 +70,32 @@ const QuillComponent: React.FC = () => {
   ]
 
   return (
-    <Controller
-      control={control}
-      name="editor"
-      render={({ field: { onChange, value } }) => (
-        <ReactQuill
-          modules={modules}
-          formats={formats}
-          theme="snow"
-          value={value}
-          onChange={onChange}
-        />
-      )}
+    <ReactQuill
+      //@ts-ignore
+      ref={quillRef}
+      modules={modules}
+      formats={formats}
+      theme="snow"
+      value={value}
+      onChange={setValue}
     />
   )
+
+  //return (
+  //<Controller
+  //control={control}
+  //name="editor"
+  //render={({ field: { onChange, value } }) => (
+  //<ReactQuill
+  //modules={modules}
+  //formats={formats}
+  //  theme="snow"
+  //  value={value}
+  //  onChange={onChange}
+  // />
+  // )}
+  //  />
+  // )
 }
 
 export default QuillComponent
