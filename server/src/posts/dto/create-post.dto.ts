@@ -22,6 +22,8 @@ export class CreatePostDto {
   @Field()
   work_time: string;
   @Field()
+  region: string;
+  @Field()
   how_to_get_there: string;
   @Field(() => Int)
   views: number;

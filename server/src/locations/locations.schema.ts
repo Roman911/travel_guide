@@ -9,6 +9,8 @@ export class Location {
   @Prop()
   title: string;
   @Prop()
+  linkToPost: string;
+  @Prop()
   small_text: string;
   @Prop()
   cover: string;

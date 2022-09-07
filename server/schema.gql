@@ -57,6 +57,7 @@ type CreateCommentDto {
 
 type CreateLocationDto {
   _id: String!
+  linkToPost: String
   title: String!
   small_text: String!
   cover: String!
@@ -85,6 +86,7 @@ type CreatePostDto {
   link: String!
   tags: [String!]!
   work_time: String!
+  region: String!
   how_to_get_there: String!
   views: Int!
   likes: [String!]!
@@ -203,6 +205,7 @@ type Mutation {
   createComment(input: CommentInput!): CreateCommentDto!
   addedCommentAnswer(input: AnswerCommentInput!): CreateCommentDto!
   createLocation(input: CreateLocationInput!): CreateLocationDto!
+  updateLinkToPost(input: UpdateLinkToPostInput!): CreateLocationDto!
   createPost(input: CreatePostInput!): CreatePostDto!
   setLikeForPost(input: LikeInput!): CreatePostDto!
   createToken(input: TokenInput!): CreateTokenDto!
@@ -236,6 +239,11 @@ input CreateLocationInput {
   latitude: Float!
   longitude: Float!
   token: String!
+}
+
+input UpdateLinkToPostInput {
+  locationID: String!
+  linkToPost: String!
 }
 
 input CreatePostInput {

@@ -7,19 +7,39 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const QuillComponent: React.FC = () => {
   const { control } = useFormContext()
+
+  const imageHandler = () => {
+    const input = document.createElement('input')
+    input.setAttribute('type', 'file')
+    input.setAttribute('accept', 'image/*')
+    input.click()
+
+    input.onchange = () => {
+      const file = input.files[0]
+
+      console.log(file)
+    }
+  }
+
   const modules = {
-    toolbar: [
-      [{ header: '1' }, { header: '2' }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
+    toolbar: {
+      container: [
+        [{ header: '1' }, { header: '2' }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [
+          { list: 'ordered' },
+          { list: 'bullet' },
+          { indent: '-1' },
+          { indent: '+1' },
+        ],
+        ['link', 'image', 'video'],
+        ['clean'],
       ],
-      ['link', 'image', 'video'],
-      ['clean'],
-    ],
+      //handlers: {
+      //image: imageHandler,
+      //},
+    },
+
     clipboard: {
       matchVisual: false,
     },
@@ -38,8 +58,6 @@ const QuillComponent: React.FC = () => {
     'image',
     'video',
   ]
-
-  //return <ReactQuill theme="snow" value={value} onChange={setValue} />
 
   return (
     <Controller

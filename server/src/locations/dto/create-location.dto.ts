@@ -5,6 +5,8 @@ import { CreateUserDto } from '../../users/dto/create-user.dto';
 export class CreateLocationDto {
   @Field()
   _id: string;
+  @Field({ nullable: true })
+  linkToPost: string;
   @Field()
   title: string;
   @Field()

@@ -39,7 +39,8 @@ const CreatePostPage: NextPage = () => {
     user: { refreshToken },
   } = useTypedSelector(state => state)
   const [createPost] = useMutation(CREATE_POST)
-  const { addedNotification, changeLinearProgress } = useActions()
+  const { addedNotification, changeLinearProgress, setPreviewImage } =
+    useActions()
   const [createFile] = uploadFileAPI.useCreateFileMutation()
 
   const methods = useForm<IFormInput>({
@@ -64,7 +65,7 @@ const CreatePostPage: NextPage = () => {
     changeLinearProgress(true)
 
     if (file) {
-      await createFile({ url: '', file })
+      await createFile({ url: '/create-post', file })
         .then(data => {
           //@ts-ignore
           const cover = data.data.image
@@ -88,6 +89,7 @@ const CreatePostPage: NextPage = () => {
                 message: 'Статя ушпішно добавлена',
                 key: `${new Date().getTime()}+${Math.random()}`,
               })
+              setPreviewImage('')
               setFile('')
               reset()
             })

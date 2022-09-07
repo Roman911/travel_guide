@@ -7,7 +7,11 @@ import {
   CreateLocationsDto,
 } from './dto/create-location.dto';
 import { Location, LocationDocument } from './locations.schema';
-import { CreateLocationInput, ParamsLocationInput } from './inputs';
+import {
+  CreateLocationInput,
+  ParamsLocationInput,
+  UpdateLinkToPostInput,
+} from './inputs';
 //import { LikeInput } from '../likes/inputs/create-like.input'
 //import { CommentInput } from '../comments/inputs/create-comment.input'
 //import { AnswerCommentInput } from '../comments/inputs/addedAnswer.input'
@@ -33,6 +37,11 @@ export class LocationsResolver {
   @Mutation(() => CreateLocationDto)
   async createLocation(@Args('input') input: CreateLocationInput) {
     return this.locationsService.saveLocation(input);
+  }
+
+  @Mutation(() => CreateLocationDto)
+  async updateLinkToPost(@Args('input') input: UpdateLinkToPostInput) {
+    return this.locationsService.updateLinkToPost(input);
   }
 
   //@Mutation(() => CreatePostDto)

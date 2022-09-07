@@ -21,6 +21,8 @@ export class Post {
   @Prop()
   tags: string[];
   @Prop()
+  region: string;
+  @Prop()
   work_time: string;
   @Prop()
   how_to_get_there: string;

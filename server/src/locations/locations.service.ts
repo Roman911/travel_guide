@@ -3,7 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModuleRef } from '@nestjs/core';
 import { Location, LocationDocument, Locations } from './locations.schema';
-import { CreateLocationInput, ParamsLocationInput } from './inputs';
+import {
+  CreateLocationInput,
+  ParamsLocationInput,
+  UpdateLinkToPostInput,
+} from './inputs';
 import { TokenService } from '../token/token.service';
 
 @Injectable()
@@ -70,5 +74,14 @@ export class LocationService {
       ...createLocationInput,
       author: userData._id,
     });
+  }
+
+  async updateLinkToPost(
+    updateInput: UpdateLinkToPostInput,
+  ): Promise<Location> {
+    const { locationID, linkToPost } = updateInput;
+    return await this.locationModel
+      .findByIdAndUpdate(locationID, { linkToPost }, { new: true })
+      .exec();
   }
 }
