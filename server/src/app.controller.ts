@@ -4,7 +4,6 @@ import {
   UseInterceptors,
   Post,
   UploadedFile,
-  Body,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
@@ -12,6 +11,7 @@ import {
   SharpPipeAvatar,
   SharpPipeForLocation,
   SharpPipeForPost,
+  SharpForCreatePost,
   SharpTransformImage,
   SharpMarker,
 } from './app.service';
@@ -35,6 +35,12 @@ export class AppController {
   @UseInterceptors(FileInterceptor('image'))
   uploadImage(@UploadedFile(SharpPipeForPost) image: string) {
     return { image };
+  }
+
+  @Post('/create-post-content')
+  @UseInterceptors(FileInterceptor('image'))
+  uploadImageForPost(@UploadedFile(SharpForCreatePost) image: string) {
+    return { link: image };
   }
 
   @Post('/avatar')

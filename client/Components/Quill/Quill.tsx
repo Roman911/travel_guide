@@ -27,6 +27,13 @@ const QuillComponent: React.FC = () => {
 
       if (file) {
         setFile(file)
+
+        //@ts-ignore
+        const range = quillRef.current.getEditorSelection()
+
+        console.log(range)
+        //@ts-ignore
+        //quillRef.getEditor().insertEmbed(range.index, 'image', res)
       }
     }
   }
@@ -72,7 +79,10 @@ const QuillComponent: React.FC = () => {
   return (
     <ReactQuill
       //@ts-ignore
-      ref={quillRef}
+      ref={el => {
+        //@ts-ignore
+        quillRef = el
+      }}
       modules={modules}
       formats={formats}
       theme="snow"

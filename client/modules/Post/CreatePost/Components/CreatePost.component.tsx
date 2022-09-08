@@ -25,6 +25,8 @@ import { types } from '../../../../types/post'
 import { typesMaterial } from '../config'
 import { IUserData } from '../../../../types/user'
 
+import { Editor } from '../../../'
+
 interface IProps {
   disabled: boolean
   previewImage?: string
@@ -264,7 +266,8 @@ const CreatePostComponent: React.FC<IProps> = ({
               rows={1}
             />
           )}
-          <QuillComponent />
+          {/*<QuillComponent />*/}
+          <Editor />
           <Box
             display="flex"
             sx={{ alignItems: 'center', justifyContent: 'flex-end' }}

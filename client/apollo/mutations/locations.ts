@@ -7,3 +7,11 @@ export const CREATE_LOCATION = gql`
     }
   }
 `
+
+export const UPDATE_LINK_TO_POST = gql`
+  mutation updateLinkToPost($input: UpdateLinkToPostInput!) {
+    updateLinkToPost(input: $input) {
+      _id
+    }
+  }
+`

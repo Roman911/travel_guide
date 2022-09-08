@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
-import { useMutation } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { EditorState, convertToRaw } from 'draft-js'
+import draftToHtml from 'draftjs-to-html'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box } from '@mui/material'
 import { useActions, useTypedSelector } from '../hooks'
+import { uploadFileAPI } from '../store/reducers/uloadFileSlice'
 import { CreatePost, MainLayout } from '../modules'
 import { CREATE_POST } from '../apollo/mutations/post'
-import { uploadFileAPI } from '../store/reducers/uloadFileSlice'
+import { UPDATE_LINK_TO_POST } from '../apollo/mutations/locations'
 import { IFormInput } from '../types/post'
 
 const schema = yup.object().shape({
   title: yup.string().required('Поле не може бути пустим'),
   small_text: yup.string().required('Поле не може бути пустим'),
 })
+
+export interface IForm extends IFormInput {
+  editor: EditorState
+}
 
 const defaultValues = {
   title: '',
@@ -27,7 +34,7 @@ const defaultValues = {
   tags: '',
   small_text: '',
   how_to_get_there: '',
-  editor: '',
+  editor: EditorState.createEmpty(),
   uploadFile: null,
 }
 
@@ -42,6 +49,7 @@ const CreatePostPage: NextPage = () => {
   const { addedNotification, changeLinearProgress, setPreviewImage } =
     useActions()
   const [createFile] = uploadFileAPI.useCreateFileMutation()
+  const [updateLinkToPost] = useMutation(UPDATE_LINK_TO_POST)
 
   const methods = useForm<IFormInput>({
     mode: 'onTouched',
@@ -50,7 +58,7 @@ const CreatePostPage: NextPage = () => {
   })
   const { handleSubmit, setError, reset } = methods
 
-  const onSubmit: SubmitHandler<IFormInput> = async values => {
+  const onSubmit: SubmitHandler<IForm> = async values => {
     const {
       title,
       small_text,
@@ -81,7 +89,7 @@ const CreatePostPage: NextPage = () => {
             link,
             work_time,
             how_to_get_there,
-            editor,
+            editor: draftToHtml(convertToRaw(editor.getCurrentContent())),
           }
           createPost({ variables: { input } })
             .then(data => {
@@ -89,9 +97,18 @@ const CreatePostPage: NextPage = () => {
                 message: 'Статя ушпішно добавлена',
                 key: `${new Date().getTime()}+${Math.random()}`,
               })
+              console.log(data.data.createPost._id)
               setPreviewImage('')
               setFile('')
               reset()
+              updateLinkToPost({
+                variables: {
+                  input: {
+                    locationID,
+                    linkToPost: data.data.createPost._id,
+                  },
+                },
+              })
             })
             .finally(() => {
               changeLinearProgress(false)

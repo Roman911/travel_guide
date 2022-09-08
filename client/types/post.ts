@@ -28,7 +28,6 @@ export interface IFormInput {
   tags: string
   small_text: string
   how_to_get_there: string
-  editor: string
   uploadFile: null
 }
 

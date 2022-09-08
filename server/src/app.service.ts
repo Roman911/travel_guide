@@ -73,6 +73,27 @@ export class SharpPipeForPost
 }
 
 @Injectable()
+export class SharpForCreatePost
+  implements PipeTransform<Express.Multer.File, Promise<string>>
+{
+  async transform(image: Express.Multer.File): Promise<string> {
+    const randomName = Date.now() + '_' + GenerateRandomString(16);
+
+    await sharp(image.buffer)
+      .resize({
+        width: 715,
+        height: 402,
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy,
+      })
+      .webp({ effort: 3 })
+      .toFile(path.join('./uploads/images', randomName + '.webp'));
+
+    return randomName;
+  }
+}
+
+@Injectable()
 export class SharpPipeAvatar
   implements PipeTransform<Express.Multer.File, Promise<string>>
 {
