@@ -44,6 +44,10 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
     setAnchorEl(null)
   }
 
+  const handlePost = (url: string | null) => {
+    router.push(`/posts/${url}`)
+  }
+
   if (!data || loading) return <CircularProgress marginTop={6} />
 
   if (error) return <h5>Error</h5>
@@ -58,6 +62,7 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
       handleClose={handleClose}
       handleOpenMenu={handleOpenMenu}
       handleCreatePost={handleCreatePost}
+      handlePost={handlePost}
     />
   )
 }

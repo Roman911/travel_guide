@@ -12,6 +12,7 @@ export const LOCATION = gql`
       isType
       cover
       region
+      linkToPost
     }
   }
 `

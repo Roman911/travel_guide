@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import {
   Box,
+  Button,
   IconButton,
   Menu,
   MenuItem,
@@ -29,6 +30,7 @@ interface IProps {
   handleClose: () => void
   handleOpenMenu: (event: React.MouseEvent<HTMLButtonElement>) => void
   handleCreatePost: () => void
+  handlePost: (url: string | null) => void
 }
 
 const LocationComponent: React.FC<IProps> = ({
@@ -40,6 +42,7 @@ const LocationComponent: React.FC<IProps> = ({
   handleClose,
   handleOpenMenu,
   handleCreatePost,
+  handlePost,
 }) => {
   return (
     <Box position="relative" sx={{ overflowY: 'auto', height: '100%' }}>
@@ -131,6 +134,14 @@ const LocationComponent: React.FC<IProps> = ({
         <Typography variant="subtitle2" color="text.secondary">
           {location.small_text}
         </Typography>
+        {location.linkToPost && (
+          <Button
+            onClick={() => handlePost(location.linkToPost)}
+            variant="outlined"
+          >
+            Детальніше
+          </Button>
+        )}
       </Stack>
       <Stack spacing={2} padding="20px 20px 0">
         <Stack spacing={1} direction="row">

@@ -7,4 +7,5 @@ export interface ILocation {
   isType: string
   address: string
   cover: string
+  linkToPost: null | string
 }
