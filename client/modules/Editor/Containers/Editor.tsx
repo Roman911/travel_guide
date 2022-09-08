@@ -10,7 +10,7 @@ const Editor: React.FC = () => {
     return {
       data: {
         //@ts-ignore
-        link: `${process.env.NEXT_APP_HOST_API}images/${data.data.link}.webp`,
+        link: `${process.env.NEXT_APP_HOST_API}images/${data.data.link}`,
       },
     }
   }

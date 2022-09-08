@@ -89,7 +89,7 @@ export class SharpForCreatePost
       .webp({ effort: 3 })
       .toFile(path.join('./uploads/images', randomName + '.webp'));
 
-    return randomName;
+    return randomName + '.webp';
   }
 }
 
