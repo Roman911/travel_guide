@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import { useActions } from '../hooks'
 import { MainLayout, MapBox } from '../modules'
 
+import { GoogleMaps } from '../modules/GoogleMaps'
+
 const Maps: NextPage = () => {
   const router = useRouter()
   const { setLeftBox } = useActions()
@@ -29,7 +31,8 @@ const Maps: NextPage = () => {
 
   return (
     <MainLayout>
-      <MapBox />
+      {/*<MapBox />*/}
+      <GoogleMaps />
     </MainLayout>
   )
 }

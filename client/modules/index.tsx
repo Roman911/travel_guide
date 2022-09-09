@@ -2,7 +2,7 @@ export { Comments, PreviewComments } from './Comments'
 export { Editor } from './Editor'
 export { Likes } from './Likes'
 export { Logo } from './Logo'
-export { MapBox } from './MapBox'
+//export { MapBox } from './MapBox'
 export {
   AuthLayout,
   MainLayout,
