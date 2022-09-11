@@ -1,23 +1,21 @@
 import React from 'react'
 import { useLoadScript } from '@react-google-maps/api'
 import { Stack } from '@mui/material'
-import { useLazyQuery } from '@apollo/client'
-import { useTypedSelector } from '../../../hooks'
+import { useActions, useTypedSelector } from '../../../hooks'
 import { LeftBox, SeeTheWholeMap, SpeedDial, TopBar } from '../'
 import { GoogleMapsComponent } from '../Components'
 import { CircularProgress } from '../../'
-import { LOCATIONS } from '../../../apollo/queries/locations'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type DirectionsResult = google.maps.DirectionsResult
 type MapOptions = google.maps.MapOptions
 
 const libraries = ['places']
-const widthLeftBox = '550'
+const widthLeftBox = '500'
 
 const GoogleMaps: React.FC = () => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.GOOGLE_MAPS_KAY,
+    googleMapsApiKey: process.env.GOOGLE_MAPS_KAY || '',
     language: 'uk',
     region: 'UA',
     // @ts-ignore
@@ -27,7 +25,7 @@ const GoogleMaps: React.FC = () => {
   const { highlightedId, latLng, selected, type, viewport } = useTypedSelector(
     state => state.googleMap
   )
-  const [locations, { loading, error, data }] = useLazyQuery(LOCATIONS)
+  const { setBounds } = useActions()
   const options = React.useMemo<MapOptions>(
     () => ({
       mapId: 'ac4b2fc37a6c12a8',
@@ -36,18 +34,22 @@ const GoogleMaps: React.FC = () => {
     []
   )
   const onLoad = React.useCallback((map: any) => (mapRef.current = map), [])
-  const onDragEnd = () => {
+  const bounds = () => {
     if (mapRef.current) {
       //@ts-ignore
-      console.log(mapRef.current.getBounds())
+      const getBounds = mapRef.current.getBounds()
+      const Bb: { lo: number; hi: number } = getBounds.Bb
+      const Va: { lo: number; hi: number } = getBounds.Va
+      const bounds: [number[], number[]] = [
+        [Bb.lo, Bb.hi],
+        [Va.lo, Va.hi],
+      ]
+      setBounds(bounds)
     }
   }
-  const onZoomChanged = () => {
-    if (mapRef.current) {
-      //@ts-ignore
-      console.log(mapRef.current.getBounds())
-    }
-  }
+
+  const onDragEnd = () => bounds()
+  const onZoomChanged = () => bounds()
 
   return isLoaded ? (
     <Stack
@@ -55,11 +57,7 @@ const GoogleMaps: React.FC = () => {
       position="relative"
       sx={{ height: 'calc(100vh - 64px)', width: '100%', marginTop: '64px' }}
     >
-      <LeftBox
-        widthLeftBox={widthLeftBox}
-        data={data?.locations}
-        loading={loading}
-      />
+      <LeftBox widthLeftBox={widthLeftBox} />
       <TopBar widthLeftBox={widthLeftBox} />
       <GoogleMapsComponent
         latLng={latLng}

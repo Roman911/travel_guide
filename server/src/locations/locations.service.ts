@@ -24,21 +24,20 @@ export class LocationService {
   }
 
   async allLocations(params: ParamsLocationInput): Promise<Locations> {
-    const typeBySorted =
-      params.types.length === 0 ? {} : { isType: params.types };
-    const regionBySorted =
-      params.region.length === 0 ? {} : { region: params.region };
+    const { debounced, region, types } = params;
+    const typeBySorted = types.length === 0 ? {} : { isType: params.types };
+    const regionBySorted = region.length === 0 ? {} : { region: params.region };
     const debouncedBySorted =
-      params.debounced.length === 0
+      debounced.length === 0
         ? {}
         : {
             latitude: {
-              $gte: params.debounced[0][1],
-              $lte: params.debounced[1][1],
+              $gte: debounced[0][0],
+              $lte: debounced[0][1],
             },
             longitude: {
-              $gte: params.debounced[0][0],
-              $lte: params.debounced[1][0],
+              $gte: debounced[1][0],
+              $lte: debounced[1][1],
             },
           };
 
@@ -49,7 +48,6 @@ export class LocationService {
         ...debouncedBySorted,
       })
       .sort({ createdAt: -1 })
-      .populate('author')
       .exec();
 
     const total_locations = locations.length;

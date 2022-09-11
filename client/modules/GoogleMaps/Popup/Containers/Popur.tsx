@@ -1,35 +1,24 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/client'
+import { useTypedSelector } from '../../../../hooks'
 import { PopurComponent } from '../Components'
 import { LOCATION_FOR_POPUR } from '../../../../apollo/queries/locations'
 import type { ILocation } from '../../types'
 
-interface IProps {
-  selected: ILocation | null
-  setSelected: (props: null) => void
-}
-
-const Popur: React.FC<IProps> = ({ selected, setSelected }) => {
+const Popur: React.FC = () => {
   const router = useRouter()
+  const { selected } = useTypedSelector(state => state.googleMap)
   const [location, { data }] = useLazyQuery(LOCATION_FOR_POPUR)
 
   const closeOnClick = () => {
-    setSelected(null)
+    //setSelected(null)
   }
 
   const editOnClick = () => {
-    setSelected(null)
-    router.push(`?id=${selected._id}`)
+    //setSelected(null)
+    //router.push(`?id=${selected._id}`)
   }
-
-  React.useEffect(() => {
-    location({
-      variables: {
-        locationID: selected._id,
-      },
-    })
-  }, [selected])
 
   return (
     <PopurComponent

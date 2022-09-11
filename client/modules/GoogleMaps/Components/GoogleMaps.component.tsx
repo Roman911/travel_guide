@@ -1,17 +1,16 @@
 import React from 'react'
 import {
   GoogleMap,
-  Marker,
   DirectionsRenderer,
-  MarkerClusterer,
+  InfoWindow,
 } from '@react-google-maps/api'
+import { Marker, Popur } from '../'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type DirectionsResult = google.maps.DirectionsResult
 type MapOptions = google.maps.MapOptions
 
 interface IProps {
-  latLng: LatLngLiteral
   options: MapOptions
   onLoad: (map: any) => void
   onDragEnd: () => void
@@ -28,7 +27,6 @@ interface IProps {
 }
 
 const GoogleMapsComponent: React.FC<IProps> = ({
-  latLng,
   options,
   onLoad,
   onDragEnd,
@@ -52,7 +50,8 @@ const GoogleMapsComponent: React.FC<IProps> = ({
       onZoomChanged={onZoomChanged}
       options={options}
     >
-      {latLng.lat !== 0 && <Marker position={latLng} />}
+      <Marker />
+      <Popur />
     </GoogleMap>
   )
 }

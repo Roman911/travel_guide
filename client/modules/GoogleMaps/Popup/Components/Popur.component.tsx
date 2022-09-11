@@ -1,5 +1,9 @@
 import React from 'react'
-import { Popup } from 'react-map-gl'
+import {
+  GoogleMap,
+  DirectionsRenderer,
+  InfoWindow,
+} from '@react-google-maps/api'
 import {
   Button,
   Card,
@@ -11,7 +15,7 @@ import {
   Typography,
 } from '@mui/material'
 import { LocationOn } from '@mui/icons-material'
-import type { ILocation } from '../../types'
+import type { ILocation } from '../../../../types/googleMap'
 
 interface IProps {
   selected: ILocation | null
@@ -27,7 +31,8 @@ const PopurComponent: React.FC<IProps> = ({
   editOnClick,
 }) => {
   return (
-    <Popup
+    <InfoWindow
+      position={{ lat: 0, lng: 0 }}
       latitude={selected ? selected.latitude : 0}
       longitude={selected ? selected.longitude : 0}
       closeOnClick={false}
@@ -74,7 +79,7 @@ const PopurComponent: React.FC<IProps> = ({
           </Button>
         </CardActions>
       </Card>
-    </Popup>
+    </InfoWindow>
   )
 }
 

@@ -14,6 +14,11 @@ export interface GoogleMapState {
   selected: ILocation | null
   type: string
   viewport: IViewport
+  bounds: [number[], number[]] | []
+  locationsAndTP: {
+    total_locations: number
+    locations: ILocation[]
+  } | null
 }
 
 const SeeTheWholeMap = {
@@ -36,6 +41,8 @@ const initialState: GoogleMapState = {
   selected: null,
   type: 'other',
   viewport: SeeTheWholeMap,
+  bounds: [],
+  locationsAndTP: null,
 }
 
 export const googleMapSlice = createSlice({
@@ -44,6 +51,9 @@ export const googleMapSlice = createSlice({
   reducers: {
     setAddress: (state, action: PayloadAction<string | null>) => {
       state.address = action.payload
+    },
+    setBounds: (state, action: PayloadAction<[number[], number[]] | []>) => {
+      state.bounds = action.payload
     },
     setDialog: (state, action: PayloadAction<boolean>) => {
       state.dialog = action.payload
@@ -61,6 +71,15 @@ export const googleMapSlice = createSlice({
       >
     ) => {
       state.leftBoxView = action.payload
+    },
+    setLocations: (
+      state,
+      action: PayloadAction<{
+        total_locations: number
+        locations: ILocation[]
+      } | null>
+    ) => {
+      state.locationsAndTP = action.payload
     },
     setSelected: (state, action: PayloadAction<ILocation | null>) => {
       state.selected = action.payload

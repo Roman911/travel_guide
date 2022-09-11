@@ -25,7 +25,7 @@ export class LocationsResolver {
   ) {}
 
   @Query(() => CreateLocationsDto)
-  async locations(@Args('input') input: ParamsLocationInput) {
+  async locationsAndTP(@Args('input') input: ParamsLocationInput) {
     return this.locationsService.allLocations(input);
   }
 

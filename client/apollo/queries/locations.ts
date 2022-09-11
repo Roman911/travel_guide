@@ -17,9 +17,9 @@ export const LOCATION = gql`
   }
 `
 
-export const LOCATIONS = gql`
-  query locations($input: ParamsLocationInput!) {
-    locations(input: $input) {
+export const LOCATIONS_AND_TP = gql`
+  query locationsAndTP($input: ParamsLocationInput!) {
+    locationsAndTP(input: $input) {
       total_locations
       locations {
         _id

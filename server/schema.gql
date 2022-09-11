@@ -162,7 +162,7 @@ type CreateUploadDto {
 
 type Query {
   comments(postId: String!): [CreateCommentDto!]!
-  locations(input: ParamsLocationInput!): CreateLocationsDto!
+  locationsAndTP(input: ParamsLocationInput!): CreateLocationsDto!
   location(locationID: String!): CreateLocationDto!
   postsAndParams(input: ParamsPostInput!): CreatePostsDto!
   posts(input: ParamsPostInput!): [CreatePostDto!]!
