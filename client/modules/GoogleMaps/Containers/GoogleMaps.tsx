@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLoadScript } from '@react-google-maps/api'
 import { Stack } from '@mui/material'
 import { useActions, useTypedSelector } from '../../../hooks'
@@ -22,10 +22,10 @@ const GoogleMaps: React.FC = () => {
     libraries,
   })
   const mapRef = React.useRef()
-  const { highlightedId, latLng, selected, type, viewport } = useTypedSelector(
+  const { highlightedId, selected, type, viewport } = useTypedSelector(
     state => state.googleMap
   )
-  const { setBounds } = useActions()
+  const { setBounds, setViewport } = useActions()
   const options = React.useMemo<MapOptions>(
     () => ({
       mapId: 'ac4b2fc37a6c12a8',
@@ -38,6 +38,11 @@ const GoogleMaps: React.FC = () => {
     if (mapRef.current) {
       //@ts-ignore
       const getBounds = mapRef.current.getBounds()
+      const mapRefCurent = mapRef.current
+      //@ts-ignore
+      const lat = mapRefCurent.center.lat()
+      //@ts-ignore
+      const lng = mapRefCurent.center.lng()
       const Bb: { lo: number; hi: number } = getBounds.Bb
       const Va: { lo: number; hi: number } = getBounds.Va
       const bounds: [number[], number[]] = [
@@ -45,6 +50,11 @@ const GoogleMaps: React.FC = () => {
         [Va.lo, Va.hi],
       ]
       setBounds(bounds)
+      setViewport({
+        center: { lat, lng },
+        //@ts-ignore
+        zoom: mapRefCurent.zoom,
+      })
     }
   }
 
@@ -60,7 +70,6 @@ const GoogleMaps: React.FC = () => {
       <LeftBox widthLeftBox={widthLeftBox} />
       <TopBar widthLeftBox={widthLeftBox} />
       <GoogleMapsComponent
-        latLng={latLng}
         options={options}
         onLoad={onLoad}
         onDragEnd={onDragEnd}

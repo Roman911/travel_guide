@@ -4,7 +4,9 @@ import { MarkerComponent } from '../Components'
 import { ILocation } from '../../../../types/googleMap'
 
 const Marker: React.FC = () => {
-  const { latLng, locationsAndTP } = useTypedSelector(state => state.googleMap)
+  const { latLng, locationsAndTP, highlightedId } = useTypedSelector(
+    state => state.googleMap
+  )
   const { setSelected } = useActions()
 
   const handleOpenPopur = (location: ILocation | null) => setSelected(location)
@@ -14,6 +16,7 @@ const Marker: React.FC = () => {
       latLng={latLng}
       locations={locationsAndTP?.locations}
       handleOpenPopur={handleOpenPopur}
+      highlightedId={highlightedId}
     />
   )
 }

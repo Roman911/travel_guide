@@ -6,12 +6,14 @@ interface IProps {
   latLng?: google.maps.LatLngLiteral
   locations?: ILocation[]
   handleOpenPopur: (location: ILocation | null) => void
+  highlightedId: string | null
 }
 
 const MarkerComponent: React.FC<IProps> = ({
   locations,
   latLng,
   handleOpenPopur,
+  highlightedId,
 }) => {
   return (
     <>
@@ -26,7 +28,9 @@ const MarkerComponent: React.FC<IProps> = ({
                   position={{ lat: i.latitude, lng: i.longitude }}
                   clusterer={clusterer}
                   icon={{
-                    url: `/static/images/${i.isType}.webp`,
+                    url: `/static/images/${i.isType}${
+                      highlightedId === i._id ? '-hover' : ''
+                    }.webp`,
                   }}
                   onClick={() => handleOpenPopur(i)}
                 />

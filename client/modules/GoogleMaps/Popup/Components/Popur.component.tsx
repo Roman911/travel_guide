@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  GoogleMap,
-  DirectionsRenderer,
-  InfoWindow,
-} from '@react-google-maps/api'
+import { InfoWindow } from '@react-google-maps/api'
 import {
   Button,
   Card,
@@ -18,57 +14,36 @@ import { LocationOn } from '@mui/icons-material'
 import type { ILocation } from '../../../../types/googleMap'
 
 interface IProps {
-  selected: ILocation | null
-  location?: ILocation
+  selected: ILocation
   closeOnClick: () => void
   editOnClick: () => void
 }
 
 const PopurComponent: React.FC<IProps> = ({
   selected,
-  location,
   closeOnClick,
   editOnClick,
 }) => {
+  const position = { lat: selected.latitude, lng: selected.longitude }
   return (
-    <InfoWindow
-      position={{ lat: 0, lng: 0 }}
-      latitude={selected ? selected.latitude : 0}
-      longitude={selected ? selected.longitude : 0}
-      closeOnClick={false}
-      maxWidth="250px"
-      offset={46}
-    >
-      <Card sx={{ maxWidth: 250 }}>
-        {location ? (
-          <CardMedia
-            component="img"
-            alt="green iguana"
-            height="140"
-            image={`${process.env.NEXT_APP_HOST_API}images/${location.cover}m.webp`}
-          />
-        ) : (
-          <Skeleton variant="rectangular" width={250} height={140} />
-        )}
+    <InfoWindow position={position} onCloseClick={closeOnClick}>
+      <Card sx={{ maxWidth: 220 }}>
+        <CardMedia
+          component="img"
+          alt="green iguana"
+          height="113"
+          image={`${process.env.NEXT_APP_HOST_API}images/${selected.cover}m.webp`}
+        />
         <CardContent>
-          {location ? (
-            <>
-              <Typography gutterBottom marginBottom={1} variant="subtitle2">
-                {location?.title}
-              </Typography>
-              <Stack direction="row" alignItems="center">
-                <LocationOn color="primary" />
-                <Typography variant="body1" fontSize="12px">
-                  {location?.address}
-                </Typography>
-              </Stack>
-            </>
-          ) : (
-            <>
-              <Skeleton />
-              <Skeleton height={50} />
-            </>
-          )}
+          <Typography gutterBottom marginBottom={1} variant="subtitle2">
+            {selected?.title}
+          </Typography>
+          <Stack direction="row" alignItems="center">
+            <LocationOn color="primary" />
+            <Typography variant="body1" fontSize="12px">
+              {selected?.address}
+            </Typography>
+          </Stack>
         </CardContent>
         <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button onClick={closeOnClick} size="small">

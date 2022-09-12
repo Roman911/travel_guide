@@ -15,7 +15,7 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const { leftBoxView } = useTypedSelector(state => state.mapBox)
+  const { leftBoxView } = useTypedSelector(state => state.googleMap)
   const { setPostWithLocation, setTypeMaterial } = useActions()
   const { loading, error, data } = useQuery(LOCATION, {
     variables: { locationID: leftBoxView },

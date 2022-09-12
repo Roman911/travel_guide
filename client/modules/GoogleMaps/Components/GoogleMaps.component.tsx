@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  GoogleMap,
-  DirectionsRenderer,
-  InfoWindow,
-} from '@react-google-maps/api'
+import { GoogleMap } from '@react-google-maps/api'
 import { Marker, Popur } from '../'
 
 type LatLngLiteral = google.maps.LatLngLiteral
