@@ -43,7 +43,7 @@ const CreateLocation = dynamic<ICreateLocationProps>(
 
 const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
   const router = useRouter()
-  const { leftBoxView } = useTypedSelector(state => state.mapBox)
+  const { leftBoxView } = useTypedSelector(state => state.googleMap)
   const { setLeftBox, setSelected } = useActions()
 
   const handleClick = () => {

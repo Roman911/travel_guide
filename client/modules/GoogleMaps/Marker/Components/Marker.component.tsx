@@ -7,6 +7,7 @@ interface IProps {
   locations?: ILocation[]
   handleOpenPopur: (location: ILocation | null) => void
   highlightedId: string | null
+  type: string
 }
 
 const MarkerComponent: React.FC<IProps> = ({
@@ -14,6 +15,7 @@ const MarkerComponent: React.FC<IProps> = ({
   latLng,
   handleOpenPopur,
   highlightedId,
+  type,
 }) => {
   return (
     <>
@@ -39,7 +41,14 @@ const MarkerComponent: React.FC<IProps> = ({
           }
         </MarkerClusterer>
       )}
-      {latLng && <Marker position={latLng} />}
+      {latLng && (
+        <Marker
+          position={latLng}
+          icon={{
+            url: `/static/images/${type}-hover.webp`,
+          }}
+        />
+      )}
     </>
   )
 }

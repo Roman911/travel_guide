@@ -32,7 +32,7 @@ interface IProps {
 const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
   const {
     user: { refreshToken },
-    mapBox: { address, dialog, latLng },
+    googleMap: { address, dialog, latLng },
     uploadFile: { previewImage },
   } = useTypedSelector(state => state)
   const [createFile] = uploadFileAPI.useCreateFileMutation()
@@ -109,7 +109,7 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
                 key: `${new Date().getTime()}+${Math.random()}`,
               })
               methods.reset()
-              setLatLng({ latitude: 0, longitude: 0 })
+              setLatLng({ lat: 0, lng: 0 })
               setFile('')
               setPreviewImage('')
               setRegion(null)
@@ -135,8 +135,8 @@ const CreateLocation: React.FC<IProps> = ({ handleClick }) => {
 
   React.useEffect(() => {
     if (latLng) {
-      methods.setValue('latitude', latLng.latitude)
-      methods.setValue('longitude', latLng.longitude)
+      methods.setValue('latitude', latLng.lat)
+      methods.setValue('longitude', latLng.lng)
     }
   }, [latLng])
 

@@ -20,7 +20,7 @@ import {
 } from '@mui/material'
 import { Share } from '@mui/icons-material'
 import { Avatar, Regions, UploadFile } from '../../../'
-import { QuillComponent, MyController } from '../../../../Components'
+import { MyController } from '../../../../Components'
 import { types } from '../../../../types/post'
 import { typesMaterial } from '../config'
 import { IUserData } from '../../../../types/user'
@@ -131,6 +131,7 @@ const CreatePostComponent: React.FC<IProps> = ({
                   multiline={true}
                   rows={4}
                   size="small"
+                  helperText="Теги водьте розділяючи комою"
                 />
               )}
             </Stack>

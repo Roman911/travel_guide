@@ -16,7 +16,8 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const { leftBoxView } = useTypedSelector(state => state.googleMap)
-  const { setPostWithLocation, setTypeMaterial } = useActions()
+  const { setPostWithLocation, setTypeMaterial, setSelected, setViewport } =
+    useActions()
   const { loading, error, data } = useQuery(LOCATION, {
     variables: { locationID: leftBoxView },
   })
@@ -47,6 +48,19 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
   const handlePost = (url: string | null) => {
     router.push(`/posts/${url}`)
   }
+
+  React.useEffect(() => {
+    if (data) {
+      setSelected(data.location)
+      setViewport({
+        center: {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+        },
+        zoom: 12,
+      })
+    }
+  }, [data])
 
   if (!data || loading) return <CircularProgress marginTop={6} />
 
