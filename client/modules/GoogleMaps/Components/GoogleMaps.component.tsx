@@ -1,6 +1,6 @@
 import React from 'react'
 import { GoogleMap } from '@react-google-maps/api'
-import { Marker, Popur } from '../'
+import { Direction, Marker, Popur } from '../'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type DirectionsResult = google.maps.DirectionsResult
@@ -46,6 +46,7 @@ const GoogleMapsComponent: React.FC<IProps> = ({
       onZoomChanged={onZoomChanged}
       options={options}
     >
+      <Direction />
       <Marker />
       <Popur />
     </GoogleMap>

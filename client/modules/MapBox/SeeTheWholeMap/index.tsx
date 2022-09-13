@@ -1,1 +1,0 @@
-export { SeeTheWholeMap } from './Containers'

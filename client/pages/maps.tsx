@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useActions } from '../hooks'
-import { MainLayout, MapBox } from '../modules'
+import { MainLayout } from '../modules'
 
 import { GoogleMaps } from '../modules/GoogleMaps'
 
@@ -31,7 +31,6 @@ const Maps: NextPage = () => {
 
   return (
     <MainLayout>
-      {/*<MapBox />*/}
       <GoogleMaps />
     </MainLayout>
   )

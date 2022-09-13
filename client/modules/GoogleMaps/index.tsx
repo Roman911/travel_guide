@@ -1,3 +1,4 @@
+export { Direction } from './Direction'
 export { GoogleMaps } from './Containers'
 export { LeftBox } from './LeftBox'
 export { Marker } from './Marker'
