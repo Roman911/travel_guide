@@ -1,6 +1,7 @@
 export { Direction } from './Direction'
 export { GoogleMaps } from './Containers'
 export { LeftBox } from './LeftBox'
+export { MapWrapperComponent } from './MapWrapper'
 export { Marker } from './Marker'
 export { Popur } from './Popup'
 export { SeeTheWholeMap } from './SeeTheWholeMap'

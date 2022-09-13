@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useLoadScript } from '@react-google-maps/api'
-import { Stack } from '@mui/material'
 import { useActions, useTypedSelector } from '../../../hooks'
-import { LeftBox, SeeTheWholeMap, SpeedDial, TopBar } from '../'
 import { GoogleMapsComponent } from '../Components'
 import { CircularProgress } from '../../'
 
@@ -10,10 +8,13 @@ type LatLngLiteral = google.maps.LatLngLiteral
 type DirectionsResult = google.maps.DirectionsResult
 type MapOptions = google.maps.MapOptions
 
-const libraries = ['places']
-const widthLeftBox = '500'
+interface IProps {
+  width: string
+}
 
-const GoogleMaps: React.FC = () => {
+const libraries = ['places']
+
+const GoogleMaps: React.FC<IProps> = ({ width }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_KAY || '',
     language: 'uk',
@@ -22,9 +23,7 @@ const GoogleMaps: React.FC = () => {
     libraries,
   })
   const mapRef = React.useRef()
-  const { highlightedId, selected, type, viewport } = useTypedSelector(
-    state => state.googleMap
-  )
+  const { viewport } = useTypedSelector(state => state.googleMap)
   const { setBounds, setViewport } = useActions()
   const options = React.useMemo<MapOptions>(
     () => ({
@@ -40,21 +39,23 @@ const GoogleMaps: React.FC = () => {
       const getBounds = mapRef.current.getBounds()
       const mapRefCurent = mapRef.current
       //@ts-ignore
-      const lat = mapRefCurent.center.lat()
+      const lat = mapRefCurent.center?.lat() || 0
       //@ts-ignore
-      const lng = mapRefCurent.center.lng()
-      const Bb: { lo: number; hi: number } = getBounds.Bb
-      const Va: { lo: number; hi: number } = getBounds.Va
-      const bounds: [number[], number[]] = [
-        [Bb.lo, Bb.hi],
-        [Va.lo, Va.hi],
-      ]
-      setBounds(bounds)
+      const lng = mapRefCurent.center?.lng() || 0
       setViewport({
         center: { lat, lng },
         //@ts-ignore
         zoom: mapRefCurent.zoom,
       })
+      if (getBounds) {
+        const Bb: { lo: number; hi: number } = getBounds.Bb
+        const Va: { lo: number; hi: number } = getBounds.Va
+        const bounds: [number[], number[]] = [
+          [Bb.lo, Bb.hi],
+          [Va.lo, Va.hi],
+        ]
+        setBounds(bounds)
+      }
     }
   }
 
@@ -62,25 +63,15 @@ const GoogleMaps: React.FC = () => {
   const onZoomChanged = () => bounds()
 
   return isLoaded ? (
-    <Stack
-      direction="row"
-      position="relative"
-      sx={{ height: 'calc(100vh - 64px)', width: '100%', marginTop: '64px' }}
-    >
-      <LeftBox widthLeftBox={widthLeftBox} />
-      <TopBar widthLeftBox={widthLeftBox} />
-      <GoogleMapsComponent
-        options={options}
-        onLoad={onLoad}
-        onDragEnd={onDragEnd}
-        onZoomChanged={onZoomChanged}
-        mapRef={mapRef}
-        viewport={viewport}
-        widthLeftBox={widthLeftBox}
-      />
-      <SpeedDial />
-      <SeeTheWholeMap />
-    </Stack>
+    <GoogleMapsComponent
+      options={options}
+      onLoad={onLoad}
+      onDragEnd={onDragEnd}
+      onZoomChanged={onZoomChanged}
+      mapRef={mapRef}
+      viewport={viewport}
+      width={width}
+    />
   ) : (
     <CircularProgress marginTop={2} />
   )

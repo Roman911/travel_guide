@@ -41,6 +41,18 @@ export class Trip {
     }),
   )
   trip_value: Record<any, any>;
+  @Prop(
+    raw([
+      {
+        location: { lat: { type: Number }, lng: { type: Number } },
+        address: { type: String },
+        infoLocation: { type: Boolean },
+        locationId: { type: String },
+        cover: { type: String },
+      },
+    ]),
+  )
+  waypoints: Record<any, any>;
   @Prop({ default: new Date() })
   last_seen: Date;
   @Prop({ default: new Date() })

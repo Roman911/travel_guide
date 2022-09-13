@@ -22,4 +22,5 @@ export interface IPropsComponent {
     position: string
     top: string
   }
+  isTrip: boolean
 }

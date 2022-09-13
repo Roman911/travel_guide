@@ -1,5 +1,6 @@
 export { Comments, PreviewComments } from './Comments'
 export { Editor } from './Editor'
+export { GoogleMaps, MapWrapperComponent } from './GoogleMaps'
 export { Likes } from './Likes'
 export { Logo } from './Logo'
 export {

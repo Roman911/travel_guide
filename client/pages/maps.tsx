@@ -2,36 +2,30 @@ import type { NextPage } from 'next'
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useActions } from '../hooks'
-import { MainLayout } from '../modules'
-
-import { GoogleMaps } from '../modules/GoogleMaps'
+import { MainLayout, MapWrapperComponent } from '../modules'
 
 const Maps: NextPage = () => {
   const router = useRouter()
   const { setLeftBox } = useActions()
   console.log('render: pages, Maps')
 
-  React.useEffect(() => {
-    if (router.query.id) {
-      const id = Array.isArray(router.query.id)
-        ? router.query.id[0]
-        : router.query.id
-      setLeftBox(id)
-    }
-  }, [router])
+  const rout = (rout: string[] | string) => {
+    return Array.isArray(rout) ? rout[0] : rout
+  }
 
   React.useEffect(() => {
-    if (router.query.location) {
-      const location = Array.isArray(router.query.location)
-        ? router.query.location[0]
-        : router.query.location
-      setLeftBox(location)
+    if (router.query.id) {
+      setLeftBox(rout(router.query.id))
+    } else if (router.query.location) {
+      setLeftBox(rout(router.query.location))
+    } else if (router.query.direction) {
+      setLeftBox(rout(router.query.direction))
     }
   }, [router])
 
   return (
     <MainLayout>
-      <GoogleMaps />
+      <MapWrapperComponent />
     </MainLayout>
   )
 }

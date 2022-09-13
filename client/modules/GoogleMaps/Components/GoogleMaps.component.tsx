@@ -19,7 +19,7 @@ interface IProps {
     }
     zoom: number
   }
-  widthLeftBox: string
+  width: string
 }
 
 const GoogleMapsComponent: React.FC<IProps> = ({
@@ -29,10 +29,10 @@ const GoogleMapsComponent: React.FC<IProps> = ({
   onZoomChanged,
   mapRef,
   viewport,
-  widthLeftBox,
+  width,
 }) => {
   const containerStyle = {
-    width: `calc(100% - ${widthLeftBox}px)`,
+    width,
     height: '100%',
   }
 

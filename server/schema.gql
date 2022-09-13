@@ -127,6 +127,19 @@ type Legs {
   duration: Obj!
 }
 
+type Location {
+  lat: Float!
+  lng: Float!
+}
+
+type Waypoints {
+  location: Location!
+  address: String!
+  infoLocation: Boolean!
+  locationId: String!
+  cover: String!
+}
+
 type CreateTripDto {
   _id: String!
   cover: String!
@@ -140,6 +153,7 @@ type CreateTripDto {
   likes: [String!]!
   small_text: String!
   trip_value: TripValue!
+  waypoints: [Waypoints!]!
   last_seen: DateTime
   createdAt: DateTime!
   author: CreateUserDto

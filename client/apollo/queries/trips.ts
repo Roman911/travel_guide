@@ -22,6 +22,12 @@ export const TRIP = gql`
           value
         }
       }
+      waypoints {
+        location {
+          lat
+          lng
+        }
+      }
       ${Author}
     }
   }

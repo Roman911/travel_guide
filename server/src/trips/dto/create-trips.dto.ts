@@ -4,19 +4,19 @@ import { CreateUserDto } from '../../users/dto/create-user.dto';
 @ObjectType()
 class TripValue {
   @Field()
-  distance: Number;
+  distance: number;
   @Field()
-  travel_time: Number;
+  travel_time: number;
   @Field()
-  waypoints: Number;
+  waypoints: number;
 }
 
 @ObjectType()
 class Obj {
   @Field()
-  text: String;
+  text: string;
   @Field()
-  value: Number;
+  value: number;
 }
 
 @ObjectType()
@@ -25,6 +25,28 @@ class Legs {
   distance: Obj;
   @Field()
   duration: Obj;
+}
+
+@ObjectType()
+class Location {
+  @Field()
+  lat: number;
+  @Field()
+  lng: number;
+}
+
+@ObjectType()
+class Waypoints {
+  @Field()
+  location: Location;
+  @Field()
+  address: string;
+  @Field()
+  infoLocation: boolean;
+  @Field()
+  locationId: string;
+  @Field()
+  cover: string;
 }
 
 @ObjectType()
@@ -53,6 +75,8 @@ export class CreateTripDto {
   small_text: string;
   @Field((type) => TripValue)
   trip_value: TripValue;
+  @Field((type) => [Waypoints])
+  waypoints: Waypoints[];
   @Field({ nullable: true })
   last_seen: Date;
   @Field()

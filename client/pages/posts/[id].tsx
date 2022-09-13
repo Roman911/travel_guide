@@ -19,7 +19,7 @@ const PostPage: NextPage = () => {
 
   return (
     <MainLayout>
-      <Post post={data?.post} />
+      <Post post={data?.post} isTrip={false} />
     </MainLayout>
   )
 }

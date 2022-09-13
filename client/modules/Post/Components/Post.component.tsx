@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { Facebook, Favorite, Share, Twitter } from '@mui/icons-material'
 import LinkIcon from '@mui/icons-material/Link'
-import { Avatar, Comments, Likes } from '../../'
+import { Avatar, Comments, Likes, GoogleMaps } from '../../'
 import { MyStepper, Rating, Tags, Views } from '../../../Components'
 import { IPropsComponent } from './types/post'
 
@@ -25,6 +25,7 @@ export const PostComponent: React.FC<IPropsComponent> = ({
   style,
   colors,
   handleClickToUser,
+  isTrip,
 }) => {
   const {
     _id,
@@ -89,6 +90,11 @@ export const PostComponent: React.FC<IPropsComponent> = ({
             width={1030}
             height={500}
           />
+          {isTrip && (
+            <Box width="100%" height="300px">
+              <GoogleMaps width="100%" />
+            </Box>
+          )}
           <Box
             className="editorWrapper"
             dangerouslySetInnerHTML={{ __html: editor }}

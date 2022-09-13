@@ -9,6 +9,7 @@ import { PostSkeleton } from '../'
 
 interface IProps {
   post: IPost
+  isTrip: boolean
 }
 
 const steps = [
@@ -19,7 +20,7 @@ const steps = [
   { label: 'Легенда Підгорецької фортеці' },
 ]
 
-const Post: React.FC<IProps> = ({ post }) => {
+const Post: React.FC<IProps> = ({ post, isTrip }) => {
   const router = useRouter()
   const { changeLinearProgress } = useActions()
   const { ref, inView } = useInView({ threshold: 0 })
@@ -44,6 +45,7 @@ const Post: React.FC<IProps> = ({ post }) => {
       useDate={useDate}
       colors={{ darkGray, icon }}
       handleClickToUser={handleClickToUser}
+      isTrip={isTrip}
     />
   )
 }
