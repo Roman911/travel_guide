@@ -1,6 +1,6 @@
 import React from 'react'
 import { Marker, MarkerClusterer } from '@react-google-maps/api'
-import type { ILocation } from '../../../../types/googleMap'
+import type { ILocation, IWaypoint } from '../../../../types/googleMap'
 
 interface IProps {
   latLng?: google.maps.LatLngLiteral
@@ -8,6 +8,7 @@ interface IProps {
   handleOpenPopur: (location: ILocation | null) => void
   highlightedId: string | null
   type: string
+  waypoints: IWaypoint[] | null
 }
 
 const MarkerComponent: React.FC<IProps> = ({
@@ -16,6 +17,7 @@ const MarkerComponent: React.FC<IProps> = ({
   handleOpenPopur,
   highlightedId,
   type,
+  waypoints,
 }) => {
   return (
     <>
@@ -49,6 +51,20 @@ const MarkerComponent: React.FC<IProps> = ({
           }}
         />
       )}
+      {waypoints &&
+        waypoints
+          .filter(i => i.location && i.location)
+          .map((item, index) => {
+            return (
+              <Marker
+                key={index}
+                position={item.latLng}
+                icon={{
+                  url: `/static/images/${item.location?.isType}.webp`,
+                }}
+              />
+            )
+          })}
     </>
   )
 }

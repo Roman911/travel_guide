@@ -133,11 +133,8 @@ type Location {
 }
 
 type Waypoints {
-  location: Location!
-  address: String!
-  infoLocation: Boolean!
-  locationId: String!
-  cover: String!
+  latLng: Location!
+  location: CreateLocationDto
 }
 
 type CreateTripDto {

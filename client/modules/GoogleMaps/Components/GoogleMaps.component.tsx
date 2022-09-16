@@ -2,8 +2,6 @@ import React from 'react'
 import { GoogleMap } from '@react-google-maps/api'
 import { Direction, Marker, Popur } from '../'
 
-type LatLngLiteral = google.maps.LatLngLiteral
-type DirectionsResult = google.maps.DirectionsResult
 type MapOptions = google.maps.MapOptions
 
 interface IProps {

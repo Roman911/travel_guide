@@ -16,3 +16,12 @@ export interface IViewport {
   }
   zoom: number
 }
+
+export interface IWaypoint {
+  locationId?: string
+  latLng: {
+    lat: number
+    lng: number
+  }
+  location?: ILocation
+}

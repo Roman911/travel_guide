@@ -1,5 +1,5 @@
 import type { IPost } from '../../../types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useInView } from 'react-intersection-observer'
 import { useActions } from '../../../hooks'
@@ -22,7 +22,7 @@ const steps = [
 
 const Post: React.FC<IProps> = ({ post, isTrip }) => {
   const router = useRouter()
-  const { changeLinearProgress } = useActions()
+  const { changeLinearProgress, setLocations } = useActions()
   const { ref, inView } = useInView({ threshold: 0 })
   const { darkGray, icon } = useColors()
   const style = inView
@@ -33,6 +33,10 @@ const Post: React.FC<IProps> = ({ post, isTrip }) => {
     changeLinearProgress(true)
     router.push(`/profile/${userId}`)
   }
+
+  useEffect(() => {
+    setLocations(null)
+  }, [])
 
   if (!post) return <PostSkeleton />
 

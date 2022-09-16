@@ -1,45 +1,18 @@
 import React from 'react'
-import { DirectionsRenderer, DirectionsService } from '@react-google-maps/api'
+import {
+  DirectionsRenderer,
+  DirectionsService,
+  Marker,
+} from '@react-google-maps/api'
 
-const DirectionComponent: React.FC = () => {
-  const [response, setResponse] = React.useState(null)
+type DirectionsResult = google.maps.DirectionsResult
 
-  const directionsCallback = React.useCallback(res => {
-    if (res !== null && res.status === 'OK') {
-      //setResponse(res)
-    } else {
-      console.log('response: ', res)
-    }
-  }, [])
+interface IProps {
+  directions: DirectionsResult
+}
 
-  const directionsServiceOptions = {
-    destination: {
-      lat: 49.836299164842785,
-      lng: 24.035771245117193,
-    },
-    origin: {
-      lat: 49.036299164842785,
-      lng: 25.035771245117193,
-    },
-    travelMode: 'DRIVING',
-  }
-
-  const directionsRendererOptions = React.useMemo(() => {
-    return {
-      directions: response,
-      suppressMarkers: true,
-    }
-  }, [response])
-
-  return (
-    <>
-      <DirectionsService
-        options={directionsServiceOptions}
-        callback={directionsCallback}
-      />
-      {response && <DirectionsRenderer options={directionsRendererOptions} />}
-    </>
-  )
+const DirectionComponent: React.FC<IProps> = ({ directions }) => {
+  return <DirectionsRenderer directions={directions} />
 }
 
 export default DirectionComponent

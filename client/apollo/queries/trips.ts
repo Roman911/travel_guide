@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 import { Author } from '../variabels'
 
-export const TRIP = gql`
+export const TRIP_FOR_POST = gql`
   query trip($tripID: String!) {
     trip(tripID: $tripID) {
       _id
@@ -23,9 +23,12 @@ export const TRIP = gql`
         }
       }
       waypoints {
-        location {
+        latLng {
           lat
           lng
+        }
+        location {
+          isType
         }
       }
       ${Author}

@@ -17,14 +17,17 @@ export class TripService {
   ) {}
 
   async trip(tripID: string): Promise<Trip> {
-    const post = this.tripModel.findById(tripID).exec();
+    const trip = await this.tripModel.findById(tripID);
 
-    let { views } = await post;
+    console.log(trip);
+
+    let { views } = trip;
     views++;
 
     return this.tripModel
       .findByIdAndUpdate(tripID, { views }, { new: true })
       .populate('author')
+      .populate('waypoints.location')
       .exec();
   }
 
