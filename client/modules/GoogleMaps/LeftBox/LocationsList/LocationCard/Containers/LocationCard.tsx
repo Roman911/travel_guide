@@ -14,12 +14,14 @@ const LocationCard: React.FC<IProps> = ({ item }) => {
     useActions()
 
   const handleClick = () => {
-    router.push(`?id=${item._id}`)
-    setLeftBox(item._id)
+    router.push(`?locationID=${item._id}`)
+    setLeftBox('location')
     setSelected(item)
     setViewport({
-      latitude: item.latitude,
-      longitude: item.longitude,
+      center: {
+        lat: item.latitude,
+        lng: item.longitude,
+      },
       zoom: 12,
     })
   }

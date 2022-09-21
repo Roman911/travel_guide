@@ -10,7 +10,12 @@ export interface GoogleMapState {
     lat: number
     lng: number
   }
-  leftBoxView: 'createTrip' | 'createLocation' | 'locationsList' | string
+  leftBoxView:
+    | 'createTrip'
+    | 'createLocation'
+    | 'locationsList'
+    | 'location'
+    | 'trip'
   selected: ILocation | null
   type: string
   viewport: IViewport
@@ -69,7 +74,7 @@ export const googleMapSlice = createSlice({
     setLeftBox: (
       state,
       action: PayloadAction<
-        'createTrip' | 'createLocation' | 'locationsList' | string
+        'createTrip' | 'createLocation' | 'locationsList' | 'location' | 'trip'
       >
     ) => {
       state.leftBoxView = action.payload

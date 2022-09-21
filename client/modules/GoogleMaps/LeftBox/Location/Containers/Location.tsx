@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/client'
-import { useActions, useTypedSelector } from '../../../../../hooks'
+import { useLazyQuery } from '@apollo/client'
+import { useActions } from '../../../../../hooks'
 import { CircularProgress } from '../../../../'
 import { LocationComponent } from '../Components'
 import { LOCATION } from '../../../../../apollo/queries/locations'
@@ -15,12 +15,9 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const { leftBoxView } = useTypedSelector(state => state.googleMap)
   const { setPostWithLocation, setTypeMaterial, setSelected, setViewport } =
     useActions()
-  const { loading, error, data } = useQuery(LOCATION, {
-    variables: { locationID: leftBoxView },
-  })
+  const [location, { loading, error, data }] = useLazyQuery(LOCATION)
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -49,7 +46,15 @@ const Location: React.FC<IProps> = ({ widthLeftBox, handleClick }) => {
     router.push(`/posts/${url}`)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (router.query.locationID) {
+      location({
+        variables: { locationID: router.query.locationID },
+      })
+    }
+  }, [router])
+
+  useEffect(() => {
     if (data) {
       setSelected(data.location)
       setViewport({

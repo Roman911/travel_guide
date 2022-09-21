@@ -1,5 +1,6 @@
 import React from 'react'
-import { useQuery } from '@apollo/client'
+import { useRouter } from 'next/router'
+import { useLazyQuery } from '@apollo/client'
 import { CircularProgress } from '../../../../'
 import { TripComponent } from '../Components'
 import { TRIP } from '../../../../../apollo/queries/trips'
@@ -10,9 +11,18 @@ interface IProps {
 }
 
 const Trip: React.FC<IProps> = ({ rout, widthLeftBox }) => {
-  const { loading, error, data } = useQuery(TRIP, {
-    variables: { tripID: rout },
-  })
+  const router = useRouter()
+  const [trip, { loading, error, data }] = useLazyQuery(TRIP)
+
+  React.useEffect(() => {
+    if (router.query.tripID) {
+      trip({
+        variables: { tripID: router.query.tripID },
+      })
+    }
+  }, [router])
+
+  console.log(data)
 
   if (!data || loading) return <CircularProgress marginTop={6} />
 
