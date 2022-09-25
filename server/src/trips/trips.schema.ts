@@ -1,8 +1,19 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { User } from '../users/users.schema';
+import { Location } from '../locations/locations.schema';
 
 export type TripDocument = Trip & mongoose.Document;
+
+@Schema()
+export class Waypoints {
+  @Prop(raw({ lat: { type: Number }, lng: { type: Number } }))
+  latLng: Record<any, any>;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Location' })
+  location: Location;
+}
+
+export const WaypointsSchema = SchemaFactory.createForClass(Waypoints);
 
 @Schema()
 export class Trip {
@@ -41,18 +52,8 @@ export class Trip {
     }),
   )
   trip_value: Record<any, any>;
-  @Prop(
-    raw([
-      {
-        location: { lat: { type: Number }, lng: { type: Number } },
-        address: { type: String },
-        infoLocation: { type: Boolean },
-        locationId: { type: String },
-        cover: { type: String },
-      },
-    ]),
-  )
-  waypoints: Record<any, any>;
+  @Prop({ type: [WaypointsSchema] })
+  waypoints: Waypoints[];
   @Prop({ default: new Date() })
   last_seen: Date;
   @Prop({ default: new Date() })

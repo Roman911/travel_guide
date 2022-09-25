@@ -14,7 +14,7 @@ const Popur: React.FC = () => {
 
   const editOnClick = () => {
     setSelected(null)
-    router.push(`?id=${selected._id}`)
+    router.push(`?locationID=${selected._id}`)
   }
 
   return (

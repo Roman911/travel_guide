@@ -2,8 +2,6 @@ import React from 'react'
 import { GoogleMap } from '@react-google-maps/api'
 import { Direction, Marker, Popur } from '../'
 
-type LatLngLiteral = google.maps.LatLngLiteral
-type DirectionsResult = google.maps.DirectionsResult
 type MapOptions = google.maps.MapOptions
 
 interface IProps {
@@ -19,7 +17,11 @@ interface IProps {
     }
     zoom: number
   }
-  width: string
+  mapContainerStyle: {
+    width: string
+    height: string
+    marginTop: string
+  }
 }
 
 const GoogleMapsComponent: React.FC<IProps> = ({
@@ -29,18 +31,13 @@ const GoogleMapsComponent: React.FC<IProps> = ({
   onZoomChanged,
   mapRef,
   viewport,
-  width,
+  mapContainerStyle,
 }) => {
-  const containerStyle = {
-    width,
-    height: '100%',
-  }
-
   return (
     <GoogleMap
       {...viewport}
       ref={mapRef}
-      mapContainerStyle={containerStyle}
+      mapContainerStyle={mapContainerStyle}
       onLoad={onLoad}
       onDragEnd={onDragEnd}
       onZoomChanged={onZoomChanged}

@@ -14,12 +14,10 @@ const Maps: NextPage = () => {
   }
 
   React.useEffect(() => {
-    if (router.query.id) {
-      setLeftBox(rout(router.query.id))
-    } else if (router.query.location) {
-      setLeftBox(rout(router.query.location))
-    } else if (router.query.direction) {
-      setLeftBox(rout(router.query.direction))
+    if (router.query.locationID) {
+      setLeftBox('location')
+    } else if (router.query?.tripID) {
+      setLeftBox('trip')
     }
   }, [router])
 

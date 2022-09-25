@@ -13,7 +13,13 @@ const MapWrapperComponent: React.FC = () => {
     >
       <LeftBox widthLeftBox={widthLeftBox} />
       <TopBar widthLeftBox={widthLeftBox} />
-      <GoogleMaps width={`calc(100% - ${widthLeftBox}px)`} />
+      <GoogleMaps
+        mapContainerStyle={{
+          width: `calc(100% - ${widthLeftBox}px)`,
+          height: 'calc(100% - 73px)',
+          marginTop: '73px',
+        }}
+      />
       <SpeedDial />
       <SeeTheWholeMap />
     </Stack>

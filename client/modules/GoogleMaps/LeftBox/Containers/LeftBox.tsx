@@ -52,43 +52,29 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
     setSelected(null)
   }
 
-  if (router.route === '/trips/[id]') {
-    return (
-      <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <Trip rout={router.query.id} widthLeftBox={widthLeftBox} />
-      </LeftBoxLayout>
-    )
+  const rout = () => {
+    switch (leftBoxView) {
+      case 'createTrip': {
+        return <LocationsList data={data} loading={loading} />
+      }
+      case 'createLocation': {
+        return <CreateLocation handleClick={handleClick} />
+      }
+      case 'location': {
+        return (
+          <Location widthLeftBox={widthLeftBox} handleClick={handleClick} />
+        )
+      }
+      case 'trip': {
+        return <Trip rout={router.query.id} widthLeftBox={widthLeftBox} />
+      }
+      default: {
+        return <LocationsList data={data} loading={loading} />
+      }
+    }
   }
 
-  if (leftBoxView === 'createLocation') {
-    return (
-      <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <CreateLocation handleClick={handleClick} />
-      </LeftBoxLayout>
-    )
-  }
-
-  if (leftBoxView === 'createTrip') {
-    return (
-      <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <LocationsList data={data} loading={loading} />
-      </LeftBoxLayout>
-    )
-  }
-
-  if (leftBoxView === 'locationsList') {
-    return (
-      <LeftBoxLayout widthLeftBox={widthLeftBox}>
-        <LocationsList data={data} loading={loading} />
-      </LeftBoxLayout>
-    )
-  }
-
-  return (
-    <LeftBoxLayout widthLeftBox={widthLeftBox}>
-      <Location widthLeftBox={widthLeftBox} handleClick={handleClick} />
-    </LeftBoxLayout>
-  )
+  return <LeftBoxLayout widthLeftBox={widthLeftBox}>{rout()}</LeftBoxLayout>
 }
 
 export default LeftBox

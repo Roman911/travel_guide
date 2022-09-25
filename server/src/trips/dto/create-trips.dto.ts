@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { CreateLocationDto } from '../../locations/dto/create-location.dto';
 
 @ObjectType()
 class TripValue {
@@ -38,15 +39,9 @@ class Location {
 @ObjectType()
 class Waypoints {
   @Field()
-  location: Location;
-  @Field()
-  address: string;
-  @Field()
-  infoLocation: boolean;
-  @Field()
-  locationId: string;
-  @Field()
-  cover: string;
+  latLng: Location;
+  @Field((type) => CreateLocationDto, { nullable: true })
+  location: CreateLocationDto;
 }
 
 @ObjectType()

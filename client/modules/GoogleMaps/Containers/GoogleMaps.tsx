@@ -9,12 +9,16 @@ type DirectionsResult = google.maps.DirectionsResult
 type MapOptions = google.maps.MapOptions
 
 interface IProps {
-  width: string
+  mapContainerStyle: {
+    width: string
+    height: string
+    marginTop: string
+  }
 }
 
 const libraries = ['places']
 
-const GoogleMaps: React.FC<IProps> = ({ width }) => {
+const GoogleMaps: React.FC<IProps> = ({ mapContainerStyle }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_MAPS_KAY || '',
     language: 'uk',
@@ -70,7 +74,7 @@ const GoogleMaps: React.FC<IProps> = ({ width }) => {
       onZoomChanged={onZoomChanged}
       mapRef={mapRef}
       viewport={viewport}
-      width={width}
+      mapContainerStyle={mapContainerStyle}
     />
   ) : (
     <CircularProgress marginTop={2} />

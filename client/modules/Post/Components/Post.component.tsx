@@ -92,7 +92,13 @@ export const PostComponent: React.FC<IPropsComponent> = ({
           />
           {isTrip && (
             <Box width="100%" height="300px">
-              <GoogleMaps width="100%" />
+              <GoogleMaps
+                mapContainerStyle={{
+                  width: '100%',
+                  height: '100%',
+                  marginTop: '10px',
+                }}
+              />
             </Box>
           )}
           <Box

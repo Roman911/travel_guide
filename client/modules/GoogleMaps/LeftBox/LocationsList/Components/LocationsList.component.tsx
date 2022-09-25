@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Grid, Stack, Typography } from '@mui/material'
-import { LocalLibrary } from '@mui/icons-material'
+import { Box, Button, Grid, Stack, Typography } from '@mui/material'
+import { LocalLibrary, Route } from '@mui/icons-material'
 import { LocationCard } from '../LocationCard'
 import { CircularProgress } from '../../../../Layouts/Progress'
 import type { ILocation } from '../../../types/location'
@@ -20,11 +20,16 @@ const LocationsListComponent: React.FC<IProps> = ({
 }) => {
   return (
     <Box padding={2} height="100%" sx={{ overflowY: 'auto' }}>
-      <Stack direction="row" alignItems="center">
-        <LocalLibrary opacity={0.7} />
-        <Typography marginLeft={1} variant="h6">
-          Цікаві місця
-        </Typography>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <LocalLibrary opacity={0.7} />
+          <Typography marginLeft={1} variant="h6">
+            Цікаві місця
+          </Typography>
+        </Box>
+        <Button startIcon={<Route sx={{ transform: 'rotate(90deg)' }} />}>
+          Маршрути
+        </Button>
       </Stack>
       <Typography marginTop={1} variant="subtitle2">
         {total_locations

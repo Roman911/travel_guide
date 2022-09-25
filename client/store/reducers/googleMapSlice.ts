@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { AppState } from '../store'
-import type { ILocation, IViewport } from '../../types/googleMap'
+import type { ILocation, IViewport, IWaypoint } from '../../types/googleMap'
 
 export interface GoogleMapState {
   address: string | null
@@ -10,7 +10,12 @@ export interface GoogleMapState {
     lat: number
     lng: number
   }
-  leftBoxView: 'createTrip' | 'createLocation' | 'locationsList' | string
+  leftBoxView:
+    | 'createTrip'
+    | 'createLocation'
+    | 'locationsList'
+    | 'location'
+    | 'trip'
   selected: ILocation | null
   type: string
   viewport: IViewport
@@ -19,6 +24,7 @@ export interface GoogleMapState {
     total_locations: number
     locations: ILocation[]
   } | null
+  waypoints: IWaypoint[] | null
 }
 
 const SeeTheWholeMap = {
@@ -43,6 +49,7 @@ const initialState: GoogleMapState = {
   viewport: SeeTheWholeMap,
   bounds: [],
   locationsAndTP: null,
+  waypoints: null,
 }
 
 export const googleMapSlice = createSlice({
@@ -67,7 +74,7 @@ export const googleMapSlice = createSlice({
     setLeftBox: (
       state,
       action: PayloadAction<
-        'createTrip' | 'createLocation' | 'locationsList' | string
+        'createTrip' | 'createLocation' | 'locationsList' | 'location' | 'trip'
       >
     ) => {
       state.leftBoxView = action.payload
@@ -92,6 +99,9 @@ export const googleMapSlice = createSlice({
     },
     setViewportSeeMap: state => {
       state.viewport = SeeTheWholeMap
+    },
+    setWaypoints: (state, action: PayloadAction<IWaypoint[] | null>) => {
+      state.waypoints = action.payload
     },
   },
 })
