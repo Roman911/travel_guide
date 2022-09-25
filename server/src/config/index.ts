@@ -1,5 +1,5 @@
-import { config } from 'dotenv'
-const { parsed } = config()
+import { config } from 'dotenv';
+const { parsed } = config();
 
 const {
   NODE_ENV,
@@ -9,11 +9,15 @@ const {
   PORT,
   SMTP_HOST,
   SMTP_PORT,
-  SMTP_USER,
   SMTP_PASSWORD,
   API_URL,
-  CLIENT_URL
-} = parsed
+  CLIENT_URL,
+  USER,
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REFRESH_TOKEN,
+  GOOGLE_DEVELOPERS,
+} = parsed;
 
 export {
   NODE_ENV,
@@ -23,8 +27,12 @@ export {
   PORT,
   SMTP_HOST,
   SMTP_PORT,
-  SMTP_USER,
   SMTP_PASSWORD,
   API_URL,
-  CLIENT_URL
-}
+  CLIENT_URL,
+  USER,
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REFRESH_TOKEN,
+  GOOGLE_DEVELOPERS,
+};

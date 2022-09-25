@@ -52,10 +52,10 @@ const GoogleMaps: React.FC<IProps> = ({ mapContainerStyle }) => {
         zoom: mapRefCurent.zoom,
       })
       if (getBounds) {
-        const Bb: { lo: number; hi: number } = getBounds.Bb
+        const Ab: { lo: number; hi: number } = getBounds.Ab
         const Va: { lo: number; hi: number } = getBounds.Va
         const bounds: [number[], number[]] = [
-          [Bb.lo, Bb.hi],
+          [Ab.lo, Ab.hi],
           [Va.lo, Va.hi],
         ]
         setBounds(bounds)
