@@ -52,6 +52,10 @@
 # Uploads Images
 /server/uploads
 
+# Graphql schema
+
+/server/schema.gql
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
