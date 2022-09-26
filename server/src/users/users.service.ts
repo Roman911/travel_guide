@@ -39,6 +39,7 @@ export class UsersService {
     const user = await this.userModel.findOne({ activationLink });
     if (!user) throw new BadRequestException(`Некоректний лінк активації`);
     user.isActivated = true;
+    user.activationLink = null;
     await user.save();
     this.userTokenService = await this.moduleRef.get(UserTokenService, {
       strict: false,
@@ -89,7 +90,6 @@ export class UsersService {
 
   async registration(createUserDto: RegistrationUserInput): Promise<any> {
     const { email, password, name } = createUserDto;
-    console.log(email, name);
     const candidate = await this.userModel.findOne({ email });
     if (candidate)
       throw new BadRequestException(

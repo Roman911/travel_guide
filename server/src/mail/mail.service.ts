@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import { google } from 'googleapis';
+const OAuth2 = google.auth.OAuth2;
 import {
   API_URL,
   USER,
@@ -9,8 +10,6 @@ import {
   REFRESH_TOKEN,
   GOOGLE_DEVELOPERS,
 } from '../config';
-
-const OAuth2 = google.auth.OAuth2;
 
 @Injectable()
 export class MailService {

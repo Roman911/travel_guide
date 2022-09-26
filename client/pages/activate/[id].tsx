@@ -1,8 +1,11 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import React from 'react'
+import { useRouter } from 'next/router'
+import { useLazyQuery } from '@apollo/client'
 import { Container, Typography } from '@mui/material'
+import { useActions } from '../../hooks'
 import { MainLayout } from '../../modules'
+import { USER_ACTIVATION } from '../../apollo/queries/user'
 
 const isOk = () => {
   return (
@@ -46,14 +49,27 @@ const isNotOk = (link: string | string[] | undefined) => {
 
 const Activate: NextPage = () => {
   const router = useRouter()
-  const link = router.query.id
+  const activationLink = router.query.id
+  const [activation, { data, error, loading }] = useLazyQuery(USER_ACTIVATION)
+  const { addUserData } = useActions()
 
-  const data = true
+  React.useEffect(() => {
+    if (activationLink) {
+      activation({ variables: { activationLink } })
+    }
+  }, [activationLink])
+
+  React.useEffect(() => {
+    if (data) {
+      addUserData(data.activate)
+      localStorage.setItem('userData', JSON.stringify({ ...data.activate }))
+    }
+  }, [data])
 
   return (
     <MainLayout>
       <Container maxWidth="md" sx={{ minHeight: 'calc(100vh - 260px)' }}>
-        {data ? isOk() : isNotOk(link)}
+        {data ? isOk() : isNotOk(activationLink)}
       </Container>
     </MainLayout>
   )

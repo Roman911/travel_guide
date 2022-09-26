@@ -25,3 +25,18 @@ export const USER_AVATARS = gql`
     }
   }
 `
+
+export const USER_ACTIVATION = gql`
+  query activate($activationLink: String!) {
+    activate(activationLink: $activationLink) {
+      user {
+        _id
+        name
+        email
+        avatar
+      }
+      refreshToken
+      accessToken
+    }
+  }
+`
