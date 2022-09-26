@@ -66,7 +66,7 @@ const LeftBox: React.FC<IProps> = ({ widthLeftBox, data, loading }) => {
         )
       }
       case 'trip': {
-        return <Trip rout={router.query.id} widthLeftBox={widthLeftBox} />
+        return <Trip rout={router.query.tripID} widthLeftBox={widthLeftBox} />
       }
       default: {
         return <LocationsList data={data} loading={loading} />

@@ -19,8 +19,6 @@ export class TripService {
   async trip(tripID: string): Promise<Trip> {
     const trip = await this.tripModel.findById(tripID);
 
-    console.log(trip);
-
     let { views } = trip;
     views++;
 

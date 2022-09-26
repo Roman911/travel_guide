@@ -9,10 +9,11 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { MoreVert } from '@mui/icons-material'
+import { Close, MoreVert } from '@mui/icons-material'
 import { useDate } from '../../../../../hooks'
 import { Avatar } from '../../../../'
 import { TripInfo } from '../../../../Posts/Card'
+import { Card } from '../'
 
 interface IProps {
   trip: {
@@ -38,27 +39,43 @@ const TripComponent: React.FC<IProps> = ({ trip, widthLeftBox }) => {
 
   return (
     <Box position="relative" sx={{ overflowY: 'auto', height: '100%' }}>
-      <Breadcrumbs aria-label="breadcrumb" sx={{ padding: 2 }}>
+      <Typography
+        variant="h5"
+        textAlign="center"
+        marginTop={2}
+        marginBottom={1}
+        color="text.secondary"
+      >
+        {title}
+      </Typography>
+      <IconButton
+        //onClick={handleClick}
+        color="secondary"
+        sx={{
+          marginTop: 0,
+          position: 'absolute',
+          top: 12,
+          right: 1,
+        }}
+      >
+        <Close />
+      </IconButton>
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        sx={{ paddingLeft: 1, paddingRight: 1, marginBottom: 2 }}
+      >
         <Link underline="hover" color="inherit" href="/">
-          MUI
+          Маршрути
         </Link>
         <Link
           underline="hover"
           color="inherit"
           href="/material-ui/getting-started/installation/"
         >
-          Core
+          Львівська область
         </Link>
-        <Typography color="text.primary">Breadcrumbs</Typography>
+        <Typography color="text.primary">Золота підкова Львівщини</Typography>
       </Breadcrumbs>
-      <Typography
-        variant="h5"
-        textAlign="center"
-        marginBottom={2}
-        color="text.secondary"
-      >
-        {title}
-      </Typography>
       <Image
         src={`/${cover}l.webp`}
         layout="intrinsic"
@@ -90,6 +107,11 @@ const TripComponent: React.FC<IProps> = ({ trip, widthLeftBox }) => {
           subheader={useDate({ serverDate: createdAt, format: 'LL' })}
         />
         <TripInfo trip_value={trip_value} isCard={false} />
+      </Stack>
+      <Stack position="relative">
+        {[1, 2, 3, 4].map(i => {
+          return <Card key={i} />
+        })}
       </Stack>
     </Box>
   )

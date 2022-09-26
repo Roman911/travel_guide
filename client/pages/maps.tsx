@@ -6,18 +6,19 @@ import { MainLayout, MapWrapperComponent } from '../modules'
 
 const Maps: NextPage = () => {
   const router = useRouter()
-  const { setLeftBox } = useActions()
-  console.log('render: pages, Maps')
-
-  const rout = (rout: string[] | string) => {
-    return Array.isArray(rout) ? rout[0] : rout
-  }
+  const { setLeftBox, setBounds, setViewportSeeMap, setWaypoints } =
+    useActions()
+  console.log('render: pages, Maps', router.query)
 
   React.useEffect(() => {
     if (router.query.locationID) {
       setLeftBox('location')
     } else if (router.query?.tripID) {
       setLeftBox('trip')
+    } else {
+      setWaypoints(null)
+      setBounds([])
+      setViewportSeeMap()
     }
   }, [router])
 
