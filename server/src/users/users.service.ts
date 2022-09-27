@@ -14,7 +14,6 @@ import {
 import { TokenService } from '../token/token.service';
 import { MailService } from '../mail/mail.service';
 import { UserTokenService } from './user-token.service';
-import { CLIENT_URL } from '../config';
 
 @Injectable()
 export class UsersService {
@@ -106,7 +105,7 @@ export class UsersService {
     this.mailService = await this.moduleRef.get(MailService, { strict: false });
     await this.mailService.sendActivationMail(
       email,
-      `${CLIENT_URL}/activate/${activationLink}`,
+      `${process.env.CLIENT_URL}/activate/${activationLink}`,
     );
     this.userTokenService = await this.moduleRef.get(UserTokenService, {
       strict: false,

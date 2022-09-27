@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { sign, verify } from 'jsonwebtoken';
 import { Token, TokenDocument } from './token.schema';
 import { TokenInput } from './inputs/token.input';
-import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from '../config';
 
 interface IFgg {
   email: string;
@@ -27,8 +26,10 @@ export class TokenService {
     isActivated: boolean;
     email: string;
   }) {
-    const accessToken = sign(payload, JWT_ACCESS_SECRET, { expiresIn: '30m' });
-    const refreshToken = sign(payload, JWT_REFRESH_SECRET, {
+    const accessToken = sign(payload, process.env.JWT_ACCESS_SECRET, {
+      expiresIn: '30m',
+    });
+    const refreshToken = sign(payload, process.env.JWT_REFRESH_SECRET, {
       expiresIn: '30d',
     });
     return {
@@ -38,11 +39,11 @@ export class TokenService {
   }
 
   validateAccessToken(token: string) {
-    return verify(token, JWT_ACCESS_SECRET);
+    return verify(token, process.env.JWT_ACCESS_SECRET);
   }
 
   validateRefreshToken(token: string): IFgg {
-    return <IFgg>verify(token, JWT_REFRESH_SECRET);
+    return <IFgg>verify(token, process.env.JWT_REFRESH_SECRET);
   }
 
   async saveToken(createTokenDto: TokenInput): Promise<Token> {

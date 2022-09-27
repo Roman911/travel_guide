@@ -2,14 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import { google } from 'googleapis';
 const OAuth2 = google.auth.OAuth2;
-import {
-  API_URL,
-  USER,
-  CLIENT_ID,
-  CLIENT_SECRET,
-  REFRESH_TOKEN,
-  GOOGLE_DEVELOPERS,
-} from '../config';
 
 @Injectable()
 export class MailService {
@@ -17,10 +9,14 @@ export class MailService {
   private oauth2Client: any;
   private transporter: any;
   constructor() {
-    this.oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, GOOGLE_DEVELOPERS);
+    this.oauth2Client = new OAuth2(
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET,
+      process.env.GOOGLE_DEVELOPERS,
+    );
 
     this.oauth2Client.setCredentials({
-      refresh_token: REFRESH_TOKEN,
+      refresh_token: process.env.REFRESH_TOKEN,
     });
 
     this.accessToken = new Promise((resolve, reject) => {
@@ -37,20 +33,20 @@ export class MailService {
       service: 'gmail',
       auth: {
         type: 'OAuth2',
-        user: USER,
+        user: process.env.USER,
         accessToken: this.accessToken,
-        clientId: CLIENT_ID,
-        clientSecret: CLIENT_SECRET,
-        refreshToken: REFRESH_TOKEN,
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        refreshToken: process.env.REFRESH_TOKEN,
       },
     });
   }
 
   async sendActivationMail(to: string, link: string) {
     await this.transporter.sendMail({
-      from: USER,
+      from: process.env.USER,
       to,
-      subject: `Активація акаунта на ${API_URL}`,
+      subject: `Активація акаунта на ${process.env.API_URL}`,
       text: '',
       html: `
         <div>
