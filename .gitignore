@@ -62,3 +62,6 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+/travel_guide_client_for_vercel
+/travel_guide_sever_for_heroku
